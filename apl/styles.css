@@ -1,4 +1,4 @@
-/* styles.css */
+/* General */
 
 body {
     font-family: Arial, sans-serif;
@@ -115,4 +115,19 @@ footer {
     text-align: center;
     padding: 1rem;
     margin-top: 2rem;
+}
+
+/*Botones*/
+
+.sign-up{
+    background-color: #FFE0B2;
+    padding: 8px 16px;
+    border-radius: 5px;
+    color: #333;
+}
+
+.log-in{
+    background-color: #333;
+    padding: 8px 16px;
+    border-radius: 5px;
 }
