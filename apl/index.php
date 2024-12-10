@@ -21,8 +21,14 @@
                 <li><a href="#">Ofertas</a></li>
                 <li><a href="#">Ayuda</a></li>
                 <li><a href="#">Carrito</a></li>
-                <li><a href="signup.html" class="sign-up" style="color: #333;">Sign Up</a></li>
-                <li><a href="login.html" class="log-in">Log In</a></li>
+                <?php
+                    if(isset($_SESSION['username'])){
+                        echo "minabo";
+                    }else{
+                        echo "<li><a href='signup.html' class='sign-up' style='color: #333;'>Sign Up</a></li>";
+                        echo "<li><a href='login.html' class='log-in'>Log In</a></li>";
+                    }
+                ?>
             </ul>
         </nav>
     </header>
