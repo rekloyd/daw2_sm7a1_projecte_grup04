@@ -19,7 +19,7 @@
                 <li><a href="index.html" style="text-decoration: underline;">Inicio</a></li>
                 <li><a href="#">Categorías</a></li>
                 <li><a href="#">Ofertas</a></li>
-                <li><a href="#">Ayuda</a></li>
+                <li><a href="ayuda.html">Ayuda</a></li>
                 <li><a href="#">Carrito</a></li>
                 <?php
                     if(isset($_SESSION['username'])){
