@@ -18,7 +18,7 @@
             // Ruta del archivo usuarios.txt
             $filename = "C:\\Users\\paumo\\OneDrive\\Clot\\DAW2\\SM 7.1 PHP\\peroyectoPHP\\phpEcomProject\\usuarios.txt";
 
-            // Crear el archivo si no existe
+            // Crear el archivo si no existe,si no es mejor abrirlo con "a" para no sobreescribir
             if (!file_exists($filename)) {
                 if (!$file = fopen($filename, "w")) {
                     echo "No s'ha pogut crear el fitxer d'usuaris<br>";
@@ -27,7 +27,7 @@
                 fclose($file);
             }
 
-            // Comprobar si el usuario ya existe
+            // Comprobar si el usuario ya existe leyendo el fichero entero
             $existeix = false;
             $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
             foreach ($usuaris as $usuari) {
@@ -43,7 +43,7 @@
             } else {
                 // Registrar el nuevo usuario
                 if ($fitxer = fopen($filename, "a")) {
-                    $registre = "$email:$password:$userType\n";
+                    $registre = "$email:$password:$userType\n"; //Es el formato en el que guardamos los datos es importante el \n ya que si no se escribe todo junto en una sola línea
                     if (fwrite($fitxer, $registre)) {
                         echo "S'ha registrat l'usuari $email amb èxit<br>";
                     } else {
