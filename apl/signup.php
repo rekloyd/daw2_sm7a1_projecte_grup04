@@ -10,10 +10,11 @@
         echo "<b>GESTIONANT EL REGISTRE D'USUARIS</b><br>";
         
         // Verificar si se envían todos los campos requeridos
-        if (!empty($_POST["email"]) && !empty($_POST["password"]) && !empty($_POST["user_type"])) {
+        if (!empty($_POST["email"]) && !empty($_POST["password"]) && !empty($_POST["user_type"]) && !empty($_POST["username"])) {
             $email = trim($_POST["email"]);
             $password = trim($_POST["password"]);
             $userType = trim($_POST["user_type"]);
+            $username = trim($_POST["username"]);
 
             // Ruta del archivo usuarios.txt
             $filename = "C:\\Users\\paumo\\OneDrive\\Clot\\DAW2\\SM 7.1 PHP\\peroyectoPHP\\phpEcomProject\\usuarios.txt";
@@ -39,11 +40,11 @@
             }
 
             if ($existeix) {
-                echo "L'usuari amb el correu $email ja existeix<br>";
+                echo "L'usuari amb el correu $email y el nom $username ja existeix<br>";
             } else {
                 // Registrar el nuevo usuario
                 if ($fitxer = fopen($filename, "a")) {
-                    $registre = "$email:$password:$userType\n"; //Es el formato en el que guardamos los datos es importante el \n ya que si no se escribe todo junto en una sola línea
+                    $registre = "$email:$password:$username:$usertType\n"; //Es el formato en el que guardamos los datos es importante el \n ya que si no se escribe todo junto en una sola línea
                     if (fwrite($fitxer, $registre)) {
                         echo "S'ha registrat l'usuari $email amb èxit<br>";
                     } else {
