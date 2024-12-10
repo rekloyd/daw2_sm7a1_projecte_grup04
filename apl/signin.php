@@ -1,4 +1,65 @@
-<?php
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <title>Registre d'Usuaris</title>	
+</head>  
+<body>
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        echo "<b>GESTIONANT EL REGISTRE D'USUARIS</b><br>";
+        
+        // Verificar si se envían todos los campos requeridos
+        if (!empty($_POST["email"]) && !empty($_POST["password"]) && !empty($_POST["user_type"])) {
+            $email = trim($_POST["email"]);
+            $password = trim($_POST["password"]);
+            $userType = trim($_POST["user_type"]);
 
+            // Ruta del archivo usuarios.txt
+            $filename = "C:\\Users\\paumo\\OneDrive\\Clot\\DAW2\\SM 7.1 PHP\\peroyectoPHP\\phpEcomProject\\usuarios.txt";
 
-?>
+            // Crear el archivo si no existe
+            if (!file_exists($filename)) {
+                if (!$file = fopen($filename, "w")) {
+                    echo "No s'ha pogut crear el fitxer d'usuaris<br>";
+                    exit();
+                }
+                fclose($file);
+            }
+
+            // Comprobar si el usuario ya existe
+            $existeix = false;
+            $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            foreach ($usuaris as $usuari) {
+                list($existentEmail, ,) = explode(':', $usuari);
+                if ($existentEmail === $email) {
+                    $existeix = true;
+                    break;
+                }
+            }
+
+            if ($existeix) {
+                echo "L'usuari amb el correu $email ja existeix<br>";
+            } else {
+                // Registrar el nuevo usuario
+                if ($fitxer = fopen($filename, "a")) {
+                    $registre = "$email:$password:$userType\n";
+                    if (fwrite($fitxer, $registre)) {
+                        echo "S'ha registrat l'usuari $email amb èxit<br>";
+                    } else {
+                        echo "No s'ha pogut registrar l'usuari $email<br>";
+                    }
+                    fclose($fitxer);
+                } else {
+                    echo "No s'ha pogut obrir el fitxer per escriure<br>";
+                }
+            }
+        } else {
+            echo "No s'han enviat tots els camps requerits (email, password, tipus)<br>";
+        }
+    } else {
+        echo "Mètode incorrecte<br>";
+    }
+    ?>
+</body>
+</html>
