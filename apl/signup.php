@@ -44,7 +44,7 @@
             } else {
                 // Registrar el nuevo usuario
                 if ($fitxer = fopen($filename, "a")) {
-                    $registre = "$email:$password:$username:$usertType\n"; //Es el formato en el que guardamos los datos es importante el \n ya que si no se escribe todo junto en una sola línea
+                    $registre = "$email:$password:$username:$userType\n"; //Es el formato en el que guardamos los datos es importante el \n ya que si no se escribe todo junto en una sola línea
                     if (fwrite($fitxer, $registre)) {
                         echo "S'ha registrat l'usuari $email amb èxit<br>";
                     } else {
