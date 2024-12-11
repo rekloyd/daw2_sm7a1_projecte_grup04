@@ -6,6 +6,8 @@
 </head>  
 <body>
     <?php
+    session_start(); // Iniciar sesión
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<b>GESTIONANT EL REGISTRE D'USUARIS</b><br>";
         
@@ -19,7 +21,7 @@
             // Ruta del archivo usuarios.txt
             $filename = "C:\\Users\\paumo\\OneDrive\\Clot\\DAW2\\SM 7.1 PHP\\peroyectoPHP\\phpEcomProject\\usuarios.txt";
 
-            // Crear el archivo si no existe,si no es mejor abrirlo con "a" para no sobreescribir
+            // Crear el archivo si no existe, si no es mejor abrirlo con "a" para no sobreescribir
             if (!file_exists($filename)) {
                 if (!$file = fopen($filename, "w")) {
                     echo "No s'ha pogut crear el fitxer d'usuaris<br>";
@@ -40,14 +42,20 @@
             }
 
             if ($existeix) {
-                echo "L'usuari amb el correu $email y el nom $username ja existeix<br>";
+                echo "L'usuari amb el correu $email i el nom $username ja existeix<br>";
             } else {
                 // Registrar el nuevo usuario
                 if ($fitxer = fopen($filename, "a")) {
-                    $registre = "$email:$password:$username:$userType\n"; //Es el formato en el que guardamos los datos es importante el \n ya que si no se escribe todo junto en una sola línea
+                    $registre = "$email:$password:$username:$userType\n"; // Guardar el registro
                     if (fwrite($fitxer, $registre)) {
                         echo "S'ha registrat l'usuari $email amb èxit<br>";
-                        header("Location:index.php");
+
+                        // Guardar el username en la sesión
+                        $_SESSION['username'] = $username;
+
+                        // Redirigir al index.php
+                        header("Location: index.php");
+                        exit();
                     } else {
                         echo "No s'ha pogut registrar l'usuari $email<br>";
                         echo "<a href='signup.html'>Vuelve al registro</a>";
