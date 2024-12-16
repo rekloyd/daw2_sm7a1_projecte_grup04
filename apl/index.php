@@ -20,7 +20,7 @@
                 <li><a href="#">Categorías</a></li>
                 <li><a href="#">Ofertas</a></li>
                 <li><a href="ayuda.html">Ayuda</a></li>
-                <li><a href="#">Carrito</a></li>
+                <li><a href="carrito_compra.html">Carrito</a></li>
                 <?php
                     if(isset($_SESSION['username'])){
                         echo "minabo";
