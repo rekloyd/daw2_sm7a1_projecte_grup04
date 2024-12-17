@@ -31,8 +31,8 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : null;
                 <li><a href="#">Carrito</a></li>
                 <?php
                     if ($usuario) {
-                        echo "<li style='color: #007bff;'>Hola, " . htmlspecialchars($usuario) . "</li>";
-                        echo "<li><a href='logout.php' class='log-out' style='color: red;'>Cerrar sesión</a></li>";
+                        echo "<li style=\"color:blue; font-weight:bold;\">Hola, " . strtoUpper(htmlspecialchars($usuario)) . "</li>";
+                        echo "<li><a href='logout.php' class='log-in'>Cerrar sesión</a></li>";
                     } else {
                         echo "<li><a href='signup.html' class='sign-up' style='color: #333;'>Sign Up</a></li>";
                         echo "<li><a href='login.html' class='log-in'>Log In</a></li>";
