@@ -1,11 +1,13 @@
 <?php
+session_start(); // Inicia la sesión
 
-if(isset($_SESSION['username'])){
-    session_destroy();
+// Destruir todas las variables de sesión
+$_SESSION = array();
 
-}
+// Destruir la sesión completamente
+session_destroy();
 
-
-echo "<h1>Has cerrado sesión</h1>";
-
+// Redirigir al usuario a la página principal
+header("Location: index.php");
+exit();
 ?>
