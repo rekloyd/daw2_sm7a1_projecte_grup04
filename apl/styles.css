@@ -11,6 +11,13 @@ body {
 .center{
     text-align: center;
 }
+
+/*Auxiliares*/
+
+.text-center{
+    text-align: center;
+}
+
 /* Header */
 header {
     background-color: #FF5722;
@@ -156,4 +163,107 @@ footer {
     padding: 8px 16px;
     border-radius: 5px;
     color: white;
+}
+
+
+/*Carrito*/
+/* Contenedor principal del carrito */
+.cart-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+}
+
+/* Productos en el carrito */
+.cart-items {
+    flex: 3;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #DDD;
+    margin-bottom: 1rem;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.cart-item-details {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.cart-item-info h3 {
+    margin: 0;
+    color: #333;
+}
+
+.cart-item-info p {
+    margin: 0.2rem 0;
+    color: #555;
+}
+
+.cart-item-remove {
+    text-align: right;
+}
+
+.cart-item img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Resumen del carrito */
+.cart-summary {
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    background-color: #FFE0B2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 10px;
+    margin-top: 67px;
+    height: 300px;
+}
+
+.cart-summary p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.cart-summary strong {
+    font-size: 1.2rem;
+    color: #FF5722;
+}
+
+.cta-button{
+    text-decoration: none;
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.cta-button:hover{
+    background-color: #E64A19;
+}
+
+.cta-button-pay{
+    text-decoration: none;
+    background-color: #FF5722;
+    color: white;
+    font-size: 18px;
+    border: none;
+    padding: 14px 36px;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.cta-button-pay:hover{
+    background-color: #E64A19;
 }

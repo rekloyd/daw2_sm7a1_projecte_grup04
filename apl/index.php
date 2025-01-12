@@ -29,7 +29,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
                 <li><a href="#">Categorías</a></li>
                 <li><a href="#">Ofertas</a></li>
                 <li><a href="ayuda.html">Ayuda</a></li>
-                <li><a href="#">Carrito</a></li>
+                <li><a href="carrito_compra.html">Carrito</a></li>
                 <?php
                     if ($usuario) {
                         echo "<li style=\"color:blue; font-weight:bold;\"><a href='areasPersonales.php?tipo=" . $_SESSION['tipo'] . "' style='color:inherit;'>Hola, " . strtoupper(htmlspecialchars($usuario)) . "</a></li>";
