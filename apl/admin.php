@@ -2,7 +2,7 @@
 session_start();
 
 // Verificar si existe la clave 'username' en la sesión
-$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : $_SESSION['username'] = "AdministradorTest";
+$usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SESSION['usernameAdmin'] = "AdministradorTest";
 ?>
 
 <!DOCTYPE html>
@@ -168,9 +168,10 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : $_SESSION['use
 
         <div class="contenido">
             <h2 class="center" id="mensajeEnter">Panel de administración. Desde aquí puedes administrar tu tienda online.</h2>
+            <?php if($_GET['creado'])echo "<div class='mensajeDevuelta center'>Usuario creado con éxito</div>";?>
             <div class="form-container formulario-1 oculto">
                 <h2>Formulario de Creación de Gestores</h2>
-                <form action="/crear-gestor" method="post">
+                <form action="/crearUsuarios.php" method="post">
                     <div class="form-group">
                         <label for="username">Nombre de Usuario</label>
                         <input type="text" id="username" name="usuarioGestor" required>
@@ -193,7 +194,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : $_SESSION['use
                     </div>
                     <div class="form-group">
                         <label for="phone">Teléfono de Contacto</label>
-                        <input type="tel" id="phone" name="phone" required>
+                        <input type="tel" id="phone" name="telContactoGestor" required>
                     </div>
                     <div class="form-group">
                         <button type="submit" name="crearGestor" value ="1" class="botonesCRUD botonCrear">Crear Gestor</button>
@@ -206,7 +207,7 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : $_SESSION['use
     <!--FORMULARIO CLIENTES-->
             <div class="form-container formulario-2 oculto">
                         <h2>Formulario de Creación de Clientes</h2>
-                        <form action="/crear-gestor" method="post">
+                        <form action="/crearUsuarios.php" method="post">
                             <div class="form-group">
                                 <label for="username">Nombre de Usuario</label>
                                 <input type="text" id="username" name="username" required>
