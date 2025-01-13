@@ -276,6 +276,6 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
         </div>
     
     </div><!--final div contenido-->
-<script src="script.js"></script>
+<script src="/phpEcomProject/apl/script.js"></script>
 </body>
 </html>

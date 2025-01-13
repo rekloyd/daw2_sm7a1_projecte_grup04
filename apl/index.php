@@ -45,41 +45,9 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
     </header>
 
     <main>
-        <!-- Banner principal -->
-        <section class="banner">
-            <h2>¡Grandes ofertas del día!</h2>
-            <p>Descuentos increíbles en miles de productos</p>
-            <a href="#" class="cta-button">Explorar ahora</a>
-        </section>
-
-        <!-- Productos -->
         <section class="products">
             <h2>Productos destacados</h2>
             <div class="product-grid">
-                <!-- Producto 1 -->
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/150" alt="Producto 1">
-                    <h3>Producto 1</h3>
-                    <p>ID: 001</p>
-                    <p class="price">€19.99 (+ IVA)</p>
-                    <p class="availability">Disponibilidad: Sí</p>
-                </div>
-                <!-- Producto 2 -->
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/150" alt="Producto 2">
-                    <h3>Producto 2</h3>
-                    <p>ID: 002</p>
-                    <p class="price">€29.99 (+ IVA)</p>
-                    <p class="availability">Disponibilidad: No</p>
-                </div>
-                <!-- Producto 3 -->
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/150" alt="Producto 3">
-                    <h3>Producto 3</h3>
-                    <p>ID: 003</p>
-                    <p class="price">€39.99 (+ IVA)</p>
-                    <p class="availability">Disponibilidad: Sí</p>
-                </div>
                 <!-- Producto 4 -->
                 <div class="product-card">
                     <img src="https://via.placeholder.com/150" alt="Producto 4">
@@ -87,11 +55,16 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
                     <p>ID: 004</p>
                     <p class="price">€49.99 (+ IVA)</p>
                     <p class="availability">Disponibilidad: No</p>
+                    <form action="añadirCarrito.php" method="POST">
+                        <input type="hidden" name="name" value="Producto 4">
+                        <input type="hidden" name="id" value="004">
+                        <input type="hidden" name="price" value="49.99">
+                        <button type="submit">Agregar a la cesta</button>
+                    </form>
                 </div>
             </div>
         </section>
     </main>
-
     <footer>
         <p>&copy; 2024 AliMorillas. Todos los derechos reservados.</p>
     </footer>
