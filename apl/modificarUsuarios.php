@@ -18,39 +18,44 @@ function evitarRepetidos($idUsuario, $filename) {
     return false;
 }
 
-function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "", $filename = "", $tipoUsuario) {
+crearUsuario($nombreUsuario,$idUsuario,$password,$nombreApellidos="",$email,$telContacto="",$codigoPostal = "",$filename = "",$tipoUsuario){
     if (!file_exists($filename)) {
         if (!$file = fopen($filename, "w")) {
-            echo "No se ha podido crear el archivo de usuarios<br>";
-            return; // Salir de la función si no se puede crear el archivo
+            echo "No s'ha pogut crear el fitxer d'usuaris<br>";
         }
         fclose($file);
     }
-    
-    // Verificar si el usuario ya existe antes de crear uno nuevo
-    if (evitarRepetidos($idUsuario, $filename)) {
-        echo "El usuario con ID $idUsuario ya existe.<br>";
-        return;
+    evitarRepetidos($idUsuario,$filename);
+
+    if($tipoUsuario == "gestor"){
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
+
+    }
+    if($tipoUsuario == "cliente"){
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
+
     }
 
-    // Crear el nuevo usuario con el formato adecuado
-    $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
-
-    // Escribir el usuario en el archivo
     if ($fitxer = fopen($filename, "a")) {
         if (fwrite($fitxer, $usuario)) {
-            echo "Se ha registrado el usuario $email con éxito.<br>";
-            fclose($fitxer);
+            echo "S'ha registrat l'usuari $email amb èxit<br>";
 
-            // Redirigir después de un exitoso registro
+            // Guardar el username en la sesión
+            $_SESSION['username'] = $nombreUsuario;
+            $_SESSION['email'] = $email;
+            $_SESSION['id'] = $idUsuario;
+            $_SESSION['tipo'] = $tipoUsuario;
+
+
+            fclose($fitxer);
             header("Location: admin.php?creado=exito");
-            exit(); 
+            exit();
         } else {
-            echo "Error al escribir en el archivo.<br>";
+            echo "error";
         }
         fclose($fitxer);
     } else {
-        echo "No se ha podido abrir el archivo para escribir.<br>";
+        echo "No s'ha pogut obrir el fitxer per escriure<br>";
     }
 }
 
