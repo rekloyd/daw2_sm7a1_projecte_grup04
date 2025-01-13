@@ -234,7 +234,7 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
                             </div>
                             <div class="form-group">
                                 <label for="identifier">Identificador Numérico</label>
-                                <input type="number" id="identifierCliente" name="identifier" required>
+                                <input type="number" id="identifierCliente" name="idCliente" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Contraseña</label>
