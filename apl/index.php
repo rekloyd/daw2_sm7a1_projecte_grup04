@@ -14,7 +14,7 @@
 session_start();
 
 // Verificar si existe la clave 'username' en la sesión
-$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : "Nico";
 $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
 ?>
 
@@ -29,10 +29,10 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
                 <li><a href="#">Categorías</a></li>
                 <li><a href="#">Ofertas</a></li>
                 <li><a href="ayuda.html">Ayuda</a></li>
-                <li><a href="carrito_compra.html">Carrito</a></li>
+                <li><a href="#">Carrito</a></li>
                 <?php
                     if ($usuario) {
-                        echo "<li style=\"color:blue; font-weight:bold;\"><a href='areasPersonales.php?tipo=" . $_SESSION['tipo'] . "' style='color:inherit;'>Hola, " . strtoupper(htmlspecialchars($usuario)) . "</a></li>";
+                        echo "<li style=\"color:blue; font-weight:bold;\"><a href='areasPersonales.php?tipo=" . $tipoUsuario . "' style='color:inherit;'>Hola, " . strtoupper(htmlspecialchars($usuario)) . "</a></li>";
 
                         echo "<li><a href='logout.php' class='log-in'>Cerrar sesión</a></li>";
                     } else {

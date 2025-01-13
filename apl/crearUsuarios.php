@@ -71,7 +71,7 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        if($_POST['crearGestor'] == "1"){
+        if(isset($_POST['crearGestor'] == "1")){
             $nombreUsuario = $_POST['usuarioGestor'];
             $nombre = $_POST['nombreGestor'];
             $idNumerico = $_POST['idGestor'];

@@ -168,7 +168,7 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
 
         <div class="contenido">
             <h2 class="center" id="mensajeEnter">Panel de administración. Desde aquí puedes administrar tu tienda online.</h2>
-            <?php if($_GET['creado'])echo "<div class='mensajeDevuelta center'>Usuario creado con éxito</div>";?>
+            <?php if(isset($_GET['creado']))echo "<div class='mensajeDevuelta center'>Usuario creado con éxito</div>";?>
             <div class="form-container formulario-1 oculto">
                 <h2>Formulario de Creación de Gestores</h2>
                 <form action="/crearUsuarios.php" method="post">
