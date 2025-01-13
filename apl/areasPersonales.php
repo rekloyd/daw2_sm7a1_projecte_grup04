@@ -4,7 +4,6 @@ var_dump($_GET['tipo']);
 
 if (isset($_GET['tipo'])) {
     if ($_GET['tipo'] === 'gestor') {
-        echo "hola gestor";
         header('Location: gestor.php');
     } elseif ($_GET['tipo'] === 'cliente') {
         header('Location: cliente.php');
