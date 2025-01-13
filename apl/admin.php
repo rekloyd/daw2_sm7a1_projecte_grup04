@@ -201,23 +201,23 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
                     </div>
                     <div class="form-group">
                         <label for="identifier">Identificador Numérico</label>
-                        <input type="number" id="identifier" name="idGestor" required>
+                        <input type="number" id="identifierGestor" name="idGestor" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña</label>
-                        <input type="password" id="password" name="contraseñaGestor" required>
+                        <input type="password" id="passwordGestor" name="contraseñaGestor" required>
                     </div>
                     <div class="form-group">
                         <label for="fullname">Nombre y Apellidos</label>
-                        <input type="text" id="fullname" name="nombreGestor" required>
+                        <input type="text" id="fullnameGestor" name="nombreGestor" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Correo Electrónico</label>
-                        <input type="email" id="email" name="emailGestor" required>
+                        <input type="email" id="emailGestor" name="emailGestor" required>
                     </div>
                     <div class="form-group">
                         <label for="phone">Teléfono de Contacto</label>
-                        <input type="tel" id="phone" name="telContactoGestor" required>
+                        <input type="tel" id="phoneGestor" name="telContactoGestor" required>
                     </div>
                     <div class="form-group">
                         <button type="submit" name="crearGestor" value="1" class="botonesCRUD botonCrear">Crear Gestor</button>
@@ -229,67 +229,67 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
 
             <!--FORMULARIO CLIENTES-->
             <div class="form-container formulario-2 oculto">
-                <h2>Formulario de Creación de Clientes</h2>
-                <form action="/crearUsuarios.php" method="post">
-                    <div class="form-group">
-                        <label for="username">Nombre de Usuario</label>
-                        <input type="text" id="username" name="username" required>
+                        <h2>Formulario de Creación de Clientes</h2>
+                        <form action="/crearUsuarios.php" method="post">
+                            <div class="form-group">
+                                <label for="username">Nombre de Usuario</label>
+                                <input type="text" id="username" name="usuarioCliente" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="identifier">Identificador Numérico</label>
+                                <input type="number" id="identifierCliente" name="idCliente" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input type="password" id="passwordCliente" name="contraseñaCliente" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fullname">Nombre y Apellidos</label>
+                                <input type="text" id="fullnameCliente" name="nombreCliente" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico</label>
+                                <input type="email" id="emailCliente" name="emailCliente" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Teléfono de Contacto</label>
+                                <input type="tel" id="phoneCliente" name="telContactoCliente" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Dirección Postal</label>
+                                <input type="tel" id="adressCliente" name="codigoPostalCliente" required>
+                            </div>
+                                <div class="form-group">
+                                <button type="submit" name="crearCliente" value ="1" class="botonesCRUD botonCrear">Crear Cliente</button>
+                                <button type="submit" name="eliminarCliente" value = "1" class="botonesCRUD botonEliminar">Eliminar Cliente</button>
+                                <button type="submit" name="modificarCliente" value = "1" class="botonesCRUD botonModificar">Modificar Cliente</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="identifier">Identificador Numérico</label>
-                        <input type="number" id="identifier" name="identifier" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="fullname">Nombre y Apellidos</label>
-                        <input type="text" id="fullname" name="fullname" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Correo Electrónico</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Teléfono de Contacto</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Dirección Postal</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" name="crearCliente" value="1" class="botonesCRUD botonCrear">Crear Cliente</button>
-                        <button type="submit" name="eliminarCliente" value="1" class="botonesCRUD botonEliminar">Eliminar Cliente</button>
-                        <button type="submit" name="modificarCliente" value="1" class="botonesCRUD botonModificar">Modificar Cliente</button>
-                    </div>
-                </form>
-            </div>
 
 
 
-            <!--FORMULARIO AMINISTRADOR-->
-            <div class="form-container formulario-3 oculto">
-                <h2>Formulario de Modificación de los datos del Admin </h2>
-                <form action="/crear-gestor" method="post">
-                    <div class="form-group">
-                        <label for="username">Nombre de Usuario</label>
-                        <input type="text" id="username" name="username" required>
+    <!--FORMULARIO AMINISTRADOR-->
+    <div class="form-container formulario-3 oculto">
+                        <h2>Formulario de Modificación de los datos del Admin </h2>
+                        <form action="/crear-gestor" method="post">
+                            <div class="form-group">
+                                <label for="username">Nombre de Usuario</label>
+                                <input type="text" id="usernameAdmin" name="usuarioAdmin" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input type="password" id="passwordAdmin" name="contraseñaAdmin" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico</label>
+                                <input type="email" id="emailAdmin" name="emailAdmin" required>
+                            </div>
+                                <div class="form-group">
+                                <button type="submit" name="modificarAdmin" value = "1" class="botonesCRUD botonModificar">Modificar Datos</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Correo Electrónico</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" name="modificarAdmin" value="1" class="botonesCRUD botonModificar">Modificar Datos</button>
-                    </div>
-                </form>
-            </div>
 
 
         </div>
@@ -311,6 +311,7 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
             selectedForm.classList.remove('oculto');
         }
     </script>
+
 </body>
 
 </html>

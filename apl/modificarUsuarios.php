@@ -28,6 +28,7 @@ crearUsuario($nombreUsuario,$idUsuario,$password,$nombreApellidos="",$email,$tel
     evitarRepetidos($idUsuario,$filename);
 
     if($tipoUsuario == "gestor"){
+        $codigoPostal = "null";
         $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
 
     }
@@ -38,9 +39,7 @@ crearUsuario($nombreUsuario,$idUsuario,$password,$nombreApellidos="",$email,$tel
 
     if ($fitxer = fopen($filename, "a")) {
         if (fwrite($fitxer, $usuario)) {
-            echo "S'ha registrat l'usuari $email amb èxit<br>";
-
-            // Guardar el username en la sesión
+           // Guardar el username en la sesión
             $_SESSION['username'] = $nombreUsuario;
             $_SESSION['email'] = $email;
             $_SESSION['id'] = $idUsuario;
