@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = trim($_POST["password"]);
 
         // Ruta del archivo usuarios.txt
-        $filename = __DIR__ . "/usuarios.txt";
+        $filename = __DIR__ . "/../usuarios.txt";
 
         // Leer todo el contenido del archivo
         $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -52,4 +52,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo "Método de solicitud incorrecto<br>";
 }
-?>
+
