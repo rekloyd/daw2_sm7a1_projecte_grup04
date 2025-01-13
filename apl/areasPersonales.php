@@ -14,4 +14,5 @@ if (isset($_GET['tipo'])) {
 } else {
     echo "entrado en el else de isset";
 }
-?>
+
+

@@ -25,7 +25,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="index.html" style="text-decoration: underline;">Inicio</a></li>
+                <li><a href="index.php" style="text-decoration: underline;">Inicio</a></li>
                 <li><a href="#">Categorías</a></li>
                 <li><a href="#">Ofertas</a></li>
                 <li><a href="ayuda.html">Ayuda</a></li>
