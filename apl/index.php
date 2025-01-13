@@ -45,14 +45,17 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
     </header>
 
     <main>
+        <div>
+            <img src="../imatges/banner.webp" height="600px" width="100%">
+        </div>
     <h2 style="text-align: center;">Productos destacados</h2>
         <section class="products" style="display: flex;gap: 8px;">
 
                     <!-- Producto 1 -->
                     <div class="product-grid">
                 <div class="product-card">
-                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
-                    <h3>Cepillo para perros</h3>
+                    <img src="../imatges/p1.jpg" height="115px" width="240px" alt="Producto 1">
+                    <h3>Cepillo para perros con pelo, pelaje largo, cachorros</h3>
                     <p>ID: 1</p>
                     <p class="price">€27 (+ IVA)</p>
                     <p class="availability">Disponibilidad: Si</p>
@@ -69,7 +72,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
                 <!-- Producto 2 -->
                 <div class="product-grid">
                 <div class="product-card">
-                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
+                    <img src="../imatges/p2.jpg" height="115px" width="240px" alt="Producto 4">
                     <h3>iPad Mini 16GB - Reacondicionado Shenzhen</h3>
                     <p>ID: 2</p>
                     <p class="price">€107 (+ IVA)</p>
@@ -86,7 +89,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
         <!-- Producto 3 -->
             <div class="product-grid">
                 <div class="product-card">
-                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
+                    <img src="../imatges/p3.avif" width="240px" alt="Producto 4">
                     <h3>Reloj Inalámbrico medidor de pulsaciones, dormir bien</h3>
                     <p>ID: 3</p>
                     <p class="price">€49.99 (+ IVA)</p>
@@ -104,7 +107,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
             <div class="product-grid">
                 <!-- Producto 4 -->
                 <div class="product-card">
-                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
+                    <img src="../imatges/p4.jpeg" width="240px" alt="Producto 4">
                     <h3>Plug Anal Elástico Libre de látex, para hombre mujer, suave.</h3>
                     <p>ID: 4</p>
                     <p class="price">€17.31 (+ IVA)</p>
