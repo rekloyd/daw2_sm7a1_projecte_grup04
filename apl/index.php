@@ -27,9 +27,8 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
             <ul class="nav-links">
                 <li><a href="index.php" style="text-decoration: underline;">Inicio</a></li>
                 <li><a href="#">Categorías</a></li>
-                <li><a href="#">Ofertas</a></li>
                 <li><a href="ayuda.html">Ayuda</a></li>
-                <li><a href="#">Carrito</a></li>
+                <li><a href="carrito.php">Carrito</a></li>
                 <?php
                     if ($usuario) {
                         echo "<li style=\"color:blue; font-weight:bold;\"><a href='areasPersonales.php?tipo=" . $tipoUsuario . "' style='color:inherit;'>Hola, " . strtoupper(htmlspecialchars($usuario)) . "</a></li>";
@@ -45,21 +44,24 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
     </header>
 
     <main>
+        <div>
+            <img src="../imatges/banner.webp" height="600px" width="100%">
+        </div>
     <h2 style="text-align: center;">Productos destacados</h2>
         <section class="products" style="display: flex;gap: 8px;">
 
                     <!-- Producto 1 -->
                     <div class="product-grid">
                 <div class="product-card">
-                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
-                    <h3>Producto 4</h3>
-                    <p>ID: 004</p>
-                    <p class="price">€49.99 (+ IVA)</p>
-                    <p class="availability">Disponibilidad: No</p>
+                    <img src="../imatges/p1.jpg" height="115px" width="240px" alt="Producto 1">
+                    <h3>Cepillo para perros con pelo, pelaje largo, cachorros</h3>
+                    <p>ID: 1</p>
+                    <p class="price">€27 (+ IVA)</p>
+                    <p class="availability">Disponibilidad: Si</p>
                     <form action="añadirCarrito.php" method="POST">
-                        <input type="hidden" name="name" value="Producto 4">
-                        <input type="hidden" name="id" value="004">
-                        <input type="hidden" name="price" value="49.99">
+                        <input type="hidden" name="name" value="Producto-1">
+                        <input type="hidden" name="id" value="2">
+                        <input type="hidden" name="price" value="27">
                         <button type="submit">Agregar a la cesta</button>
                     </form>
                 </div>
@@ -69,16 +71,16 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
                 <!-- Producto 2 -->
                 <div class="product-grid">
                 <div class="product-card">
-                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
-                    <h3>Producto 4</h3>
-                    <p>ID: 004</p>
-                    <p class="price">€49.99 (+ IVA)</p>
-                    <p class="availability">Disponibilidad: No</p>
+                    <img src="../imatges/p2.jpg" height="115px" width="240px" alt="Producto 4">
+                    <h3>iPad Mini 16GB - Reacondicionado Shenzhen</h3>
+                    <p>ID: 2</p>
+                    <p class="price">€107 (+ IVA)</p>
+                    <p class="availability">Disponibilidad: Si</p>
                     <form action="añadirCarrito.php" method="POST">
-                        <input type="hidden" name="name" value="Producto 4">
-                        <input type="hidden" name="id" value="004">
-                        <input type="hidden" name="price" value="49.99">
-                        <button type="submit">Agregar a la cesta</button>
+                        <input type="hidden" name="name" value="Producto-2">
+                        <input type="hidden" name="id" value="2">
+                        <input type="hidden" name="price" value="107">
+                        <button type="submit" disabled>Agregar a la cesta</button>
                     </form>
                 </div>
             </div>
@@ -86,14 +88,14 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
         <!-- Producto 3 -->
             <div class="product-grid">
                 <div class="product-card">
-                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
-                    <h3>Producto 4</h3>
-                    <p>ID: 004</p>
+                    <img src="../imatges/p3.avif" width="240px" alt="Producto 4">
+                    <h3>Reloj Inalámbrico medidor de pulsaciones, dormir bien</h3>
+                    <p>ID: 3</p>
                     <p class="price">€49.99 (+ IVA)</p>
-                    <p class="availability">Disponibilidad: No</p>
+                    <p class="availability">Disponibilidad: Si</p>
                     <form action="añadirCarrito.php" method="POST">
-                        <input type="hidden" name="name" value="Producto 4">
-                        <input type="hidden" name="id" value="004">
+                        <input type="hidden" name="name" value="Producto-3">
+                        <input type="hidden" name="id" value="3">
                         <input type="hidden" name="price" value="49.99">
                         <button type="submit">Agregar a la cesta</button>
                     </form>
@@ -104,16 +106,16 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
             <div class="product-grid">
                 <!-- Producto 4 -->
                 <div class="product-card">
-                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
-                    <h3>Producto 4</h3>
-                    <p>ID: 004</p>
-                    <p class="price">€49.99 (+ IVA)</p>
+                    <img src="../imatges/p4.jpeg" width="240px" alt="Producto 4">
+                    <h3>Plug Anal Elástico Libre de látex, para hombre mujer, suave.</h3>
+                    <p>ID: 4</p>
+                    <p class="price">€17.31 (+ IVA)</p>
                     <p class="availability">Disponibilidad: No</p>
                     <form action="añadirCarrito.php" method="POST">
                         <input type="hidden" name="name" value="Producto 4">
-                        <input type="hidden" name="id" value="004">
-                        <input type="hidden" name="price" value="49.99">
-                        <button type="submit">Agregar a la cesta</button>
+                        <input type="hidden" name="id" value="4">
+                        <input type="hidden" name="price" value="17.31">
+                        <button type="submit" disabled>Agregar a la cesta</button>
                     </form>
                 </div>
             </div>

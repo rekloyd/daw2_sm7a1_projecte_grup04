@@ -164,6 +164,9 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
                     <li onclick="toggleContenido(3)">Gestionar tus datos de inicio de sesión</li>
                     <li onclick="toggleContenido(4)">Ver gestores actuales</li>
                     <li onclick="toggleContenido(5)">Ver listado de clientes</li>
+                    <br>
+                    <li onclick="window.location.href = 'index.php'">Volver al Inicio</li>
+
                 </ul>
 
             </ul>
