@@ -18,7 +18,7 @@ function evitarRepetidos($idUsuario, $filename) {
     return false;
 }
 
-crearUsuario($nombreUsuario,$idUsuario,$password,$nombreApellidos="",$email,$telContacto="",$codigoPostal = "",$filename = "",$tipoUsuario){
+function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "", $filename = "", $tipoUsuario){
     if (!file_exists($filename)) {
         if (!$file = fopen($filename, "w")) {
             echo "No s'ha pogut crear el fitxer d'usuaris<br>";
@@ -28,23 +28,21 @@ crearUsuario($nombreUsuario,$idUsuario,$password,$nombreApellidos="",$email,$tel
     evitarRepetidos($idUsuario,$filename);
 
     if($tipoUsuario == "gestor"){
-        $codigoPostal = "null";
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
-
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":".$nombreApellidos.":". $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
     }
     if($tipoUsuario == "cliente"){
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
-
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password. ":". $nombreApellidos .":". $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
     }
 
     if ($fitxer = fopen($filename, "a")) {
         if (fwrite($fitxer, $usuario)) {
-           // Guardar el username en la sesión
+            echo "S'ha registrat l'usuari $email amb èxit<br>";
+
+            // Guardar el username en la sesión
             $_SESSION['username'] = $nombreUsuario;
             $_SESSION['email'] = $email;
             $_SESSION['id'] = $idUsuario;
             $_SESSION['tipo'] = $tipoUsuario;
-
 
             fclose($fitxer);
             header("Location: admin.php?creado=exito");
@@ -57,7 +55,6 @@ crearUsuario($nombreUsuario,$idUsuario,$password,$nombreApellidos="",$email,$tel
         echo "No s'ha pogut obrir el fitxer per escriure<br>";
     }
 }
-
 
 function modificarUsuario($idUsuario, $nombreUsuario, $password, $nombreApellidos="", $email, $telContacto="", $codigoPostal = "", $filename = "", $tipoUsuario){
 
@@ -86,14 +83,11 @@ function modificarUsuario($idUsuario, $nombreUsuario, $password, $nombreApellido
         // Sobrescribir el archivo con los usuarios actualizados
         file_put_contents($filename, implode("\n", $usuariosActualizados));
 
-
         // Guardar los nuevos datos en la sesión
         $_SESSION['username'] = $nombreUsuario;
         $_SESSION['email'] = $email;
         $_SESSION['id'] = $idUsuario;
         $_SESSION['tipo'] = $tipoUsuario;
-
-        // Redirigir a admin.php con el mensaje de éxito
         header("Location: admin.php?modificado=exito");
         exit();
     } else {
