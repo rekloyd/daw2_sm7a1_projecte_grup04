@@ -45,12 +45,117 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'gestor';
     </header>
 
     <main>
-        <section class="products">
-            <h2>Productos destacados</h2>
+    <h2 style="text-align: center;">Productos destacados</h2>
+        <section class="products" style="display: flex;gap: 8px;">
+
+                    <!-- Producto 1 -->
+                    <div class="product-grid">
+                <div class="product-card">
+                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
+                    <h3>Producto 4</h3>
+                    <p>ID: 004</p>
+                    <p class="price">€49.99 (+ IVA)</p>
+                    <p class="availability">Disponibilidad: No</p>
+                    <form action="añadirCarrito.php" method="POST">
+                        <input type="hidden" name="name" value="Producto 4">
+                        <input type="hidden" name="id" value="004">
+                        <input type="hidden" name="price" value="49.99">
+                        <button type="submit">Agregar a la cesta</button>
+                    </form>
+                </div>
+            </div>
+
+
+                <!-- Producto 2 -->
+                <div class="product-grid">
+                <div class="product-card">
+                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
+                    <h3>Producto 4</h3>
+                    <p>ID: 004</p>
+                    <p class="price">€49.99 (+ IVA)</p>
+                    <p class="availability">Disponibilidad: No</p>
+                    <form action="añadirCarrito.php" method="POST">
+                        <input type="hidden" name="name" value="Producto 4">
+                        <input type="hidden" name="id" value="004">
+                        <input type="hidden" name="price" value="49.99">
+                        <button type="submit">Agregar a la cesta</button>
+                    </form>
+                </div>
+            </div>
+
+        <!-- Producto 3 -->
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
+                    <h3>Producto 4</h3>
+                    <p>ID: 004</p>
+                    <p class="price">€49.99 (+ IVA)</p>
+                    <p class="availability">Disponibilidad: No</p>
+                    <form action="añadirCarrito.php" method="POST">
+                        <input type="hidden" name="name" value="Producto 4">
+                        <input type="hidden" name="id" value="004">
+                        <input type="hidden" name="price" value="49.99">
+                        <button type="submit">Agregar a la cesta</button>
+                    </form>
+                </div>
+            </div>
+
+
             <div class="product-grid">
                 <!-- Producto 4 -->
                 <div class="product-card">
-                    <img src="https://via.placeholder.com/150" alt="Producto 4">
+                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
+                    <h3>Producto 4</h3>
+                    <p>ID: 004</p>
+                    <p class="price">€49.99 (+ IVA)</p>
+                    <p class="availability">Disponibilidad: No</p>
+                    <form action="añadirCarrito.php" method="POST">
+                        <input type="hidden" name="name" value="Producto 4">
+                        <input type="hidden" name="id" value="004">
+                        <input type="hidden" name="price" value="49.99">
+                        <button type="submit">Agregar a la cesta</button>
+                    </form>
+                </div>
+            </div>
+
+                    <!-- Producto 5 -->
+                    <div class="product-grid">
+                <div class="product-card">
+                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
+                    <h3>Producto 4</h3>
+                    <p>ID: 004</p>
+                    <p class="price">€49.99 (+ IVA)</p>
+                    <p class="availability">Disponibilidad: No</p>
+                    <form action="añadirCarrito.php" method="POST">
+                        <input type="hidden" name="name" value="Producto 4">
+                        <input type="hidden" name="id" value="004">
+                        <input type="hidden" name="price" value="49.99">
+                        <button type="submit">Agregar a la cesta</button>
+                    </form>
+                </div>
+            </div>
+
+                    <!-- Producto 6 -->
+                    <div class="product-grid">
+                <div class="product-card">
+                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
+                    <h3>Producto 4</h3>
+                    <p>ID: 004</p>
+                    <p class="price">€49.99 (+ IVA)</p>
+                    <p class="availability">Disponibilidad: No</p>
+                    <form action="añadirCarrito.php" method="POST">
+                        <input type="hidden" name="name" value="Producto 4">
+                        <input type="hidden" name="id" value="004">
+                        <input type="hidden" name="price" value="49.99">
+                        <button type="submit">Agregar a la cesta</button>
+                    </form>
+                </div>
+            </div>
+
+                    <!-- Producto 7 -->
+                    <div class="product-grid">
+                <div class="product-card">
+                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
                     <h3>Producto 4</h3>
                     <p>ID: 004</p>
                     <p class="price">€49.99 (+ IVA)</p>
