@@ -8,9 +8,20 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script>
+        function updateTotal() {
+            const quantities = document.querySelectorAll('.quantity-selector');
+            let subtotal = 0;
+            quantities.forEach((input, index) => {
+                const price = parseFloat(input.dataset.price);
+                const quantity = parseInt(input.value);
+                subtotal += price * quantity;
+            });
+            document.getElementById('subtotal').innerText = `€${subtotal.toFixed(2)}`;
+            document.getElementById('total').innerText = `€${(subtotal + 5).toFixed(2)}`;
+        }
+    </script>
 </head>
 
 <body>
@@ -20,11 +31,11 @@
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.php">Inicio</a></li>
                 <li><a href="#">Categorías</a></li>
                 <li><a href="#">Ofertas</a></li>
                 <li><a href="ayuda.html">Ayuda</a></li>
-                <li><a href="carrito_compra.html"  style="text-decoration: underline;">Carrito</a></li>
+                <li><a href="carrito.php" style="text-decoration: underline;">Carrito</a></li>
             </ul>
         </nav>
     </header>
@@ -39,8 +50,10 @@
                 <h2>Productos en tu carrito</h2>
                 <?php
                 session_start();
-                if (isset($_SESSION['cart'])) {
+                $subtotal = 0;
+                if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
                     foreach ($_SESSION['cart'] as $index => $product) {
+                        $subtotal += $product['price'] * $product['quantity'];
                         echo "<div class='cart-item'>";
                         echo "<div class='cart-item-left'>";
                         echo "<img src='https://via.placeholder.com/150' alt='{$product['name']}'>";
@@ -51,8 +64,11 @@
                         echo "</div>";
                         echo "<div class='cart-item-right'>";
                         echo "<label for='quantity-{$index}'>Cantidad</label><br>";
-                        echo "<input type='number' id='quantity-{$index}' name='quantity[{$index}]' value='{$product['quantity']}' min='1' class='quantity-selector'>";
-                        echo "<button class='cta-button'>Eliminar</button>";
+                        echo "<input type='number' id='quantity-{$index}' name='quantity[{$index}]' value='{$product['quantity']}' min='1' class='quantity-selector' data-price='{$product['price']}' onchange='updateTotal()'>";
+                        echo "<form method='POST' action='eliminarDeCarrito.php' style='display:inline;'>";
+                        echo "<input type='hidden' name='index' value='{$index}'>";
+                        echo "<button type='submit' class='cta-button'>Eliminar</button>";
+                        echo "</form>";
                         echo "</div>";
                         echo "</div>";
                     }
@@ -63,9 +79,9 @@
             </div>
             <div class="cart-summary text-center">
                 <h2>Resumen del Pedido</h2>
-                <p>Subtotal: <span class="price">Calculado dinámicamente</span></p>
+                <p>Subtotal: <span id="subtotal" class="price">€<?php echo number_format($subtotal, 2); ?></span></p>
                 <p>Envío: +5€</p>
-                <p><strong>Total: <span class="price">Calculado dinámicamente</span></strong></p>
+                <p><strong>Total: <span id="total" class="price">€<?php echo number_format($subtotal + 5, 2); ?></span></strong></p>
                 <br><br>
                 <button class="cta-button-pay">Proceder al Pago</button>
             </div>
@@ -75,4 +91,5 @@
         <p>&copy; 2024 AliMorillas. Todos los derechos reservados.</p>
     </footer>
 </body>
+
 </html>
