@@ -12,7 +12,13 @@
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
 </head>
+<?php
+session_start();
 
+// Verificar si existe la clave 'username' en la sesión
+$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
+$tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
+?>
 <body>
     <header>
         <div class="logo">
@@ -22,18 +28,18 @@
             <ul class="nav-links">
                 <li><a href="index.php">Inicio</a></li>
                 <li><a href="#">Categorías</a></li>
-                <li><a href="ayuda.html" style="text-decoration: underline;">Ayuda</a></li>
+                <li><a href="ayuda.php" style="text-decoration: underline;">Ayuda</a></li>
                 <li><a href="carrito.php">Carrito</a></li>
-                <!--
                 <?php
-                    if(isset($_SESSION['username'])){
-                        echo "minabo";
-                    }else{
+                    if ($usuario) {
+                        echo "<li style=\"color:blue; font-weight:bold;\"><a href='areasPersonales.php?tipo=" . $tipoUsuario . "' style='color:inherit;'>Hola, " . strtoupper(htmlspecialchars($usuario)) . "</a></li>";
+
+                        echo "<li><a href='logout.php' class='log-in'>Cerrar sesión</a></li>";
+                    } else {
                         echo "<li><a href='signup.html' class='sign-up' style='color: #333;'>Sign Up</a></li>";
                         echo "<li><a href='login.html' class='log-in'>Log In</a></li>";
                     }
                 ?>
-                -->
             </ul>
         </nav>
     </header>
