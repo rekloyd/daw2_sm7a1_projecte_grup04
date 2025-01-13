@@ -308,7 +308,7 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
             selectedForm.classList.remove('oculto');
         }
     </script>
-<script src="script.js"></script>
+
 </body>
 
 </html>
