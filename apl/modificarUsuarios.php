@@ -39,7 +39,7 @@
             if ($existentId === $idUsuario) {
                 // Modificar los datos del usuario
                 $usuarioModificado = true;
-                $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
+                $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":". $nombreApellidos .":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
                 array_push($usuariosActualizados, $usuario); // Agregar el nuevo usuario modificado
             } else {
                 // Mantener el usuario sin modificar

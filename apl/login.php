@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = trim($_POST["password"]);
 
         // Ruta del archivo usuarios.txt
-        $filename = "C:\\Users\\paumo\\OneDrive\\Clot\\DAW2\\SM 7.1 PHP\\peroyectoPHP\\phpEcomProject\\usuarios.txt";
+        $filename = __DIR__ . "/usuarios.txt";
 
         // Leer todo el contenido del archivo
         $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -20,13 +20,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Recorrer el archivo y verificar si el usuario y la contraseña coinciden
         foreach ($usuaris as $usuari) {
-            list(, $passwd, $user) = explode(':', $usuari);  // Descomponer el registro
+            $campos = explode(':', $usuari);  // Descomponer el registro
 
-            if ($user === $username && $passwd === $password) {
-                // Si el usuario y la contraseña coinciden, iniciar la sesión
-                $_SESSION['username'] = $username;
-                $usuarioExiste = true;
-                break;
+            // Verifica que haya suficientes campos (debe haber 8 campos como mínimo)
+            if (count($campos) >= 8) {
+                list($idUsuario, $nombreUsuario, $passwd, $nombreApellidos, $email, $telContacto, $codigoPostal, $tipoUsuario) = $campos;
+
+                // Comparar el nombre de usuario y la contraseña
+                if ($nombreUsuario === $username && $passwd === $password) {
+                    // Si el usuario y la contraseña coinciden, iniciar la sesión
+                    $_SESSION['username'] = $nombreUsuario;
+                    $_SESSION['tipo'] = $tipoUsuario;
+                    $usuarioExiste = true;
+                    break;
+                }
             }
         }
 

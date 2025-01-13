@@ -36,11 +36,11 @@
         evitarRepetidos($idUsuario,$filename);
  
         if($tipoUsuario == "gestor"){
-            $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
+            $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":". $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
 
         }
         if($tipoUsuario == "cliente"){
-            $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
+            $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":". $nombreApellidos .":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
 
         }
 
