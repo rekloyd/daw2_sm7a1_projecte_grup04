@@ -23,11 +23,13 @@
         }
     </script>
 </head>
+
 <?php
 session_start();
 
 $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
 $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
+$cart_empty = !(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0); // Comprobar si el carrito está vacío
 ?>
 
 <body>
@@ -68,7 +70,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                 } else {
                     if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
                         foreach ($_SESSION['cart'] as $index => $product) {
-                            $subtotal += ($product['price'] * $product['quantity'])* 1.21;
+                            $subtotal += ($product['price'] * $product['quantity']) * 1.21;
                             echo "<div class='cart-item'>";
                             echo "<div class='cart-item-left'>";
                             echo "<div class='cart-item-details'>";
@@ -98,9 +100,11 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                 <p>Envío: +5€</p>
                 <p><strong>Total: <span id="total" class="price"><?php echo number_format($subtotal + 5, 2); ?>€</span></strong></p>
                 <br><br>
-                <button class="cta-button-pay">Proceder al Pago</button>
+                <!-- Si el carrito está vacío, el botón estará deshabilitado -->
+                <button class="cta-button-pay" onclick="location.href='factura.php'" <?php echo $cart_empty ? 'disabled' : ''; ?>>Proceder al Pago</button>
             </div>
         </section>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
     </main>
     <footer>
         <p>&copy; 2024 AliMorillas. Todos los derechos reservados.</p>

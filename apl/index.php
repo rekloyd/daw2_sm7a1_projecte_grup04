@@ -54,7 +54,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                     <img src="../imatges/p1.jpg" height="115px" width="240px" alt="Producto 1">
                     <h3>Cepillo para perros con pelo, pelaje largo, cachorros</h3>
                     <p>ID: 1</p>
-                    <p class="price">€27 (+ IVA)</p>
+                    <p class="price">27€ (+ IVA)</p>
                     <p class="availability">Disponibilidad: Si</p>
                     <form action="añadirCarrito.php" method="POST">
                         <input type="hidden" name="name" value="Cepillo para perros con pelo, pelaje largo, cachorros">
@@ -72,7 +72,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                     <img src="../imatges/p2.jpg" height="115px" width="240px" alt="Producto 4">
                     <h3>iPad Mini 16GB - Reacondicionado Shenzhen</h3>
                     <p>ID: 2</p>
-                    <p class="price">€107 (+ IVA)</p>
+                    <p class="price">107€ (+ IVA)</p>
                     <p class="availability">Disponibilidad: Si</p>
                     <form action="añadirCarrito.php" method="POST">
                         <input type="hidden" name="name" value="iPad Mini 16GB - Reacondicionado Shenzhen">
@@ -89,7 +89,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                     <img src="../imatges/p3.avif" width="240px" alt="Producto 4">
                     <h3>Reloj Inalámbrico medidor de pulsaciones, dormir bien</h3>
                     <p>ID: 3</p>
-                    <p class="price">€49.99 (+ IVA)</p>
+                    <p class="price">49.99€ (+ IVA)</p>
                     <p class="availability">Disponibilidad: Si</p>
                     <form action="añadirCarrito.php" method="POST">
                         <input type="hidden" name="name" value="Reloj Inalámbrico medidor de pulsaciones, dormir bien">
@@ -107,7 +107,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                     <img src="../imatges/p4.jpeg" width="240px" alt="Producto 4">
                     <h3>Plug Anal Elástico Libre de látex, para hombre mujer, suave.</h3>
                     <p>ID: 4</p>
-                    <p class="price">€17.31 (+ IVA)</p>
+                    <p class="price">17.31€ (+ IVA)</p>
                     <p class="availability">Disponibilidad: No</p>
                     <form action="añadirCarrito.php" method="POST">
                         <input type="hidden" name="name" value="Producto 4">
@@ -121,15 +121,15 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                     <!-- Producto 5 -->
                     <div class="product-grid">
                 <div class="product-card">
-                    <img src="../imatges/product-1.jpeg" alt="Producto 4">
-                    <h3>Producto 4</h3>
+                    <img src="../imatges/p5.jpg" width="240px" alt="Producto 4">
+                    <h3>Mochila Táctica Militar de Asalto Color Negro Small</h3>
                     <p>ID: 004</p>
-                    <p class="price">€49.99 (+ IVA)</p>
-                    <p class="availability">Disponibilidad: No</p>
+                    <p class="price">16.87€ (+ IVA)</p>
+                    <p class="availability">Disponibilidad: Si</p>
                     <form action="añadirCarrito.php" method="POST">
-                        <input type="hidden" name="name" value="Producto 4">
-                        <input type="hidden" name="id" value="004">
-                        <input type="hidden" name="price" value="49.99">
+                        <input type="hidden" name="name" value="Mochila Táctica Militar de Asalto Color Negro Small">
+                        <input type="hidden" name="id" value="5">
+                        <input type="hidden" name="price" value="16.87">
                         <button type="submit">Agregar a la cesta</button>
                     </form>
                 </div>
