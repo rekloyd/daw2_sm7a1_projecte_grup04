@@ -1,9 +1,17 @@
 <?php
-session_start();
+
+require("functions.php");
 
 // Verificar si existe la clave 'username' en la sesión
 $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SESSION['usernameAdmin'] = "AdministradorTest";
+
+
+
+// Leer datos del archivo usuarios.txt
+$archivoUsuarios = __DIR__ . '/usuarios.txt'; // Cambia la ruta si es necesario
+$usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -79,6 +87,7 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
             width: 100%;
             max-width: 500px;
             margin: 0 auto;
+            
         }
 
         .form-container h2 {
@@ -149,6 +158,61 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
         .botonModificar {
             background-color: rgb(188, 153, 12);
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            text-align: left;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        thead {
+            background-color: #2c3e50;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        thead th {
+            padding: 12px 15px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        tbody td {
+            padding: 10px 15px;
+            color: #333;
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #1abc9c;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #16a085;
+        }
+
     </style>
 </head>
 <?php
@@ -184,21 +248,13 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
 
 
             if (isset($_GET['creado'])) {
-                switch ($_GET['creado']) {
-                    case "exito":
+                if($_GET['creado']=="exito") {
                         echo "<div class='mensajeDevuelta center'>Usuario creado con éxito</div>";
-                        break;
-                    case "repetido":
-                        echo "<div class='mensajeDevuelta center'>El usuario ya existe</div>";
-                        break;
-                    case "error":
-                        echo "<div class='mensajeDevuelta center'>Ha habido un error creando el usuario, inténtelo de nuevo.</div>";
-                        break;
-                    default:
-                        break;
-                }
+                    }
+
             }; ?>
-            <div class="form-container formulario-1 oculto">
+            <div class = "flex-container">
+            <div class="form-container formulario-1 form-select oculto">
                 <h2>Formulario de Creación de Gestores</h2>
                 <form action="/crearUsuarios.php" method="post">
                     <div class="form-group">
@@ -233,8 +289,15 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                 </form>
             </div>
 
+            <div class="formulario-4 form-select oculto">
+                <h3>Listado de Gestores</h3>
+                <?php generarTabla(__DIR__ . "/usuarios.txt","gestor"); ?>
+                <a href="export.pdf">exportar datos a pdf</a>
+            </div>
+        </div>
+
             <!--FORMULARIO CLIENTES-->
-            <div class="form-container formulario-2 oculto">
+            <div class="form-container formulario-2  form-select oculto">
                         <h2>Formulario de Creación de Clientes</h2>
                         <form action="/crearUsuarios.php" method="post">
                             <div class="form-group">
@@ -272,11 +335,15 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                             </div>
                         </form>
                     </div>
-
+                    <div class="formulario-5 form-select oculto">
+                        <h3>Listado de Clientes</h3>
+                        <?php generarTabla(__DIR__ . "/usuarios.txt","cliente"); ?>
+                        <a href="export.pdf">exportar datos a pdf</a>
+                    </div>
 
 
     <!--FORMULARIO AMINISTRADOR-->
-    <div class="form-container formulario-3 oculto">
+    <div class="form-container formulario-3 oculto form-select">
                         <h2>Formulario de Modificación de los datos del Admin </h2>
                         <form action="/crear-gestor" method="post">
                             <div class="form-group">
@@ -308,7 +375,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
     <script>
         //mostrar el contenido en función del item seleccionado en el sidebar
         function toggleContenido(num) {
-            var allForms = document.querySelectorAll('.form-container');
+            var allForms = document.querySelectorAll('.form-select');
             allForms.forEach(function(form) {
                 form.classList.add('oculto');
             });
@@ -317,7 +384,6 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
             selectedForm.classList.remove('oculto');
         }
     </script>
-
 </body>
 
 </html>
