@@ -27,7 +27,6 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
         <nav>
             <ul class="nav-links">
                 <li><a href="index.php">Inicio</a></li>
-                <li><a href="#">Categorías</a></li>
                 <li><a href="ayuda.php" style="text-decoration: underline;">Ayuda</a></li>
                 <li><a href="carrito.php">Carrito</a></li>
                 <?php

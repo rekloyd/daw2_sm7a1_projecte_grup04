@@ -26,7 +26,6 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
         <nav>
             <ul class="nav-links">
                 <li><a href="index.php" style="text-decoration: underline;">Inicio</a></li>
-                <li><a href="#">Categorías</a></li>
                 <li><a href="ayuda.php">Ayuda</a></li>
                 <li><a href="carrito.php">Carrito</a></li>
                 <?php
@@ -59,7 +58,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                     <p class="price">€27 (+ IVA)</p>
                     <p class="availability">Disponibilidad: Si</p>
                     <form action="añadirCarrito.php" method="POST">
-                        <input type="hidden" name="name" value="Producto-1">
+                        <input type="hidden" name="name" value="Cepillo para perros con pelo, pelaje largo, cachorros">
                         <input type="hidden" name="id" value="2">
                         <input type="hidden" name="price" value="27">
                         <button type="submit">Agregar a la cesta</button>
@@ -77,7 +76,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                     <p class="price">€107 (+ IVA)</p>
                     <p class="availability">Disponibilidad: Si</p>
                     <form action="añadirCarrito.php" method="POST">
-                        <input type="hidden" name="name" value="Producto-2">
+                        <input type="hidden" name="name" value="iPad Mini 16GB - Reacondicionado Shenzhen">
                         <input type="hidden" name="id" value="2">
                         <input type="hidden" name="price" value="107">
                         <button type="submit" disabled>Agregar a la cesta</button>
@@ -94,7 +93,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                     <p class="price">€49.99 (+ IVA)</p>
                     <p class="availability">Disponibilidad: Si</p>
                     <form action="añadirCarrito.php" method="POST">
-                        <input type="hidden" name="name" value="Producto-3">
+                        <input type="hidden" name="name" value="Reloj Inalámbrico medidor de pulsaciones, dormir bien">
                         <input type="hidden" name="id" value="3">
                         <input type="hidden" name="price" value="49.99">
                         <button type="submit">Agregar a la cesta</button>
