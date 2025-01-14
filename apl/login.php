@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = trim($_POST["password"]);
 
         // Ruta del archivo usuarios.txt
-        $filename = "C:\xampp\htdocs";
+        $filename = dirname(__FILE__) . "/../usuarios.txt";
 
         // Leer todo el contenido del archivo
         $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);

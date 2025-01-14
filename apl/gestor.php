@@ -152,7 +152,13 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
 
     </style>
 </head>
+<?php
+session_start();
 
+// Verificar si existe la clave 'username' en la sesión
+$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
+$tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
+?>
 <body class="adminContainer">
     <div class="main-container">
         <div class="sidebar">

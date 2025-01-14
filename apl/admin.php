@@ -215,12 +215,18 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
     </style>
 </head>
+<?php
+session_start();
 
+// Verificar si existe la clave 'username' en la sesión
+$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
+$tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
+?>
 <body class="adminContainer">
     <div class="main-container">
         <div class="sidebar">
-            <h1 class="whiteText">Bienvenido a tu área personal</h1>
-            <?php echo "<h3 class='whiteText'>$usuario</h3>"; ?>
+            <h1 class="whiteText">¡Bienvenido a tu área personal!</h1>
+            <?php echo "<h3 class='whiteText' style='text-align:center;'>$usuario</h3>"; ?>
             <ul>
                 <ul>
                     <li onclick="toggleContenido(1)">Gestionar Gestores</li>
