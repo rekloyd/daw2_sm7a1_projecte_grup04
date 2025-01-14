@@ -47,7 +47,6 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
 
                     echo "<li><a href='logout.php' class='log-in'>Cerrar sesión</a></li>";
                 } else {
-                    echo "<li><a href='signup.html' class='sign-up' style='color: #333;'>Sign Up</a></li>";
                     echo "<li><a href='login.html' class='log-in'>Log In</a></li>";
                 }
                 ?>
@@ -71,7 +70,6 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                         $subtotal += $product['price'] * $product['quantity'];
                         echo "<div class='cart-item'>";
                         echo "<div class='cart-item-left'>";
-                        echo "<img src='https://via.placeholder.com/150' alt='{$product['name']}'>";
                         echo "<div class='cart-item-details'>";
                         echo "<h3>{$product['name']}</h3>";
                         echo "<p class='price'>€{$product['price']}</p>";
