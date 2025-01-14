@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+// Borrar el carrito si el parámetro 'clear_cart' está presente
+if (isset($_GET['clear_cart']) && $_GET['clear_cart'] == 'true') {
+    unset($_SESSION['cart']); 
+    header("Location: carrito.php"); 
+    exit(); 
+}
+
 if (!isset($_SESSION['username'])) {
     header('Location: login.html');
     exit();
@@ -163,7 +170,7 @@ $total = 0;
     <header>
         <nav>
             <ul class="nav-links">
-                <li><a href="carrito.php" class="cta-button">Volver</a></li>
+                <li><a href="factura.php?clear_cart=true" onclick="alertCarrito()" class="cta-button">Volver</a></li>
             </ul>
         </nav>
     </header>
@@ -210,5 +217,11 @@ $total = 0;
     <footer>
         <p>&copy; 2024 AliMorillas. Todos los derechos reservados.</p>
     </footer>
+
+    <script>
+        function alertCarrito(){
+            alert('Carrito Eliminado');
+        }
+    </script>
 </body>
 </html>
