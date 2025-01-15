@@ -1,12 +1,6 @@
 <?php
 session_start();
 
-// Borrar el carrito si el parámetro 'clear_cart' está presente
-if (isset($_GET['clear_cart']) && $_GET['clear_cart'] == 'true') {
-    unset($_SESSION['cart']); 
-    header("Location: carrito.php"); 
-    exit(); 
-}
 
 if (!isset($_SESSION['username'])) {
     header('Location: login.html');
@@ -170,7 +164,7 @@ $total = 0;
     <header>
         <nav>
             <ul class="nav-links">
-                <li><a href="factura.php?clear_cart=true" onclick="alertCarrito()" class="cta-button">Volver</a></li>
+                <li><a href="carrito.php" class="cta-button">Volver</a></li>
             </ul>
         </nav>
     </header>
@@ -202,13 +196,16 @@ $total = 0;
 
             <div class="invoice-summary">
                 <div class="summary-item">
-                    <p><strong>Subtotal + IVA:</strong> €<?php echo number_format($total * 1.21, 2); ?></p>
+                    <p><strong>Precio antes de IVA:</strong> €<?php echo number_format($total, 2); ?></p>
+                </div>
+                <div class="summary-item">
+                    <p><strong>IVA (21%):</strong> €<?php echo number_format($total * 0.21, 2); ?></p>
                 </div>
                 <div class="summary-item">
                     <p><strong>Envío:</strong> €5.00</p>
                 </div>
                 <div class="summary-item total-price">
-                    <p><strong>Total:</strong> €<?php echo number_format($total * 1.21 + 5, 2); ?></p>
+                    <p><strong>Total (con IVA + Envío):</strong> €<?php echo number_format($total * 1.21 + 5, 2); ?></p>
                 </div>
             </div>
         </section>
@@ -217,11 +214,5 @@ $total = 0;
     <footer>
         <p>&copy; 2024 AliMorillas. Todos los derechos reservados.</p>
     </footer>
-
-    <script>
-        function alertCarrito(){
-            alert('Carrito Eliminado');
-        }
-    </script>
 </body>
 </html>
