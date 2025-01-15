@@ -27,11 +27,13 @@ function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = 
     }
     evitarRepetidos($idUsuario,$filename);
 
+    $hashPass = hash("sha256",$password);
+
     if($tipoUsuario == "gestor"){
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":".$nombreApellidos.":". $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":".$nombreApellidos.":". $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
     }
     if($tipoUsuario == "cliente"){
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password. ":". $nombreApellidos .":". $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass. ":". $nombreApellidos .":". $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
     }
 
     if ($fitxer = fopen($filename, "a")) {
