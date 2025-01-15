@@ -10,6 +10,42 @@ if (!isset($_SESSION['cart'])) {
 $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
 $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
 $cart_empty = count($_SESSION['cart']) == 0;
+
+// Verificar si ya existe un archivo con la cesta guardada
+$filename = __DIR__ . '/../cesta.txt';
+
+// Cargar la cesta guardada en la sesión si existe
+if ($usuario && file_exists($filename)) {
+    $file = fopen($filename, 'r'); // Abrir el archivo para lectura
+
+    if ($file) {
+        // Leer el contenido del archivo línea por línea
+        while (($line = fgets($file)) !== false) {
+            $data = explode(':', trim($line));
+
+            if (count($data) == 5 && $data[4] == $usuario) {
+                // Si la línea contiene datos válidos y corresponde al usuario
+                // Formato esperado: id:producto:cantidad:Si:usuario
+                $id = $data[0];
+                $name = $data[1];
+                $quantity = $data[2];
+
+                // Agregar el producto a la cesta de la sesión si no está ya
+                if (!isset($_SESSION['cart'][$id])) {
+                    $_SESSION['cart'][$id] = [
+                        'name' => $name,
+                        'quantity' => $quantity
+                    ];
+                }
+            }
+        }
+
+        fclose($file); // Cerrar el archivo
+    } else {
+        echo "Error al leer la cesta guardada.";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -116,6 +152,27 @@ $cart_empty = count($_SESSION['cart']) == 0;
                     <button type="submit" class="cta-button-pay" <?php echo $cart_empty ? 'disabled' : ''; ?>>Proceder al Pago</button>
                 </form>
             </div>
+        </section>
+
+        <!-- Ver cestas guardadas -->
+        <section class="saved-carts">
+            <h2>Cestas Guardadas</h2>
+            <?php
+            if ($usuario && file_exists($filename)) {
+                $file = fopen($filename, 'r');
+                if ($file) {
+                    echo "<ul>";
+                    while (($line = fgets($file)) !== false) {
+                        $data = explode(':', trim($line));
+                        if (count($data) == 5 && $data[4] == $usuario) {
+                            echo "<li>Cesta: {$data[1]}, Cantidad: {$data[2]}</li>";
+                        }
+                    }
+                    echo "</ul>";
+                    fclose($file);
+                }
+            }
+            ?>
         </section>
     </main>
 
