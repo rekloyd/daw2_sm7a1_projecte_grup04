@@ -1,26 +1,106 @@
+<?php
+session_start();
+
+// Array de productos
+$productos = [
+    [
+        'id' => 1,
+        'name' => 'Cepillo para perros con pelo, pelaje largo, cachorros',
+        'price' => 27,
+        'availability' => 'Si',
+        'image' => 'imatges/pd1.jpg',
+    ],
+    [
+        'id' => 2,
+        'name' => 'Comedero automático para perros y gatos',
+        'price' => 45,
+        'availability' => 'Si',
+        'image' => 'imatges/pd2.jpg',
+    ],
+    [
+        'id' => 3,
+        'name' => 'Juguete interactivo para perros',
+        'price' => 22,
+        'availability' => 'Si',
+        'image' => 'imatges/pd3.jpg',
+    ],
+    [
+        'id' => 4,
+        'name' => 'Correa retráctil para perros pequeños',
+        'price' => 18,
+        'availability' => 'Si',
+        'image' => 'imatges/pd4.jpg',
+    ],
+    [
+        'id' => 5,
+        'name' => 'Cama ortopédica para perros',
+        'price' => 75,
+        'availability' => 'Si',
+        'image' => 'imatges/pd5.jpg',
+    ],
+    [
+        'id' => 6,
+        'name' => 'Higiene dental para perros',
+        'price' => 12,
+        'availability' => 'Si',
+        'image' => 'imatges/pd6.jpg',
+    ],
+];
+
+// Asegurarse de que el carrito está inicializado
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+// Lógica para agregar al carrito
+if (isset($_POST['add_to_cart'])) {
+    $productId = $_POST['product_id'];
+    $quantity = $_POST['quantity'];
+
+    // Encontrar el producto por su id
+    foreach ($productos as $product) {
+        if ($product['id'] == $productId) {
+            // Agregar el producto al carrito
+            if (isset($_SESSION['cart'][$productId])) {
+                $_SESSION['cart'][$productId]['quantity'] += $quantity;  // Incrementar cantidad si ya existe
+            } else {
+                $_SESSION['cart'][$productId] = [
+                    'id' => $product['id'],
+                    'name' => $product['name'],
+                    'price' => $product['price'],
+                    'quantity' => $quantity,
+                    'image' => $product['image'],
+                ];
+            }
+            break;
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AliMorillas</title>
+    <title>AliMorillas - Tienda</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
+<body>
 <?php
 session_start();
+date_default_timezone_set('Europe/Madrid');
 
-// Verificar si existe la clave 'username' en la sesión
 $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
 $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
+$cart_empty = !(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0);
 ?>
-
-<body>
-    <header>
+<header>
         <div class="logo">
             <h1>AliMorillas</h1>
         </div>
@@ -43,108 +123,31 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                 ?>
             </ul>
         </nav>
-
     </header>
 
     <main>
-        <div>
-            <img src="../imatges/banner.webp" height="600px" width="100%">
+        <h2>Productos Disponibles</h2>
+        <div class="product-list">
+            <?php foreach ($productos as $product): ?>
+                <div class="product-item">
+                    <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
+                    <h3><?php echo $product['name']; ?></h3>
+                    <p>Precio: <?php echo number_format($product['price'], 2); ?>€</p>
+                    <p>Disponibilidad: <?php echo $product['availability']; ?></p>
+                    <form method="POST" action="index.php">
+                        <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                        <label for="quantity_<?php echo $product['id']; ?>">Cantidad:</label>
+                        <input type="number" id="quantity_<?php echo $product['id']; ?>" name="quantity" value="1" min="1" required>
+                        <button type="submit" name="add_to_cart">Añadir al carrito</button>
+                    </form>
+                </div>
+            <?php endforeach; ?>
         </div>
-        <h2 style="text-align: center;">Productos destacados</h2>
-        <section class="products" style="display: flex;gap: 8px;">
-            <!-- Producto 1 -->
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="../imatges/pd1.jpg" height="115px" width="240px" alt="Producto 1">
-                    <h3>Cepillo para perros con pelo, pelaje largo, cachorros</h3>
-                    <p>ID: 1</p>
-                    <p class="price">27€ (+ IVA)</p>
-                    <p class="availability">Disponibilidad: Si</p>
-                    <form action="añadirCarrito.php" method="POST" class="add-to-cart-form" id="form-product-1">
-                        <input type="hidden" name="name" value="Cepillo para perros con pelo, pelaje largo, cachorros">
-                        <input type="hidden" name="id" value="2">
-                        <input type="hidden" name="price" value="27">
-                        <button type="submit" class="cta-button">Agregar a la cesta</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Producto 2 -->
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="../imatges/p2.jpg" width="240px" height="160px" alt="Producto 4">
-                    <h3>iPad Mini 16GB - Reacondicionado Shenzhen</h3>
-                    <p>ID: 2</p>
-                    <p class="price">107€ (+ IVA)</p>
-                    <p class="availability">Disponibilidad: No</p>
-                    <form action="añadirCarrito.php" method="POST" class="add-to-cart-form" id="form-product-2">
-                        <input type="hidden" name="name" value="iPad Mini 16GB - Reacondicionado Shenzhen">
-                        <input type="hidden" name="id" value="2">
-                        <input type="hidden" name="price" value="107">
-                        <button type="submit" disabled class="cta-button" style="display: none;">Agregar a la cesta</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Producto 3 -->
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="../imatges/p3.avif" width="240px" height="160px" alt="Producto 4">
-                    <h3>Reloj Inalámbrico medidor de pulsaciones, dormir bien</h3>
-                    <p>ID: 3</p>
-                    <p class="price">49.99€ (+ IVA)</p>
-                    <p class="availability">Disponibilidad: Si</p>
-                    <form action="añadirCarrito.php" method="POST" class="add-to-cart-form" id="form-product-3">
-                        <input type="hidden" name="name" value="Reloj Inalámbrico medidor de pulsaciones, dormir bien">
-                        <input type="hidden" name="id" value="3">
-                        <input type="hidden" name="price" value="49.99">
-                        <button type="submit" class="cta-button">Agregar a la cesta</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Producto 4 -->
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="../imatges/p4.jpg" width="240px" height="160px" alt="Producto 4">
-                    <h3>Coche realista, chevrolet, audi, mustang, 2015. Aluminio aluminioso</h3>
-                    <p>ID: 4</p>
-                    <p class="price">17.31€ (+ IVA)</p>
-                    <p class="availability">Disponibilidad: Si</p>
-                    <form action="añadirCarrito.php" method="POST" class="add-to-cart-form" id="form-product-4">
-                        <input type="hidden" name="name" value="Coche realista, chevrolet, audi, mustang, 2015. Aluminio aluminioso">
-                        <input type="hidden" name="id" value="4">
-                        <input type="hidden" name="price" value="17.31">
-                        <button type="submit" class="cta-button">Agregar a la cesta</button>
-                    </form>
-                </div>
-            </div>
-        </section>
     </main>
+
     <footer>
         <p>&copy; 2024 AliMorillas. Todos los derechos reservados.</p>
     </footer>
-
-    <script>
-        document.querySelectorAll('.add-to-cart-form').forEach(form => {
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                const formData = new FormData(form);
-                fetch(form.action, {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.text())
-                    .then(data => {
-                        alert('Producto añadido a la cesta');
-                    })
-                    .catch(error => {
-                        console.error('Error al añadir el producto:', error);
-                    });
-            });
-        });
-    </script>
 </body>
 
 </html>
