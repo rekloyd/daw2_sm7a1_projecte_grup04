@@ -1,6 +1,90 @@
 <?php
 session_start(); // Iniciar sesión
 
+require 'vendor/autoload.php';
+
+
+
+//EXPORTACION DE LA TABLA A PDF
+
+require 'vendor/autoload.php'; // Asegúrate de incluir el autoload de Composer
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+function exportarTablaPDF($htmlTabla) {
+    // Configurar Dompdf
+    $options = new Options();
+    $options->set('isHtml5ParserEnabled', true);
+    $options->set('isRemoteEnabled', true); // Necesario si tienes imágenes remotas o CSS externos
+
+    $dompdf = new Dompdf($options);
+
+    // CSS personalizado (puedes incluir el CSS de tu tabla aquí)
+    $css = '
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            text-align: left;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        thead {
+            background-color: #2c3e50;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        thead th {
+            padding: 12px 15px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        tbody td {
+            padding: 10px 15px;
+            color: #333;
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+    </style>
+    ';
+
+    // Combina CSS y HTML de la tabla
+    $html = $css . $htmlTabla;
+
+    // Cargar contenido HTML
+    $dompdf->loadHtml($html);
+
+    // Configurar tamaño y orientación de página
+    $dompdf->setPaper('A4', 'landscape'); // Opciones: 'portrait' o 'landscape'
+
+    // Renderizar el PDF
+    $dompdf->render();
+
+    // Enviar el PDF al navegador para descargar
+    $dompdf->stream("tabla_usuarios.pdf", ["Attachment" => true]);
+}
+
+
+
+
 function evitarRepetidos($idUsuario, $filename) {
     // Leer el contenido del archivo línea por línea
     $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);

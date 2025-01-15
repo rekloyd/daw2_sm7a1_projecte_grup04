@@ -2,13 +2,18 @@
 
 require("functions.php");
 
-// Verificar si existe la clave 'username' en la sesión
+// Verificar variables y sesiones
 $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SESSION['usernameAdmin'] = "AdministradorTest";
 
-
+if (isset($_POST['exportar_pdf'])) {
+    ob_start(); // Captura la salida HTML
+    generarTabla('usuarios.txt', 'gestor'); // Tu función que genera la tabla
+    $htmlTabla = ob_get_clean(); // Obtén el HTML capturado
+    exportarTablaPDF($htmlTabla); // Exporta la tabla como PDF
+}
 
 // Leer datos del archivo usuarios.txt
-$archivoUsuarios = __DIR__ . '/usuarios.txt'; // Cambia la ruta si es necesario
+$archivoUsuarios = __DIR__ . '/usuarios.txt';
 $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
 ?>
 
@@ -215,18 +220,12 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
     </style>
 </head>
-<?php
-session_start();
 
-// Verificar si existe la clave 'username' en la sesión
-$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
-$tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
-?>
 <body class="adminContainer">
     <div class="main-container">
         <div class="sidebar">
-            <h1 class="whiteText">¡Bienvenido a tu área personal!</h1>
-            <?php echo "<h3 class='whiteText' style='text-align:center;'>$usuario</h3>"; ?>
+            <h1 class="whiteText">Bienvenido a tu área personal</h1>
+            <?php echo "<h3 class='whiteText'>$usuario</h3>"; ?>
             <ul>
                 <ul>
                     <li onclick="toggleContenido(1)">Gestionar Gestores</li>
@@ -292,7 +291,9 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
             <div class="formulario-4 form-select oculto">
                 <h3>Listado de Gestores</h3>
                 <?php generarTabla(__DIR__ . "/usuarios.txt","gestor"); ?>
-                <a href="export.pdf">exportar datos a pdf</a>
+                <form method="post">
+                <button type="submit" name="exportar_pdf">Exportar a PDF</button>
+                </form>
             </div>
         </div>
 
@@ -336,10 +337,12 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                         </form>
                     </div>
                     <div class="formulario-5 form-select oculto">
-                        <h3>Listado de Clientes</h3>
-                        <?php generarTabla(__DIR__ . "/usuarios.txt","cliente"); ?>
-                        <a href="export.pdf">exportar datos a pdf</a>
-                    </div>
+                <h3>Listado de Clientes</h3>
+                <?php generarTabla(__DIR__ . "/usuarios.txt","cliente"); ?>
+                <form method="post">
+                <button type="submit" name="exportar_pdf">Exportar a PDF</button>
+                </form>
+            </div>
 
 
     <!--FORMULARIO AMINISTRADOR-->
