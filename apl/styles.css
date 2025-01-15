@@ -1,4 +1,6 @@
-/* Estilos generales */
+/***************************
+*    Estilos Generales     *
+***************************/
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f9f9f9;
@@ -6,17 +8,13 @@ body {
     padding: 0;
 }
 
-/* Título de la sección */
-.section-title {
-    text-align: center;
-    font-size: 2em;
-    margin: 20px 0;
-    color: #333;
-}
 
-/* General Styles */
+/***************************
+*         Navegador        *
+***************************/
+
 nav {
-    background-color: #DD4509; /* Fondo de color naranja */
+    background-color: #DD4509; 
     width: 100%;
     padding: 10px 0;
     position: fixed;
@@ -30,7 +28,7 @@ nav {
     padding: 0;
     margin: 0;
     display: flex;
-    justify-content: flex-end; /* Alinea los elementos a la izquierda */
+    justify-content: flex-end; 
     align-items: center;
 }
 
@@ -38,7 +36,7 @@ nav {
 
 .nav-links li a {
     text-decoration: none;
-    color: #fff; /* Texto blanco */
+    color: #fff; 
     display: block;
     padding: 10px;
     font-size: 16px;
@@ -46,7 +44,7 @@ nav {
 }
 
 .nav-links li a:hover {
-    background-color: #FF5722; /* Color de fondo al pasar el mouse */
+    background-color: #FF5722; 
     color: #fff;
 }
 
@@ -59,55 +57,59 @@ nav {
     vertical-align: middle;
 }
 
-/* Estilo del botón .log-in */
+
+/***************************
+*       Botón Log In       *
+***************************/
+
 .log-in {
-    color: #fff;  /* Texto blanco */
-    font-weight: bold;  /* Letra en negrita */
-    background-color: #000;  /* Fondo negro */
-    padding: 10px 20px;  /* Relleno para que sea como un botón */
-    border: none;  /* Sin bordes */
-    border-radius: 5px;  /* Bordes redondeados */
-    text-decoration: none;  /* Sin subrayado */
-    display: inline-block;  /* Para que el enlace se vea como un botón */
-    font-size: 16px;  /* Tamaño de fuente */
-    transition: background-color 0.3s ease, color 0.3s ease;  /* Transición suave para el cambio de color */
+    color: #fff; 
+    font-weight: bold; 
+    background-color: #000;  
+    padding: 10px 20px;  
+    border: none;  
+    border-radius: 5px;  
+    text-decoration: none;  
+    display: inline-block;  
+    font-size: 16px; 
+    transition: background-color 0.3s ease, color 0.3s ease;  
 }
 
 .log-in:hover {
-    background-color: #FF5722;  /* Cambia el fondo a color anaranjado al pasar el ratón */
-    color: #fff;  /* Mantén el texto blanco */
+    background-color: #FF5722;  
+    color: #fff;  
 }
 
+/***************************
+*        Productos /       *
+***************************/
 
 
-/* Contenedor de la lista de productos en fila horizontal */
-.product-list {
+.productoOrdenado{
     display: flex;
     overflow-x: auto;
     gap: 20px;
     padding: 0 20px;
-    justify-content: flex-start;
+    margin-top: 10px;
+    justify-content: space-between;
     flex-wrap: nowrap;
 }
 
-/* Estilo de la tarjeta del producto */
 .product-card {
+    
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     max-width: 280px;
-    flex-shrink: 0;
 }
 
-/* Efecto hover para la tarjeta */
 .product-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Imagen del producto */
 .product-image {
     width: 100%;
     height: 200px;
@@ -115,13 +117,11 @@ nav {
     border-bottom: 2px solid #f1f1f1;
 }
 
-/* Cuerpo de la tarjeta */
 .product-card-body {
     padding: 20px;
     flex-grow: 1;
 }
 
-/* Nombre del producto */
 .product-name {
     font-size: 1.3em;
     margin-bottom: 10px;
@@ -129,7 +129,6 @@ nav {
     font-weight: bold;
 }
 
-/* Precio del producto */
 .product-price {
     font-size: 1.2em;
     font-weight: bold;
@@ -137,43 +136,3 @@ nav {
     margin-bottom: 10px;
 }
 
-/* Disponibilidad del producto */
-.product-availability {
-    font-size: 1em;
-    color: #777;
-    margin-bottom: 15px;
-}
-
-/* Estilo para el formulario */
-.product-form {
-    display: flex;
-    flex-direction: column;
-}
-
-.quantity-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.quantity-input {
-    width: 60px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.add-to-cart-btn {
-    background-color: #28a745;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.add-to-cart-btn:hover {
-    background-color: #218838;
-}

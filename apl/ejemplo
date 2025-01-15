@@ -1,0 +1,48 @@
+<?php
+// Ruta al archivo de texto
+$archivo = __DIR__.'/../productos.txt';
+
+// Verificar si el archivo existe
+if (file_exists($archivo)) {
+    // Leer el contenido del archivo
+    $contenido = file_get_contents($archivo);
+
+    // Separar el contenido en líneas
+    $lineas = explode("\n", $contenido);
+
+    // Recorrer cada línea
+    foreach ($lineas as $linea) {
+        // Separar los datos por el delimitador ':'
+        $datos = explode(':', $linea);
+
+        // Verificar que la línea contiene los datos esperados
+        if (count($datos) == 5) {
+            // Asignar los datos a variables
+            list($id, $nombre, $precio, $disponibilidad, $imagen) = $datos;
+
+            // Calcular el precio con IVA (21%)
+            $precio_con_iva = $precio * 1.21;
+
+            // Generar la tarjeta de producto
+            echo '<div class="product-card">';
+            echo '<img src="' . htmlspecialchars($imagen) . '" alt="' . htmlspecialchars($nombre) . '" class="product-image">';
+            echo '<div class="product-card-body">';
+            echo '<h3 class="product-name">' . htmlspecialchars($nombre) . '</h3>';
+            echo '<p class="product-price">Precio: ' . number_format($precio, 2) . '€ (+IVA: ' . number_format($precio_con_iva - $precio, 2) . '€)</p>';
+            echo '<p class="product-availability">Disponibilidad: ' . htmlspecialchars($disponibilidad) . '</p>';
+            echo '<form method="POST" action="index.php" class="product-form">';
+            echo '<input type="hidden" name="product_id" value="' . htmlspecialchars($id) . '">';
+            echo '<div class="quantity-container">';
+            echo '<label for="quantity_' . htmlspecialchars($id) . '">Cantidad:</label>';
+            echo '<input type="number" id="quantity_' . htmlspecialchars($id) . '" name="quantity" value="1" min="1" required class="quantity-input">';
+            echo '</div><br>';
+            echo '<button type="submit" name="add_to_cart" class="add-to-cart-btn cta-button">Añadir al carrito</button>';
+            echo '</form>';
+            echo '</div>';
+            echo '</div>';
+        }
+    }
+} else {
+    echo 'El archivo de productos no se encuentra.';
+}
+?>
