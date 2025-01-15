@@ -20,7 +20,7 @@ body {
 
 /* Header */
 header {
-    background-color: #DD4509;
+    background-color: #E64A19;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -265,4 +265,25 @@ footer {
 
 .cta-button-pay:hover{
     background-color: #E64A19;
+}
+
+.notification {
+    margin-top: 10px;
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+.notification.show {
+    display: block;
+    opacity: 1;
 }
