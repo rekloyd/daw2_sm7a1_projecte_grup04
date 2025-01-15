@@ -1,4 +1,9 @@
 <?php
+session_start();
+
+// Verificar si existe la clave 'username' en la sesión
+$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
+$tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
 // Ruta al archivo de texto
 $archivo = __DIR__.'/../productos.txt';
 
@@ -21,7 +26,6 @@ if (file_exists($archivo)) {
             // Asignar los datos a variables
             list($id, $nombre, $precio, $disponibilidad, $imagen) = $datos;
 
-
             $precio_con_iva = $precio * 1.21;
 
             echo '<div class="product-card">';
@@ -30,8 +34,10 @@ if (file_exists($archivo)) {
             echo '<h3 class="product-name">' . htmlspecialchars($nombre) . '</h3>';
             echo '<p class="product-price">Precio: ' . number_format($precio, 2) . '€ (+IVA: ' . number_format($precio_con_iva - $precio, 2) . '€)</p>';
             echo '<p class="product-availability">Disponibilidad: ' . htmlspecialchars($disponibilidad) . '</p>';
-            echo '<form method="POST" action="index.php" class="product-form">';
+            echo '<form method="POST" action="añadirCarrito.php" class="product-form">';
             echo '<input type="hidden" name="product_id" value="' . htmlspecialchars($id) . '">';
+            echo '<input type="hidden" name="product_name" value="' . htmlspecialchars($nombre) . '">';
+            echo '<input type="hidden" name="product_price" value="' . htmlspecialchars($precio) . '">';
             echo '<div class="quantity-container">';
             echo '<label for="quantity_' . htmlspecialchars($id) . '">Cantidad:</label>';
             echo '<input type="number" id="quantity_' . htmlspecialchars($id) . '" name="quantity" value="1" min="1" required class="quantity-input">';
@@ -63,14 +69,6 @@ if (file_exists($archivo)) {
 </head>
 
 <body>
-<?php
-session_start();
-date_default_timezone_set('Europe/Madrid');
-
-$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
-$tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
-$cart_empty = !(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0);
-?>
 <header>
 
         <nav>
