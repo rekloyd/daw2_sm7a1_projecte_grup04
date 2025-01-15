@@ -240,6 +240,6 @@ function generarTabla($filename, $tipoUsuario) {
     echo "</table>";
 }
 
-
+//works
 
 ?>
