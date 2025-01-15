@@ -5,17 +5,17 @@ require("functions.php");
 // Verificar variables y sesiones
 $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : $_SESSION['username'] = "AdministradorTest";
 $tipoUsuario = $_SESSION['tipoUsuario'];
-
-//if($tipoUsuario =="noAdmin"){
-    //header("Location: index.php");
-//}
-
-if (isset($_POST['exportar_pdf'])) {
-    ob_start();
-    generarTabla('usuarios.txt', 'gestor');
-    $htmlTabla = ob_get_clean(); 
-    exportarTablaPDF($htmlTabla); 
+if($tipoUsuario!= "admin"){
+    header("Location: index.php");
 }
+
+if (isset($_POST['exportar_pdf_gestor'])) {
+    exportarTablaPDF('usuarios.txt', 'gestor'); 
+} elseif (isset($_POST['exportar_pdf_cliente'])) {
+    exportarTablaPDF('usuarios.txt', 'cliente'); 
+}
+
+
 
 // Leer datos del archivo usuarios.txt
 $archivoUsuarios = __DIR__ . '/usuarios.txt';
@@ -232,7 +232,6 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
             <h1 class="whiteText">Bienvenido a tu área personal</h1>
             <?php 
             echo "<h3 class='whiteText'>$usuario</h3>"; 
-            echo "<h3 class='whiteText'>$tipoUsuario</h3>"; 
             ?>
             <ul>
                 <ul>
@@ -250,7 +249,6 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
         </div>
 
         <div class="contenido">
-            <h2 class="center" id="mensajeEnter">Panel de administración. Desde aquí puedes administrar tu tienda online.</h2>
             <div class = "flex-container">
             <div class="form-container formulario-1 form-select oculto">
                 <h2>Formulario de Creación de Gestores</h2>
@@ -291,8 +289,9 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                 <h3>Listado de Gestores</h3>
                 <?php generarTabla(__DIR__ . "/usuarios.txt","gestor"); ?>
                 <form method="post">
-                <button type="submit" name="exportar_pdf">Exportar a PDF</button>
+                <button type="submit" name="exportar_pdf_gestor">Exportar PDF (Gestores)</button>
                 </form>
+
             </div>
         </div>
 
@@ -339,8 +338,9 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                 <h3>Listado de Clientes</h3>
                 <?php generarTabla(__DIR__ . "/usuarios.txt","cliente"); ?>
                 <form method="post">
-                <button type="submit" name="exportar_pdf">Exportar a PDF</button>
+                    <button type="submit" name="exportar_pdf_cliente">Exportar PDF (Clientes)</button>
                 </form>
+
             </div>
 
 

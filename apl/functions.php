@@ -12,76 +12,91 @@ require 'vendor/autoload.php'; // Asegúrate de incluir el autoload de Composer
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-function exportarTablaPDF($htmlTabla) {
+function exportarTablaPDF($archivoUsuarios, $tipoUsuario) {
+    // Leer usuarios desde el archivo
+    $usuarios = file($archivoUsuarios, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    // Generar tabla HTML filtrada
+    $htmlTabla = '<table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Código Postal</th>
+                <th>Tipo de Usuario</th>
+            </tr>
+        </thead>
+        <tbody>';
+
+    foreach ($usuarios as $usuario) {
+        $datos = explode(':', $usuario);
+
+        // Verificar que la línea tiene al menos 8 campos
+        if (count($datos) >= 8) {
+            list($id, $username, $password, $nombre, $email, $telefono, $codigoPostal, $tipo) = $datos;
+
+            // Agregar a la tabla solo si coincide el tipo de usuario
+            if (trim($tipo) === $tipoUsuario) {
+                $htmlTabla .= '<tr>
+                    <td>' . htmlspecialchars($id) . '</td>
+                    <td>' . htmlspecialchars($username) . '</td>
+                    <td>' . htmlspecialchars($nombre) . '</td>
+                    <td>' . htmlspecialchars($email) . '</td>
+                    <td>' . htmlspecialchars($telefono) . '</td>
+                    <td>' . htmlspecialchars($codigoPostal) . '</td>
+                    <td>' . htmlspecialchars($tipo) . '</td>
+                </tr>';
+            }
+        }
+    }
+
+    $htmlTabla .= '</tbody></table>';
+
     // Configurar Dompdf
     $options = new Options();
     $options->set('isHtml5ParserEnabled', true);
-    $options->set('isRemoteEnabled', true); // Necesario si tienes imágenes remotas o CSS externos
+    $options->set('isRemoteEnabled', true);
 
     $dompdf = new Dompdf($options);
 
-    // CSS personalizado (puedes incluir el CSS de tu tabla aquí)
+    // CSS para la tabla
     $css = '
     <style>
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 16px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
             text-align: left;
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
-
-        thead {
-            background-color: #2c3e50;
+        th {
+            background-color: #4CAF50;
             color: white;
-            text-transform: uppercase;
         }
+    </style>';
 
-        thead th {
-            padding: 12px 15px;
-        }
-
-        tbody tr {
-            border-bottom: 1px solid #ddd;
-            transition: background-color 0.3s ease;
-        }
-
-        tbody tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        tbody td {
-            padding: 10px 15px;
-            color: #333;
-        }
-
-        tbody tr:last-child {
-            border-bottom: none;
-        }
-
-    </style>
-    ';
-
-    // Combina CSS y HTML de la tabla
+    // Combinar CSS y tabla HTML
     $html = $css . $htmlTabla;
 
     // Cargar contenido HTML
     $dompdf->loadHtml($html);
 
-    // Configurar tamaño y orientación de página
-    $dompdf->setPaper('A4', 'landscape'); // Opciones: 'portrait' o 'landscape'
+    // Configurar tamaño de la página
+    $dompdf->setPaper('A4', 'landscape');
 
     // Renderizar el PDF
     $dompdf->render();
 
-    // Enviar el PDF al navegador para descargar
-    $dompdf->stream("tabla_usuarios.pdf", ["Attachment" => true]);
+    // Descargar el PDF
+    $dompdf->stream("usuarios_" . $tipoUsuario . ".pdf", ["Attachment" => true]);
 }
-
 
 
 
@@ -105,74 +120,73 @@ function evitarRepetidos($idUsuario, $filename) {
 function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "", $filename = "", $tipoUsuario){
     if (!file_exists($filename)) {
         if (!$file = fopen($filename, "w")) {
-            echo "No s'ha pogut crear el fitxer d'usuaris<br>";
+            echo "No se ha podido crear el archivo de usuarios<br>";
         }
         fclose($file);
     }
-    evitarRepetidos($idUsuario,$filename);
 
-    $hashPass = hash("sha256",$password);
 
-    if($tipoUsuario == "gestor"){
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":".$nombreApellidos.":". $email . ":" . $telContacto . ":" . "08800" . ":" . $tipoUsuario . "\n";
+    if (evitarRepetidos($idUsuario, $filename)) {
+        echo "El usuario ya existe.";
+        return;
     }
-    if($tipoUsuario == "cliente"){
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass. ":". $nombreApellidos .":". $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
+
+    $hashPass = hash("sha256", $password);
+
+    if ($tipoUsuario == "gestor") {
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . "08800" . ":" . $tipoUsuario . "\n";
+    } elseif ($tipoUsuario == "cliente") {
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
     }
+
 
     if ($fitxer = fopen($filename, "a")) {
         if (fwrite($fitxer, $usuario)) {
-
             fclose($fitxer);
             header("Location: admin.php?creado=exito");
             exit();
         } else {
-            echo "error";
+            echo "Error al escribir en el archivo";
         }
         fclose($fitxer);
     } else {
-        echo "No s'ha pogut obrir el fitxer per escriure<br>";
+        echo "No se ha podido abrir el archivo para escribir<br>";
     }
 }
 
-function modificarUsuario($idUsuario, $nombreUsuario, $password, $nombreApellidos="", $email, $telContacto="", $codigoPostal = "08800", $filename = "", $tipoUsuario){
-
+function modificarUsuario($idUsuario, $nombreUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "08800", $filename = "", $tipoUsuario) {
     $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     $usuariosActualizados = [];
-
     $usuarioModificado = false;
 
     foreach ($usuaris as $usuari) {
-        // Dividir la línea en partes usando ':' como delimitador
         list($existentId,,,,,,) = explode(':', $usuari);
 
-        // Si encontramos el usuario con el id que queremos modificar
         if ($existentId === $idUsuario) {
-            // Modificar los datos del usuario
+            // Aquí realizas la modificación
+            $password = hash('sha256', $password);
+            $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
+            array_push($usuariosActualizados, $usuario);
             $usuarioModificado = true;
-            $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
-            array_push($usuariosActualizados, $usuario); // Agregar el nuevo usuario modificado
         } else {
-            // Mantener el usuario sin modificar
+            // Si el usuario no es el modificado, mantenemos los datos originales
             array_push($usuariosActualizados, $usuari);
         }
     }
 
     if ($usuarioModificado) {
         // Sobrescribir el archivo con los usuarios actualizados
-        file_put_contents($filename, implode("\n", $usuariosActualizados));
+        $resultado = file_put_contents($filename, implode("\n", $usuariosActualizados));
 
-        // Guardar los nuevos datos en la sesión
-        $_SESSION['username'] = $nombreUsuario;
-        $_SESSION['email'] = $email;
-        $_SESSION['id'] = $idUsuario;
-        $_SESSION['tipo'] = $tipoUsuario;
-        header("Location: admin.php?modificado=exito");
-        exit();
+        if ($resultado === false) {
+            echo "Error al guardar los cambios en el archivo.";
+        } else {
+            // Redirigir si la operación fue exitosa
+            header("Location: admin.php?modificado=exito");
+            exit();
+        }
     } else {
         echo "No se encontró un usuario con ese ID para modificar.<br>";
-        echo $existentId;
-        echo $idUsuario;
     }
 }
 
@@ -182,6 +196,7 @@ function generarTabla($filename, $tipoUsuario) {
         return;
     }
 
+    // Leer el archivo con los usuarios
     $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
     echo "<table border='1'>";
@@ -201,20 +216,17 @@ function generarTabla($filename, $tipoUsuario) {
 
     foreach ($usuaris as $usuari) {
         $datos = explode(":", $usuari);
-
-
         if (count($datos) < 8) {
             continue;
         }
 
         list($idUsuario, $nombreUsuario, $password, $nombreApellidos, $email, $telContacto, $codigoPostal, $tipo) = $datos;
 
-  
         if ($tipo === $tipoUsuario) {
             echo "<tr>";
             echo "<td>" . htmlspecialchars($idUsuario) . "</td>";
             echo "<td>" . htmlspecialchars($nombreUsuario) . "</td>";
-            echo "<td>" . "hashed" . "</td>";
+            echo "<td>" . "hashed" . "</td>";  // Mostrar "hashed" por razones de seguridad
             echo "<td>" . htmlspecialchars($nombreApellidos) . "</td>";
             echo "<td>" . htmlspecialchars($email) . "</td>";
             echo "<td>" . htmlspecialchars($telContacto) . "</td>";
