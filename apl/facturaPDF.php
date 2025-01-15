@@ -1,7 +1,7 @@
 <?php
-require 'apl/vendor/autoload.php';
+// require 'apl/vendor/autoload.php'; No funciona 
 
-use Dompdf\Dompdf;
+// use Dompdf\Dompdf;
 
 session_start();
 
@@ -46,7 +46,7 @@ try {
     $dompdf->loadHtml($html);
     $dompdf->setPaper('A4', 'portrait');
     $dompdf->render();
-    $dompdf->stream('Factura_AliMorillas.pdf');
+    $dompdf->stream('Factura_AliMorillas_'.$usuario.'.pdf');
 } catch (Exception $e) {
     echo 'Error al generar el PDF: ', $e->getMessage();
 }
