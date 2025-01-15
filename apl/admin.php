@@ -289,7 +289,8 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                 <h3>Listado de Gestores</h3>
                 <?php generarTabla(__DIR__ . "/usuarios.txt","gestor"); ?>
                 <form method="post">
-                <button type="submit" name="exportar_pdf_gestor">Exportar PDF (Gestores)</button>
+                <button type="submit" name="exportar_pdf_gestor" style="background-color: green; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px;">Exportar PDF (Gestores)</button>
+
                 </form>
 
             </div>
@@ -338,7 +339,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                 <h3>Listado de Clientes</h3>
                 <?php generarTabla(__DIR__ . "/usuarios.txt","cliente"); ?>
                 <form method="post">
-                    <button type="submit" name="exportar_pdf_cliente">Exportar PDF (Clientes)</button>
+                    <button type="submit" name="exportar_pdf_cliente" style="background-color: green; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px;">Exportar PDF (Clientes)</button>
                 </form>
 
             </div>

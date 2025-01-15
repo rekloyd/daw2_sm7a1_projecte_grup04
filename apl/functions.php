@@ -230,9 +230,6 @@ function modificarAdmin($idAdmin, $nombreAdmin, $passwordAdmin, $emailAdmin, $fi
     }
 }
 
-
-
-
 function generarTabla($filename, $tipoUsuario) {
     if (!file_exists($filename)) {
         echo "El archivo no existe.";
@@ -283,6 +280,14 @@ function generarTabla($filename, $tipoUsuario) {
     echo "</table>";
 }
 
+function validarContraseña($password) {
+
+    if (preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{8,}$/', $password)) {
+        return true;
+    } else {
+        return false; 
+    }
+}
 
 
 ?>
