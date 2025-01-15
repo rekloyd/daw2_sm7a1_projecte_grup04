@@ -1,7 +1,7 @@
 <?php
-// require 'apl/vendor/autoload.php'; No funciona 
+require 'apl/vendor/autoload.php'; No funciona 
 
-// use Dompdf\Dompdf;
+use Dompdf\Dompdf;
 
 session_start();
 
