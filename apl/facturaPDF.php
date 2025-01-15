@@ -1,7 +1,7 @@
 <?php
-// require 'apl/vendor/autoload.php'; No funciona 
+require '../vendor/autoload.php'; 
 
-// use Dompdf\Dompdf;
+use Dompdf\Dompdf;
 
 session_start();
 
@@ -13,6 +13,9 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['cart'])) {
 $usuario = $_SESSION['username'];
 $cart = $_SESSION['cart'];
 $total = 0;
+
+// Generar la fecha
+$hora_factura = date("d/m/Y H:i:s");
 
 $html = '<html><body>';
 $html .= '<h1>Factura - AliMorillas</h1>';
@@ -39,6 +42,7 @@ $html .= '<p><strong>Precio antes de IVA:</strong> €' . number_format($total, 
 $html .= '<p><strong>IVA (21%):</strong> €' . number_format($iva, 2) . '</p>';
 $html .= '<p><strong>Envío:</strong> €5.00</p>';
 $html .= '<p><strong>Total (con IVA + Envío):</strong> €' . number_format($total_con_envio, 2) . '</p>';
+$html .= '<p style="color: #333; font-weight: bold;">Hora de factura realizada: ' . $hora_factura . '</p>';
 $html .= '</body></html>';
 
 try {
@@ -46,7 +50,7 @@ try {
     $dompdf->loadHtml($html);
     $dompdf->setPaper('A4', 'portrait');
     $dompdf->render();
-    $dompdf->stream('Factura_AliMorillas_'.$usuario.'.pdf');
+    $dompdf->stream('Factura_AliMorillas_'.$usuario.'.pdf', array("Attachment" => false));
 } catch (Exception $e) {
     echo 'Error al generar el PDF: ', $e->getMessage();
 }

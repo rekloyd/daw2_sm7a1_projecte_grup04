@@ -1,29 +1,78 @@
+<?php
+// Ruta al archivo de texto
+$archivo = __DIR__.'/../productos.txt';
+
+// Verificar si el archivo existe
+if (file_exists($archivo)) {
+    // Leer el contenido del archivo
+    $contenido = file_get_contents($archivo);
+
+    // Separar el contenido en líneas
+    $lineas = explode("\n", $contenido);
+    echo "<img src='/phpEcomProject/imatges/banner-ali.webp' height='720px' width='100%'>";
+    echo "<div class='productoOrdenado'>";
+    // Recorrer cada línea
+    foreach ($lineas as $linea) {
+        // Separar los datos por el delimitador ':'
+        $datos = explode(':', $linea);
+
+        // Verificar que la línea contiene los datos esperados
+        if (count($datos) == 5) {
+            // Asignar los datos a variables
+            list($id, $nombre, $precio, $disponibilidad, $imagen) = $datos;
+
+
+            $precio_con_iva = $precio * 1.21;
+
+            echo '<div class="product-card">';
+            echo '<img src="' . htmlspecialchars($imagen) . '" alt="' . htmlspecialchars($nombre) . '" class="product-image">';
+            echo '<div class="product-card-body">';
+            echo '<h3 class="product-name">' . htmlspecialchars($nombre) . '</h3>';
+            echo '<p class="product-price">Precio: ' . number_format($precio, 2) . '€ (+IVA: ' . number_format($precio_con_iva - $precio, 2) . '€)</p>';
+            echo '<p class="product-availability">Disponibilidad: ' . htmlspecialchars($disponibilidad) . '</p>';
+            echo '<form method="POST" action="index.php" class="product-form">';
+            echo '<input type="hidden" name="product_id" value="' . htmlspecialchars($id) . '">';
+            echo '<div class="quantity-container">';
+            echo '<label for="quantity_' . htmlspecialchars($id) . '">Cantidad:</label>';
+            echo '<input type="number" id="quantity_' . htmlspecialchars($id) . '" name="quantity" value="1" min="1" required class="quantity-input">';
+            echo '</div><br>';
+            echo '<button type="submit" name="add_to_cart" class="add-to-cart-btn cta-button">Añadir al carrito</button>';
+            echo '</form>';
+            echo '</div>';
+            echo '</div>';
+        }
+    }
+    echo "</div>";
+} else {
+    echo 'El archivo de productos no se encuentra.';
+}
+?>
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AliMorillas</title>
+    <title>AliMorillas - Tienda</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
+<body>
 <?php
 session_start();
+date_default_timezone_set('Europe/Madrid');
 
-// Verificar si existe la clave 'username' en la sesión
 $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
 $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
+$cart_empty = !(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0);
 ?>
+<header>
 
-<body>
-    <header>
-        <div class="logo">
-            <h1>AliMorillas</h1>
-        </div>
         <nav>
             <ul class="nav-links">
                 <li><a href="index.php">Inicio</a></li>
@@ -46,105 +95,6 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
 
     </header>
 
-    <main>
-        <div>
-            <img src="../imatges/banner.webp" height="600px" width="100%">
-        </div>
-        <h2 style="text-align: center;">Productos destacados</h2>
-        <section class="products" style="display: flex;gap: 8px;">
-            <!-- Producto 1 -->
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="../imatges/pd1.jpg" height="115px" width="240px" alt="Producto 1">
-                    <h3>Cepillo para perros con pelo, pelaje largo, cachorros</h3>
-                    <p>ID: 1</p>
-                    <p class="price">27€ (+ IVA)</p>
-                    <p class="availability">Disponibilidad: Si</p>
-                    <form action="añadirCarrito.php" method="POST" class="add-to-cart-form" id="form-product-1">
-                        <input type="hidden" name="name" value="Cepillo para perros con pelo, pelaje largo, cachorros">
-                        <input type="hidden" name="id" value="2">
-                        <input type="hidden" name="price" value="27">
-                        <button type="submit" class="cta-button">Agregar a la cesta</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Producto 2 -->
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="../imatges/p2.jpg" width="240px" height="160px" alt="Producto 4">
-                    <h3>iPad Mini 16GB - Reacondicionado Shenzhen</h3>
-                    <p>ID: 2</p>
-                    <p class="price">107€ (+ IVA)</p>
-                    <p class="availability">Disponibilidad: No</p>
-                    <form action="añadirCarrito.php" method="POST" class="add-to-cart-form" id="form-product-2">
-                        <input type="hidden" name="name" value="iPad Mini 16GB - Reacondicionado Shenzhen">
-                        <input type="hidden" name="id" value="2">
-                        <input type="hidden" name="price" value="107">
-                        <button type="submit" disabled class="cta-button" style="display: none;">Agregar a la cesta</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Producto 3 -->
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="../imatges/p3.avif" width="240px" height="160px" alt="Producto 4">
-                    <h3>Reloj Inalámbrico medidor de pulsaciones, dormir bien</h3>
-                    <p>ID: 3</p>
-                    <p class="price">49.99€ (+ IVA)</p>
-                    <p class="availability">Disponibilidad: Si</p>
-                    <form action="añadirCarrito.php" method="POST" class="add-to-cart-form" id="form-product-3">
-                        <input type="hidden" name="name" value="Reloj Inalámbrico medidor de pulsaciones, dormir bien">
-                        <input type="hidden" name="id" value="3">
-                        <input type="hidden" name="price" value="49.99">
-                        <button type="submit" class="cta-button">Agregar a la cesta</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Producto 4 -->
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="../imatges/p4.jpg" width="240px" height="160px" alt="Producto 4">
-                    <h3>Coche realista, chevrolet, audi, mustang, 2015. Aluminio aluminioso</h3>
-                    <p>ID: 4</p>
-                    <p class="price">17.31€ (+ IVA)</p>
-                    <p class="availability">Disponibilidad: Si</p>
-                    <form action="añadirCarrito.php" method="POST" class="add-to-cart-form" id="form-product-4">
-                        <input type="hidden" name="name" value="Coche realista, chevrolet, audi, mustang, 2015. Aluminio aluminioso">
-                        <input type="hidden" name="id" value="4">
-                        <input type="hidden" name="price" value="17.31">
-                        <button type="submit" class="cta-button">Agregar a la cesta</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 AliMorillas. Todos los derechos reservados.</p>
-    </footer>
-
-    <script>
-        document.querySelectorAll('.add-to-cart-form').forEach(form => {
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                const formData = new FormData(form);
-                fetch(form.action, {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.text())
-                    .then(data => {
-                        alert('Producto añadido a la cesta');
-                    })
-                    .catch(error => {
-                        console.error('Error al añadir el producto:', error);
-                    });
-            });
-        });
-    </script>
 </body>
 
 </html>

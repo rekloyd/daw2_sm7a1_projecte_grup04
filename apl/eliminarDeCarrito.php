@@ -2,11 +2,14 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $index = $_POST['index'];
-    if (isset($_SESSION['cart'][$index])) {
-        unset($_SESSION['cart'][$index]);
-        $_SESSION['cart'] = array_values($_SESSION['cart']); // Reindexar el array
+    $id = $_POST['id'];
+
+    // Verificar si el carrito existe en la sesión y si el producto está en el carrito
+    if (isset($_SESSION['cart']) && array_key_exists($id, $_SESSION['cart'])) {
+        unset($_SESSION['cart'][$id]);
     }
+
+    // Redirigir de vuelta al carrito
     header("Location: carrito.php");
     exit();
 }
