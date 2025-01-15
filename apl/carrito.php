@@ -62,12 +62,15 @@ $cart_empty = !(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0);
                 } else {
                     if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
                         foreach ($_SESSION['cart'] as $index => $product) {
-                            $subtotal += ($product['price'] * $product['quantity']) * 1.21;
+                            $price_without_tax = $product['price'] * $product['quantity'];  // Precio sin IVA
+                            $price_with_tax = $price_without_tax * 0.21;  // Precio con IVA (21%)
+                            $subtotal += $price_without_tax*1.21;
+
                             echo "<div class='cart-item'>";
                             echo "<div class='cart-item-left'>";
                             echo "<div class='cart-item-details'>";
                             echo "<h3>{$product['name']}</h3>";
-                            echo "<p class='price'>€{$product['price']}</p>";
+                            echo "<p class='price'>" . number_format($price_without_tax, 2) . "€ + " . number_format($price_with_tax, 2)." IVA" . "</p>";
                             echo "</div>";
                             echo "</div>";
                             echo "<div class='cart-item-right'>";
