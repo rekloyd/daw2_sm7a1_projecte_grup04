@@ -163,25 +163,25 @@ function modificarUsuario($idUsuario, $nombreUsuario, $password, $nombreApellido
         list($existentId,,,,,,) = explode(':', $usuari);
 
         if ($existentId === $idUsuario) {
-            // Aquí realizas la modificación
+
             $password = hash('sha256', $password);
             $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
             array_push($usuariosActualizados, $usuario);
             $usuarioModificado = true;
         } else {
-            // Si el usuario no es el modificado, mantenemos los datos originales
+    
             array_push($usuariosActualizados, $usuari);
         }
     }
 
     if ($usuarioModificado) {
-        // Sobrescribir el archivo con los usuarios actualizados
+
         $resultado = file_put_contents($filename, implode("\n", $usuariosActualizados));
 
         if ($resultado === false) {
             echo "Error al guardar los cambios en el archivo.";
         } else {
-            // Redirigir si la operación fue exitosa
+
             header("Location: admin.php?modificado=exito");
             exit();
         }
@@ -189,6 +189,49 @@ function modificarUsuario($idUsuario, $nombreUsuario, $password, $nombreApellido
         echo "No se encontró un usuario con ese ID para modificar.<br>";
     }
 }
+
+
+function modificarAdmin($idAdmin, $nombreAdmin, $passwordAdmin, $emailAdmin, $filename) {
+    $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $usuariosActualizados = [];
+
+    $adminModificado = false;
+
+
+    foreach ($usuaris as $usuari) {
+        list($id, $usuario, $password, $nombre, $email, $telefono, $codigoPostal, $tipoUsuario) = explode(":", $usuari);
+
+        if ($id === $idAdmin) {
+            // Modificar los datos del admin
+            $password = hash('sha256', $passwordAdmin); // Encriptar la nueva contraseña
+            $nuevoUsuario = $id . ":" . $nombreAdmin . ":" . $password . ":" . $nombre . ":" . $emailAdmin . ":" . "none" . ":" . "none" . ":" . "admin" . "\n";
+            array_push($usuariosActualizados, $nuevoUsuario); // Añadir el admin actualizado
+            $adminModificado = true;
+        } else {
+            // Si no es el admin que se modifica, se mantiene igual
+            array_push($usuariosActualizados, $usuari);
+        }
+    }
+
+    if ($adminModificado) {
+        // Sobrescribir el archivo con los usuarios actualizados
+        file_put_contents($filename, implode("\n", $usuariosActualizados));
+
+   
+        $_SESSION['username'] = $nombreAdmin; 
+        $_SESSION['email'] = $emailAdmin; 
+        $_SESSION['id'] = $idAdmin; 
+        $_SESSION['tipo'] = 'admin'; 
+
+        header("Location: admin.php?modificado=exito");
+        exit();
+    } else {
+        echo "No se encontró un administrador con ese ID para modificar.<br>";
+    }
+}
+
+
+
 
 function generarTabla($filename, $tipoUsuario) {
     if (!file_exists($filename)) {
@@ -240,6 +283,6 @@ function generarTabla($filename, $tipoUsuario) {
     echo "</table>";
 }
 
-//works
+
 
 ?>

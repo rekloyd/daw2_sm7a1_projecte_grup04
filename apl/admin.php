@@ -347,7 +347,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
     <!--FORMULARIO AMINISTRADOR-->
     <div class="form-container formulario-3 oculto form-select">
                         <h2>Formulario de Modificación de los datos del Admin </h2>
-                        <form action="/crear-gestor" method="post">
+                        <form action="crearUsuarios.php" method="post">
                             <div class="form-group">
                                 <label for="username">Nombre de Usuario</label>
                                 <input type="text" id="usernameAdmin" name="usuarioAdmin" required>
