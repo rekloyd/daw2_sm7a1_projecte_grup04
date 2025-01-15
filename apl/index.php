@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Array de productos
 $productos = [
     [
         'id' => 1,
@@ -101,62 +100,66 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
 $cart_empty = !(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0);
 ?>
 <header>
-        <div class="logo">
-            <h1>AliMorillas</h1>
-        </div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="index.php">Inicio</a></li>
-                <li><a href="ayuda.php">Ayuda</a></li>
-                <?php
-                if ($usuario) {
-                    echo "<li style='color:blue; font-weight:bold;'><a href='areasPersonales.php?tipo=" . htmlspecialchars($tipoUsuario) . "' style='color:inherit;'>Hola, " . strtoupper(htmlspecialchars($usuario)) . "</a></li>";
-                    echo "<li><a href='carrito.php' style='display: inline-flex; align-items: center;'>
-                <svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='#e8eaed'>
-                    <path d='M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z'/>
-                </svg>
-            </a></li>";
-                    echo "<li><a href='logout.php' class='log-in'>Cerrar sesión</a></li>";
-                } else {
-                    echo "<li><a href='login.html' class='log-in'>Log In</a></li>";
-                }
-                ?>
-            </ul>
-        </nav>
-    </header>
-    <img src="/phpEcomProject/imatges/banner-ali.webp" height="720px" width="100%">
-    <main>
-        <h2 class="section-title" style="text-align: center;">Productos Disponibles</h2>
-        
-        <?php if ($usuario): ?>
-            <div class="product-list">
-                <?php foreach ($productos as $product): ?>
-                    <div class="product-card">
-                        <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" class="product-image">
-                        <div class="product-card-body">
-                            <h3 class="product-name"><?php echo $product['name']; ?></h3>
-                            <p class="product-price">Precio: <?php echo number_format($product['price'], 2); ?>€</p>
-                            <p class="product-availability">Disponibilidad: <?php echo $product['availability']; ?></p>
-                            <form method="POST" action="index.php" class="product-form">
-                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                <div class="quantity-container">
-                                    <label for="quantity_<?php echo $product['id']; ?>">Cantidad:</label>
-                                    <input type="number" id="quantity_<?php echo $product['id']; ?>" name="quantity" value="1" min="1" required class="quantity-input">
-                                </div>
-                                <button type="submit" name="add_to_cart" class="add-to-cart-btn">Añadir al carrito</button>
-                            </form>
-                        </div>
+    <div class="logo">
+        <h1>AliMorillas</h1>
+    </div>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.php">Inicio</a></li>
+            <li><a href="ayuda.php">Ayuda</a></li>
+            <?php
+            if ($usuario) {
+                echo "<li style='color:blue; font-weight:bold;'><a href='areasPersonales.php?tipo=" . htmlspecialchars($tipoUsuario) . "' style='color:inherit;'>Hola, " . strtoupper(htmlspecialchars($usuario)) . "</a></li>";
+                echo "<li><a href='carrito.php' style='display: inline-flex; align-items: center;'>
+            <svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='#e8eaed'>
+                <path d='M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z'/>
+            </svg>
+        </a></li>";
+                echo "<li><a href='logout.php' class='log-in'>Cerrar sesión</a></li>";
+            } else {
+                echo "<li><a href='login.html' class='log-in'>Log In</a></li>";
+            }
+            ?>
+        </ul>
+    </nav>
+</header>
+<img src="/phpEcomProject/imatges/banner-ali.webp" height="720px" width="100%">
+<main>
+    <h2 class="section-title" style="text-align: center;">Productos Disponibles</h2>
+    
+    <?php if ($usuario): ?>
+        <div class="product-list">
+            <?php foreach ($productos as $product): 
+                // Calcular el precio con IVA (21%)
+                $price_with_tax = $product['price'] * 1.21;
+            ?>
+                <div class="product-card">
+                    <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" class="product-image">
+                    <div class="product-card-body">
+                        <h3 class="product-name"><?php echo $product['name']; ?></h3>
+                        <p class="product-price">Precio: <?php echo number_format($product['price'], 2); ?>€ (+IVA: <?php echo number_format($price_with_tax - $product['price'], 2); ?>€)</p>
+                        <p class="product-availability">Disponibilidad: <?php echo $product['availability']; ?></p>
+                        <form method="POST" action="index.php" class="product-form">
+                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                            <div class="quantity-container">
+                                <label for="quantity_<?php echo $product['id']; ?>">Cantidad:</label>
+                                <input type="number" id="quantity_<?php echo $product['id']; ?>" name="quantity" value="1" min="1" required class="quantity-input">
+                            </div><br>
+                            <button type="submit" name="add_to_cart" class="add-to-cart-btn cta-button">Añadir al carrito</button>
+                        </form>
                     </div>
-                <?php endforeach; ?>
-            </div>
-        <?php else: ?>
-            <p style="text-align: center;">Por favor, inicie sesión para ver los productos o pida a un gestor que cree una cuenta.</p>
-        <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php else: ?>
+        <p style="text-align: center;">Por favor, inicie sesión para ver los productos o pida a un gestor que cree una cuenta.</p>
+        <br><br><br>
+    <?php endif; ?>
 
-    </main>
-    <footer>
-        <p>&copy; 2024 AliMorillas. Todos los derechos reservados.</p>
-    </footer>
+</main>
+<footer>
+    <p>&copy; 2024 AliMorillas. Todos los derechos reservados.</p>
+</footer>
 </body>
 
 </html>
