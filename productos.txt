@@ -1,4 +1,4 @@
-1:Cepillo para perros con pelo, pelaje largo, cachorros:27:Si:imatges/banner-ali.webp
+1:Cepillo para perros con pelo, pelaje largo, cachorros:27:Si:imatges/pd1.png
 2:Comedero automático para perros y gatos:45:Si:imatges/pd2.jpg
 3:Juguete interactivo para perros:22:Si:imatges/pd3.jpg
 4:Correa retráctil para perros pequeños:18:Si:imatges/pd4.jpg

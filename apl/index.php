@@ -29,7 +29,7 @@ if (file_exists($archivo)) {
             $precio_con_iva = $precio * 1.21;
 
             echo '<div class="product-card">';
-            echo '<img src="' . htmlspecialchars($imagen) . '" alt="' . htmlspecialchars($nombre) . '" class="product-image">';
+            echo '<img src="' . htmlspecialchars($imagen) . '" alt="' . htmlspecialchars($nombre) . '" class="product-image" style="display:none;">';
             echo '<div class="product-card-body">';
             echo '<h3 class="product-name">' . htmlspecialchars($nombre) . '</h3>';
             echo '<p class="product-price">Precio: ' . number_format($precio, 2) . '€ (+IVA: ' . number_format($precio_con_iva - $precio, 2) . '€)</p>';
@@ -66,6 +66,8 @@ if (file_exists($archivo)) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../imatges/favicon.png">
+
 </head>
 
 <body>
@@ -73,6 +75,7 @@ if (file_exists($archivo)) {
 
         <nav>
             <ul class="nav-links">
+                <img src="../imatges/favicon.png" alt="logo" width="80px">
                 <li><a href="index.php">Inicio</a></li>
                 <li><a href="ayuda.php">Ayuda</a></li>
                 <?php
