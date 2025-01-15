@@ -19,6 +19,7 @@ session_start();
 $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
 $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
 ?>
+
 <body>
     <header>
         <div class="logo">
@@ -27,16 +28,19 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
         <nav>
             <ul class="nav-links">
                 <li><a href="index.php">Inicio</a></li>
-                <li><a href="ayuda.php" style="text-decoration: underline;">Ayuda</a></li>
-                <li><a href="carrito.php">Carrito</a></li>
+                <li><a href="ayuda.php">Ayuda</a></li>
                 <?php
-                    if ($usuario) {
-                        echo "<li style=\"color:blue; font-weight:bold;\"><a href='areasPersonales.php?tipo=" . $tipoUsuario . "' style='color:inherit;'>Hola, " . strtoupper(htmlspecialchars($usuario)) . "</a></li>";
-
-                        echo "<li><a href='logout.php' class='log-in'>Cerrar sesión</a></li>";
-                    } else {
-                        echo "<li><a href='login.html' class='log-in'>Log In</a></li>";
-                    }
+                if ($usuario) {
+                    echo "<li style='color:blue; font-weight:bold;'><a href='areasPersonales.php?tipo=" . htmlspecialchars($tipoUsuario) . "' style='color:inherit;'>Hola, " . strtoupper(htmlspecialchars($usuario)) . "</a></li>";
+                    echo "<li><a href='carrito.php' style='display: inline-flex; align-items: center;'>
+                <svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='#e8eaed'>
+                    <path d='M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z'/>
+                </svg>
+            </a></li>";
+                    echo "<li><a href='logout.php' class='log-in'>Cerrar sesión</a></li>";
+                } else {
+                    echo "<li><a href='login.html' class='log-in'>Log In</a></li>";
+                }
                 ?>
             </ul>
         </nav>
@@ -64,7 +68,8 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
             <h4>Funciones de los usuarios:</h4>
             <p><strong>Administrador:</strong></p>
             <p>• El administrador tiene una cuenta predefinida: usuario <code>admin</code>, contraseña
-                <code>FjeClot2425#</code>, y correo <code>admin@fjeclot.net</code>.</p>
+                <code>FjeClot2425#</code>, y correo <code>admin@fjeclot.net</code>.
+            </p>
             <p>• Puede modificar su propio nombre de usuario, contraseña y correo electrónico.</p>
             <p>• Crear gestores de la tienda con información como:</p>
             <p> ○ Nombre de usuario, identificador numérico, contraseña, nombre completo, correo electrónico y teléfono
@@ -110,7 +115,8 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
             <p>• Gestionar su carrito y pedido:</p>
             <p> ○ Un carrito se convierte en un pedido cuando el cliente acepta la compra con su precio final.</p>
             <p> ○ El carrito y el pedido se guardan en archivos dentro de las carpetas <code>carritos</code> y
-                <code>pedidos</code>, respectivamente.</p>
+                <code>pedidos</code>, respectivamente.
+            </p>
             <p><strong>Restricciones:</strong></p>
             <p>• Los usuarios no autenticados y el administrador no pueden ver ni acceder al área personal de los
                 clientes.</p>

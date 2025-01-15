@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set('Europe/Madrid');
 
 
 if (!isset($_SESSION['username'])) {
@@ -61,7 +62,8 @@ $total = 0;
             border-radius: 5px;
             transition: background-color 0.2s ease;
         }
-        nav ul li a:hover{
+
+        nav ul li a:hover {
             background-color: orangered;
         }
 
@@ -158,6 +160,19 @@ $total = 0;
             font-size: 14px;
             color: #aaa;
         }
+
+        .botonFacturaPDF{
+            background-color: red;
+            font-family: 'Roboto', sans-serif;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            text-decoration: none;
+            font-size: 24px;
+            margin-top: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -202,12 +217,19 @@ $total = 0;
                     <p><strong>IVA (21%):</strong> €<?php echo number_format($total * 0.21, 2); ?></p>
                 </div>
                 <div class="summary-item">
-                    <p><strong>Envío:</strong> €5.00</p>
+                    <p><strong>Envío:</strong> 5.00€</p>
                 </div>
                 <div class="summary-item total-price">
                     <p><strong>Total (con IVA + Envío):</strong> €<?php echo number_format($total * 1.21 + 5, 2); ?></p>
+                    <p style="color: #333;font-weight:bold;">Hora de factura realizada: <?php echo date("d/m/Y H:i:s"); ?></p> 
                 </div>
             </div>
+            <div class="centrarBoton" style="text-align:center;">
+                <form action="facturaPDF.php" method="post">
+                <button type="submit" class="botonFacturaPDF">Generar PDF</button>
+            </form>
+            </div>
+
         </section>
     </main>
 

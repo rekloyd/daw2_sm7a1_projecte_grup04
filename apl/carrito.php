@@ -4,7 +4,7 @@ date_default_timezone_set('Europe/Madrid');
 
 $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
 $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
-$cart_empty = !(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0); 
+$cart_empty = !(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0);
 ?>
 
 <!DOCTYPE html>
@@ -29,10 +29,14 @@ $cart_empty = !(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0);
             <ul class="nav-links">
                 <li><a href="index.php">Inicio</a></li>
                 <li><a href="ayuda.php">Ayuda</a></li>
-                <li><a href="carrito.php" style="text-decoration: underline;">Carrito</a></li>
                 <?php
                 if ($usuario) {
-                    echo "<li style=\"color:blue; font-weight:bold;\"><a href='areasPersonales.php?tipo=" . $tipoUsuario . "' style='color:inherit;'>Hola, " . strtoupper(htmlspecialchars($usuario)) . "</a></li>";
+                    echo "<li style='color:blue; font-weight:bold;'><a href='areasPersonales.php?tipo=" . htmlspecialchars($tipoUsuario) . "' style='color:inherit;'>Hola, " . strtoupper(htmlspecialchars($usuario)) . "</a></li>";
+                    echo "<li><a href='carrito.php' style='display: inline-flex; align-items: center;'>
+                <svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='#e8eaed'>
+                    <path d='M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z'/>
+                </svg>
+            </a></li>";
                     echo "<li><a href='logout.php' class='log-in'>Cerrar sesión</a></li>";
                 } else {
                     echo "<li><a href='login.html' class='log-in'>Log In</a></li>";
@@ -58,12 +62,15 @@ $cart_empty = !(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0);
                 } else {
                     if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
                         foreach ($_SESSION['cart'] as $index => $product) {
-                            $subtotal += ($product['price'] * $product['quantity']) * 1.21;
+                            $price_without_tax = $product['price'] * $product['quantity'];  // Precio sin IVA
+                            $price_with_tax = $price_without_tax * 0.21;  // Precio con IVA (21%)
+                            $subtotal += $price_without_tax*1.21;
+
                             echo "<div class='cart-item'>";
                             echo "<div class='cart-item-left'>";
                             echo "<div class='cart-item-details'>";
                             echo "<h3>{$product['name']}</h3>";
-                            echo "<p class='price'>€{$product['price']}</p>";
+                            echo "<p class='price'>" . number_format($price_without_tax, 2) . "€ + " . number_format($price_with_tax, 2)." IVA" . "</p>";
                             echo "</div>";
                             echo "</div>";
                             echo "<div class='cart-item-right'>";
@@ -97,7 +104,7 @@ $cart_empty = !(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0);
                     ?>
                     <button type="submit" class="cta-button-pay" <?php echo $cart_empty ? 'disabled' : ''; ?>>Proceder al Pago</button>
                 </form>
-                <p>Hora actual: <?php echo date("d/m/Y H:i:s"); ?></p> 
+                <p>Hora actual: <?php echo date("d/m/Y H:i:s"); ?></p>
             </div>
         </section>
     </main>
