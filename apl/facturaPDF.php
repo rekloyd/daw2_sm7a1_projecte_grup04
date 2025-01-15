@@ -14,6 +14,9 @@ $usuario = $_SESSION['username'];
 $cart = $_SESSION['cart'];
 $total = 0;
 
+// Generar la fecha
+$hora_factura = date("d/m/Y H:i:s");
+
 $html = '<html><body>';
 $html .= '<h1>Factura - AliMorillas</h1>';
 $html .= '<p><strong>Cliente:</strong> ' . htmlspecialchars($usuario) . '</p>';
@@ -39,6 +42,7 @@ $html .= '<p><strong>Precio antes de IVA:</strong> €' . number_format($total, 
 $html .= '<p><strong>IVA (21%):</strong> €' . number_format($iva, 2) . '</p>';
 $html .= '<p><strong>Envío:</strong> €5.00</p>';
 $html .= '<p><strong>Total (con IVA + Envío):</strong> €' . number_format($total_con_envio, 2) . '</p>';
+$html .= '<p style="color: #333; font-weight: bold;">Hora de factura realizada: ' . $hora_factura . '</p>';
 $html .= '</body></html>';
 
 try {

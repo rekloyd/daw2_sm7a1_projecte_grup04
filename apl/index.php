@@ -124,27 +124,36 @@ $cart_empty = !(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0);
             </ul>
         </nav>
     </header>
-
+    <img src="/phpEcomProject/imatges/banner-ali.webp" height="720px" width="100%">
     <main>
-        <h2>Productos Disponibles</h2>
-        <div class="product-list">
-            <?php foreach ($productos as $product): ?>
-                <div class="product-item">
-                    <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
-                    <h3><?php echo $product['name']; ?></h3>
-                    <p>Precio: <?php echo number_format($product['price'], 2); ?>€</p>
-                    <p>Disponibilidad: <?php echo $product['availability']; ?></p>
-                    <form method="POST" action="index.php">
-                        <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                        <label for="quantity_<?php echo $product['id']; ?>">Cantidad:</label>
-                        <input type="number" id="quantity_<?php echo $product['id']; ?>" name="quantity" value="1" min="1" required>
-                        <button type="submit" name="add_to_cart">Añadir al carrito</button>
-                    </form>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </main>
+        <h2 class="section-title" style="text-align: center;">Productos Disponibles</h2>
+        
+        <?php if ($usuario): ?>
+            <div class="product-list">
+                <?php foreach ($productos as $product): ?>
+                    <div class="product-card">
+                        <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" class="product-image">
+                        <div class="product-card-body">
+                            <h3 class="product-name"><?php echo $product['name']; ?></h3>
+                            <p class="product-price">Precio: <?php echo number_format($product['price'], 2); ?>€</p>
+                            <p class="product-availability">Disponibilidad: <?php echo $product['availability']; ?></p>
+                            <form method="POST" action="index.php" class="product-form">
+                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                <div class="quantity-container">
+                                    <label for="quantity_<?php echo $product['id']; ?>">Cantidad:</label>
+                                    <input type="number" id="quantity_<?php echo $product['id']; ?>" name="quantity" value="1" min="1" required class="quantity-input">
+                                </div>
+                                <button type="submit" name="add_to_cart" class="add-to-cart-btn">Añadir al carrito</button>
+                            </form>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p style="text-align: center;">Por favor, inicie sesión para ver los productos o pida a un gestor que cree una cuenta.</p>
+        <?php endif; ?>
 
+    </main>
     <footer>
         <p>&copy; 2024 AliMorillas. Todos los derechos reservados.</p>
     </footer>
