@@ -114,7 +114,7 @@ function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = 
     $hashPass = hash("sha256",$password);
 
     if($tipoUsuario == "gestor"){
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":".$nombreApellidos.":". $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":".$nombreApellidos.":". $email . ":" . $telContacto . ":" . "08800" . ":" . $tipoUsuario . "\n";
     }
     if($tipoUsuario == "cliente"){
         $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass. ":". $nombreApellidos .":". $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
@@ -122,13 +122,6 @@ function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = 
 
     if ($fitxer = fopen($filename, "a")) {
         if (fwrite($fitxer, $usuario)) {
-            echo "S'ha registrat l'usuari $email amb èxit<br>";
-
-            // Guardar el username en la sesión
-            $_SESSION['username'] = $nombreUsuario;
-            $_SESSION['email'] = $email;
-            $_SESSION['id'] = $idUsuario;
-            $_SESSION['tipo'] = $tipoUsuario;
 
             fclose($fitxer);
             header("Location: admin.php?creado=exito");
@@ -142,7 +135,7 @@ function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = 
     }
 }
 
-function modificarUsuario($idUsuario, $nombreUsuario, $password, $nombreApellidos="", $email, $telContacto="", $codigoPostal = "", $filename = "", $tipoUsuario){
+function modificarUsuario($idUsuario, $nombreUsuario, $password, $nombreApellidos="", $email, $telContacto="", $codigoPostal = "08800", $filename = "", $tipoUsuario){
 
     $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     $usuariosActualizados = [];
@@ -221,7 +214,7 @@ function generarTabla($filename, $tipoUsuario) {
             echo "<tr>";
             echo "<td>" . htmlspecialchars($idUsuario) . "</td>";
             echo "<td>" . htmlspecialchars($nombreUsuario) . "</td>";
-            echo "<td>" . htmlspecialchars($password) . "</td>";
+            echo "<td>" . "hashed" . "</td>";
             echo "<td>" . htmlspecialchars($nombreApellidos) . "</td>";
             echo "<td>" . htmlspecialchars($email) . "</td>";
             echo "<td>" . htmlspecialchars($telContacto) . "</td>";

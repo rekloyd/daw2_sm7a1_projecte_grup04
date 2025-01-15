@@ -3,13 +3,18 @@
 require("functions.php");
 
 // Verificar variables y sesiones
-$usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SESSION['usernameAdmin'] = "AdministradorTest";
+$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : $_SESSION['username'] = "AdministradorTest";
+$tipoUsuario = $_SESSION['tipoUsuario'];
+
+//if($tipoUsuario =="noAdmin"){
+    //header("Location: index.php");
+//}
 
 if (isset($_POST['exportar_pdf'])) {
-    ob_start(); // Captura la salida HTML
-    generarTabla('usuarios.txt', 'gestor'); // Tu función que genera la tabla
-    $htmlTabla = ob_get_clean(); // Obtén el HTML capturado
-    exportarTablaPDF($htmlTabla); // Exporta la tabla como PDF
+    ob_start();
+    generarTabla('usuarios.txt', 'gestor');
+    $htmlTabla = ob_get_clean(); 
+    exportarTablaPDF($htmlTabla); 
 }
 
 // Leer datos del archivo usuarios.txt
@@ -225,7 +230,10 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
     <div class="main-container">
         <div class="sidebar">
             <h1 class="whiteText">Bienvenido a tu área personal</h1>
-            <?php echo "<h3 class='whiteText'>$usuario</h3>"; ?>
+            <?php 
+            echo "<h3 class='whiteText'>$usuario</h3>"; 
+            echo "<h3 class='whiteText'>$tipoUsuario</h3>"; 
+            ?>
             <ul>
                 <ul>
                     <li onclick="toggleContenido(1)">Gestionar Gestores</li>
@@ -243,15 +251,6 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
         <div class="contenido">
             <h2 class="center" id="mensajeEnter">Panel de administración. Desde aquí puedes administrar tu tienda online.</h2>
-            <?php
-
-
-            if (isset($_GET['creado'])) {
-                if($_GET['creado']=="exito") {
-                        echo "<div class='mensajeDevuelta center'>Usuario creado con éxito</div>";
-                    }
-
-            }; ?>
             <div class = "flex-container">
             <div class="form-container formulario-1 form-select oculto">
                 <h2>Formulario de Creación de Gestores</h2>

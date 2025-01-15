@@ -1,14 +1,17 @@
 <?php
 
-var_dump($_GET['tipo']);
+session_start();
 
-if (isset($_GET['tipo'])) {
-    if ($_GET['tipo'] === 'gestor') {
-        header('Location: gestor.php');
-    } elseif ($_GET['tipo'] === 'cliente') {
-        header('Location: cliente.php');
+$_SESSION['tipoUsuario'] =$_GET['tipoUsuario'];
+
+
+if (isset($_GET['tipoUsuario'])) {
+    if ($_GET['tipoUsuario'] === 'gestor') {
+        header('Location: gestor.php?tipoUsuario=gestor');
+    }if ($_GET['tipoUsuario'] === 'cliente') {
+        header('Location: cliente.php?tipoUsuario=cliente');
     } else {
-        header('Location: admin.php');
+        header('Location: admin.php?tipoUsuario=admin');
     }
 } else {
     echo "entrado en el else de isset";
