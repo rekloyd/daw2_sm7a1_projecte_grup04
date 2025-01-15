@@ -14,6 +14,72 @@ body {
     color: #333;
 }
 
+/* General Styles */
+nav {
+    background-color: #DD4509; /* Fondo de color naranja */
+    width: 100%;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.nav-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end; /* Alinea los elementos a la izquierda */
+    align-items: center;
+}
+
+
+
+.nav-links li a {
+    text-decoration: none;
+    color: #fff; /* Texto blanco */
+    display: block;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.nav-links li a:hover {
+    background-color: #FF5722; /* Color de fondo al pasar el mouse */
+    color: #fff;
+}
+
+.user-link a {
+    font-weight: bold;
+    color: #fff;
+}
+
+.cart-link svg {
+    vertical-align: middle;
+}
+
+/* Estilo del botón .log-in */
+.log-in {
+    color: #fff;  /* Texto blanco */
+    font-weight: bold;  /* Letra en negrita */
+    background-color: #000;  /* Fondo negro */
+    padding: 10px 20px;  /* Relleno para que sea como un botón */
+    border: none;  /* Sin bordes */
+    border-radius: 5px;  /* Bordes redondeados */
+    text-decoration: none;  /* Sin subrayado */
+    display: inline-block;  /* Para que el enlace se vea como un botón */
+    font-size: 16px;  /* Tamaño de fuente */
+    transition: background-color 0.3s ease, color 0.3s ease;  /* Transición suave para el cambio de color */
+}
+
+.log-in:hover {
+    background-color: #FF5722;  /* Cambia el fondo a color anaranjado al pasar el ratón */
+    color: #fff;  /* Mantén el texto blanco */
+}
+
+
+
 /* Contenedor de la lista de productos en fila horizontal */
 .product-list {
     display: flex;
