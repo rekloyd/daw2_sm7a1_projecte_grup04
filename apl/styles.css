@@ -140,3 +140,14 @@ nav {
 *   Carrito de la compra   *
 ***************************/
 
+.vaciar-cesta {
+    color: red;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.vaciar-cesta:hover {
+    text-decoration: underline;
+}

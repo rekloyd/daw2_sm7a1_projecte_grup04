@@ -173,6 +173,10 @@ if ($usuario && file_exists($filename)) {
                 }
             }
             ?>
+            <?php if ($usuario): ?>
+                <p><a href="vaciarCesta.php" class="vaciar-cesta">Vaciar cesta</a></p>
+            <?php endif; ?>
+
         </section>
     </main>
 
