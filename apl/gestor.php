@@ -19,7 +19,7 @@ if (isset($_POST['exportar_pdf_gestor'])) {
 
 
 // Leer datos del archivo usuarios.txt
-$archivoUsuarios = __DIR__ . '/usuarios.txt';
+$archivoUsuarios = __DIR__ . '/../usuarios.txt';
 $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
 ?>
 
@@ -285,7 +285,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
             <div class="formulario-4 form-select oculto">
                 <h3>Listado de Gestores</h3>
-                <?php generarTabla(__DIR__ . "/usuarios.txt","gestor"); ?>
+                <?php generarTabla(__DIR__ . "/../usuarios.txt","gestor"); ?>
                 <form method="post">
                 <button type="submit" name="exportar_pdf_gestor">Exportar PDF (Gestores)</button>
                 </form>
@@ -326,7 +326,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                     </div>
                     <div class="formulario-5 form-select oculto">
                 <h3>Listado de Clientes</h3>
-                <?php generarTabla(__DIR__ . "/usuarios.txt","cliente"); ?>
+                <?php generarTabla(__DIR__ . "/../usuarios.txt","cliente"); ?>
                 <form method="post">
                     <button type="submit" name="exportar_pdf_cliente">Exportar PDF (Clientes)</button>
                 </form>

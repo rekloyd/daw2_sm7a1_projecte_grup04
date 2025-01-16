@@ -17,7 +17,7 @@ if (isset($_POST['exportar_pdf_comandes'])) {
 
 
 // Leer datos del archivo usuarios.txt
-$archivoUsuarios = __DIR__ . '/usuarios.txt';
+$archivoUsuarios = __DIR__ . '/../usuarios.txt';
 $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
 ?>
 
