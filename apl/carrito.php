@@ -55,7 +55,7 @@ if ($usuario && file_exists($filename)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito - AliMorillas</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -90,12 +90,12 @@ if ($usuario && file_exists($filename)) {
     </header>
 
     <main>
-        <div class="banner">
+        <div style="text-align: center;">
             <h2>Tu Carrito</h2>
             <p>Revisa los productos que has añadido antes de completar tu compra.</p>
         </div>
-        <section class="cart-container">
-            <div class="cart-items">
+        <section style="text-align: center;">
+            <div style="text-align: center;">
                 <h2>Productos en tu carrito</h2>
                 <?php
                 $subtotal_without_tax = 0;
@@ -109,8 +109,8 @@ if ($usuario && file_exists($filename)) {
                         $subtotal_without_tax += $price_without_tax;
 
                         echo "<div class='cart-item'>";
-                        echo "<div class='cart-item-left'>";
-                        echo "<div class='cart-item-details'>";
+                        echo "<div style='text-align: center;'";
+                        echo "";
                         echo "<h3>{$product['name']}</h3>";
                         echo "<p class='price'>" . number_format($price_without_tax, 2) . "€ + " . number_format($price_with_tax, 2) . " IVA</p>";
                         echo "</div>";
@@ -155,8 +155,9 @@ if ($usuario && file_exists($filename)) {
         </section>
 
         <!-- Ver cestas guardadas -->
-        <section class="saved-carts">
-            <h2>Cestas Guardadas</h2>
+         <br><br><br>
+        <section class="saved-carts" style="text-align: center;">
+            <h2 style="text-align: center;">Cesta Guardada</h2>
             <?php
             if ($usuario && file_exists($filename)) {
                 $file = fopen($filename, 'r');
@@ -165,7 +166,7 @@ if ($usuario && file_exists($filename)) {
                     while (($line = fgets($file)) !== false) {
                         $data = explode(':', trim($line));
                         if (count($data) == 5 && $data[4] == $usuario) {
-                            echo "<li>Cesta: {$data[1]}, Cantidad: {$data[2]}</li>";
+                            echo "<li style='text-align:center;'>{$data[1]}, Cantidad: {$data[2]}</li>";
                         }
                     }
                     echo "</ul>";
@@ -180,7 +181,7 @@ if ($usuario && file_exists($filename)) {
         </section>
     </main>
 
-    <footer>
+    <footer style="text-align: center;">
         <p>&copy; 2024 AliMorillas. Todos los derechos reservados.</p>
     </footer>
 </body>
