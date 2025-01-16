@@ -28,10 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </button>
           </a>';
         } else {
-            if (evitarRepetidos($idNumerico, __DIR__ . "/usuarios.txt")) {
+            if (evitarRepetidos($idNumerico, __DIR__ . "/../usuarios.txt")) {
                 header('Location: admin.php?creado=repetido');
             } else {
-                crearUsuario($nombreUsuario, $idNumerico, $contraseña, $nombre, $email, $telContacto, "null", __DIR__ . "/usuarios.txt", "gestor");
+                crearUsuario($nombreUsuario, $idNumerico, $contraseña, $nombre, $email, $telContacto, "null", __DIR__ . "/../usuarios.txt", "gestor");
             }
         }
     }
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </button>
           </a>';
         } else {
-            modificarUsuario($idNumerico, $nombreUsuario, $contraseña, $nombre, $email, $telContacto, "null", __DIR__ . "/usuarios.txt", "gestor");
+            modificarUsuario($idNumerico, $nombreUsuario, $contraseña, $nombre, $email, $telContacto, "null", __DIR__ . "/../usuarios.txt", "gestor");
         }
     }
 
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </button>
           </a>';
         } else {
-            crearUsuario($nombreUsuario, $idNumerico, $contraseña, $nombre, $email, $telContacto, $codigoPostal, __DIR__ . "/usuarios.txt", "cliente");
+            crearUsuario($nombreUsuario, $idNumerico, $contraseña, $nombre, $email, $telContacto, $codigoPostal, __DIR__ . "/../usuarios.txt", "cliente");
         }
     }
 
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </button>
           </a>';
         } else {
-            modificarUsuario($idNumerico, $nombreUsuario, $contraseña, $nombre, $email, $telContacto, $codigoPostal, __DIR__ . "/usuarios.txt", "cliente");
+            modificarUsuario($idNumerico, $nombreUsuario, $contraseña, $nombre, $email, $telContacto, $codigoPostal, __DIR__ . "/../usuarios.txt", "cliente");
         }
     }
 
