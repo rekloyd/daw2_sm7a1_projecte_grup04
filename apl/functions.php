@@ -1,13 +1,7 @@
 <?php
 session_start(); // Iniciar sesión
 
-require 'vendor/autoload.php';
-
-
-
-//EXPORTACION DE LA TABLA A PDF
-
-require 'vendor/autoload.php'; // Asegúrate de incluir el autoload de Composer
+require '../vendor/autoload.php';
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
