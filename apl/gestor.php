@@ -6,15 +6,15 @@ require("functions.php");
 $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : $_SESSION['username'] = "AdministradorTest";
 $tipoUsuario = $_SESSION['tipoUsuario'];
 
-if($tipoUsuario !="gestor"){
+if ($tipoUsuario != "gestor") {
     header("Location: index.php");
 }
 
 
 if (isset($_POST['exportar_pdf_gestor'])) {
-    exportarTablaPDF('usuarios.txt', 'gestor'); 
+    exportarTablaPDF('usuarios.txt', 'gestor');
 } elseif (isset($_POST['exportar_pdf_cliente'])) {
-    exportarTablaPDF('usuarios.txt', 'cliente'); 
+    exportarTablaPDF('usuarios.txt', 'cliente');
 }
 
 
@@ -98,7 +98,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
             width: 100%;
             max-width: 500px;
             margin: 0 auto;
-            
+
         }
 
         .form-container h2 {
@@ -169,6 +169,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
         .botonModificar {
             background-color: rgb(188, 153, 12);
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -208,6 +209,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
         tbody tr:last-child {
             border-bottom: none;
         }
+
         a {
             display: inline-block;
             text-decoration: none;
@@ -223,7 +225,6 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
         a:hover {
             background-color: #16a085;
         }
-
     </style>
 </head>
 
@@ -231,8 +232,8 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
     <div class="main-container">
         <div class="sidebar">
             <h1 class="whiteText">Bienvenido a tu área personal</h1>
-            <?php 
-            echo "<h3 class='whiteText'>$usuario</h3>"; 
+            <?php
+            echo "<h3 class='whiteText'>$usuario</h3>";
             ?>
             <ul>
                 <ul>
@@ -251,110 +252,102 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
         <div class="contenido">
             <h2 class="center" id="mensajeEnter">Panel de administración. Desde aquí puedes administrar tu tienda online.</h2>
-            <div class = "flex-container">
-            <div class="form-container formulario-1 form-select oculto">
-                <h2>Formulario de Creación de Gestores</h2>
-                <form action="/crearUsuarios.php" method="post">
-                    <div class="form-group">
-                        <label for="username">Imagen</label>
-                        <input type="text" id="username" name="usuarioGestor" required>
-                    </div>
+            <div class="flex-container">
+                <div class="form-container formulario-1 form-select oculto">
+                    <h2>Formulario de Creación de Gestores</h2>
+                    <form action="/crearUsuarios.php" method="post">
+                        <div class="form-group">
+                            <label for="username">Imagen</label>
+                            <input type="text" id="username" name="usuarioGestor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="identifier">Identificador Numérico</label>
+                            <input type="number" id="identifierGestor" name="idProducto" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Nombre</label>
+                            <input type="password" id="passwordGestor" name="nombreProducto" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fullname">Precio</label>
+                            <input type="text" id="fullnameGestor" name="nombreGestor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Disponibilidad</label>
+                            <input type="email" id="emailGestor" name="disponibilidadProducto" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="crearGestor" value="1" class="botonesCRUD botonCrear">Crear Gestor</button>
+                            <button type="submit" name="eliminarGestor" value="1" class="botonesCRUD botonEliminar">Eliminar Gestor</button>
+                            <button type="submit" name="modificarGestor" value="1" class="botonesCRUD botonModificar">Modificar Gestor</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="formulario-4 form-select oculto">
+                    <h3>Listado de Gestores</h3>
+                    <?php generarTabla(__DIR__ . "/../usuarios.txt", "gestor"); ?>
+                    <form method="post">
+                        <button type="submit" name="exportar_pdf_gestor">Exportar PDF (Gestores)</button>
+                    </form>
+
+                </div>
+            </div>
+
+            <div class="form-container formulario-2  form-select oculto">
+                <h2>Formulario de Creación de Productos</h2>
+                <form action="./gestorProducto.php" method="post">
                     <div class="form-group">
                         <label for="identifier">Identificador Numérico</label>
-                        <input type="number" id="identifierGestor" name="idProducto" required>
+                        <input type="number" id="identifierProducto" name="idProducto" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Nombre</label>
-                        <input type="password" id="passwordGestor" name="nombreProducto" required>
+                        <input type="text" id="nombreProducto" name="nombreProducto" required>
                     </div>
                     <div class="form-group">
                         <label for="fullname">Precio</label>
-                        <input type="text" id="fullnameGestor" name="nombreGestor" required>
+                        <input type="number" id="precioProducto" name="precioProducto" required min="0">
                     </div>
                     <div class="form-group">
-                        <label for="email">Disponibilidad</label>
-                        <input type="email" id="emailGestor" name="disponibilidadProducto" required>
+                        <label for="text">Disponibilidad</label>
+                        <input type="text" id="disponibilidadProducto" name="disponibilidadProducto" required>
                     </div>
                     <div class="form-group">
-                        <button type="submit" name="crearGestor" value="1" class="botonesCRUD botonCrear">Crear Gestor</button>
-                        <button type="submit" name="eliminarGestor" value="1" class="botonesCRUD botonEliminar">Eliminar Gestor</button>
-                        <button type="submit" name="modificarGestor" value="1" class="botonesCRUD botonModificar">Modificar Gestor</button>
+                        <label for="phone">Imagen</label>
+                        <input type="text" id="rutaImagen" name="rutaImagen" required>
                     </div>
+                    <div class="form-group">
+                        <button type="submit" name="crearProducto" value="1" class="botonesCRUD botonCrear">Crear Producto</button>
+                    </div>
+                    <?php echo __DIR__ . "../productos.txt"; ?>
+
                 </form>
             </div>
 
-            <div class="formulario-4 form-select oculto">
-                <h3>Listado de Gestores</h3>
-                <?php generarTabla(__DIR__ . "/../usuarios.txt","gestor"); ?>
-                <form method="post">
-                <button type="submit" name="exportar_pdf_gestor">Exportar PDF (Gestores)</button>
-                </form>
 
-            </div>
-        </div>
 
-            <!--FORMULARIO CLIENTES-->
-            <div class="form-container formulario-2  form-select oculto">
-                        <h2>Formulario de Creación de Productos</h2>
-                        <form action="/crearUsuarios.php" method="post">
-                            <div class="form-group">
-                                <label for="identifier">Identificador Numérico</label>
-                                <input type="number" id="identifierProducto" name="idCliente" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Nombre</label>
-                                <input type="password" id="nombreProducto" name="nombreProducto" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="fullname">Precio</label>
-                                <input type="text" id="precioProducto" name="precioProducto" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Disponibilidad</label>
-                                <input type="email" id="emailCliente" name="emailCliente" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">imagen</label>
-                                <input type="tel" id="rutaImagen" name="rutaImagen" required>
-                            </div>
-                                <div class="form-group">
-                                <button type="submit" name="crearProducto" value ="1" class="botonesCRUD botonCrear">Crear Cliente</button>
-                                <button type="submit" name="eliminarProducto" value = "1" class="botonesCRUD botonEliminar">Eliminar Cliente</button>
-                                <button type="submit" name="modificarProducto" value = "1" class="botonesCRUD botonModificar">Modificar Cliente</button>
-                            </div>
-                        </form>
+            <!--FORMULARIO AMINISTRADOR-->
+            <div class="form-container formulario-3 oculto form-select">
+                <h2>Formulario de Modificación de los datos del Admin </h2>
+                <form action="/crear-gestor" method="post">
+                    <div class="form-group">
+                        <label for="username">Nombre de Usuario</label>
+                        <input type="text" id="usernameAdmin" name="usuarioAdmin" required>
                     </div>
-                    <div class="formulario-5 form-select oculto">
-                <h3>Listado de Clientes</h3>
-                <?php generarTabla(__DIR__ . "/../usuarios.txt","cliente"); ?>
-                <form method="post">
-                    <button type="submit" name="exportar_pdf_cliente">Exportar PDF (Clientes)</button>
-                </form>
-
-            </div>
-
-
-    <!--FORMULARIO AMINISTRADOR-->
-    <div class="form-container formulario-3 oculto form-select">
-                        <h2>Formulario de Modificación de los datos del Admin </h2>
-                        <form action="/crear-gestor" method="post">
-                            <div class="form-group">
-                                <label for="username">Nombre de Usuario</label>
-                                <input type="text" id="usernameAdmin" name="usuarioAdmin" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Contraseña</label>
-                                <input type="password" id="passwordAdmin" name="contraseñaAdmin" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Correo Electrónico</label>
-                                <input type="email" id="emailAdmin" name="emailAdmin" required>
-                            </div>
-                                <div class="form-group">
-                                <button type="submit" name="modificarAdmin" value = "1" class="botonesCRUD botonModificar">Modificar Datos</button>
-                            </div>
-                        </form>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="passwordAdmin" name="contraseñaAdmin" required>
                     </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="emailAdmin" name="emailAdmin" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="modificarAdmin" value="1" class="botonesCRUD botonModificar">Modificar Datos</button>
+                    </div>
+                </form>
+            </div>
 
 
         </div>
