@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             // Si la contraseña es válida, la guardamos
             $idAdmin = "01"; // Este es el ID del admin, asegúrate de obtenerlo correctamente
-            $filename = 'usuarios.txt';
+            $filename = __DIR__.'/../usuarios.txt';
 
             // Llamar a la función para modificar los datos del admin
             modificarAdmin($idAdmin, $nombreAdmin, $passwordAdmin, $emailAdmin, $filename);
