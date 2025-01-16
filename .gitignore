@@ -1,0 +1,8 @@
+# Ignorar archivos de certificados
+*.crt
+
+# Ignorar archivos de solicitud de firma
+*.csr
+
+# Ignorar archivos de claves privadas
+*.key
