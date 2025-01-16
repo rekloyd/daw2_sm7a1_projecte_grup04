@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li>- Al menos un carácter especial (@#$%^&*!).</li>
             </ul>
           </div>';
-            echo '<br><a href="index.php" style="display: block; text-align: center; margin-top: 20px;">
+            echo '<br><a href="admin.php" style="display: block; text-align: center; margin-top: 20px;">
             <button type="button" style="background-color: red; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px;">
                 Volver a la Página Principal
             </button>
