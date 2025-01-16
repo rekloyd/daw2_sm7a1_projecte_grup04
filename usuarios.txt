@@ -1,4 +1,5 @@
-01:danone:03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4:Admin:danone@gmail.com:none:none:admin
+01:admin:154cdb77584442508e38eacd05e27c3af5b8c4566939d2670c94d7af6e35e871:Admin:admin@fjeclot.net:none:none:admin
+
 03:Pepillo:03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4:Pepe Lillo:123@gmail.com:1234567890:09900:cliente
 06:Joan:ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f:jbulkan@alimorillas.com:345678901:null:gestor
 05:Poski:03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4:poski:poskipo@gmial.com:2218789:null:gestor
