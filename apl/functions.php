@@ -3,8 +3,67 @@ session_start(); // Iniciar sesión
 
 require '../vendor/autoload.php';
 
+
+//DOMpdf
 use Dompdf\Dompdf;
 use Dompdf\Options;
+
+
+
+//PHPmailer 
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+
+function enviaCorreo($correoGestor = false, $correoCliente=false,$correoComanda=false){
+    #
+    # AQUEST EXEMPLE ÉS VÀLID UTILITZANT EL COMPTE DE L'ESCOLA FJE.EDU
+    # Heu d'activar "Accés d'aplicacions menys segures" del teu compte de correu:
+    # 	1- Entra al correu de gmail
+    #   2- Fes clic amb el botó de l'esquerra del ratolí a sobre de la icona rodona amb la teva inicial que hi ha a la part superior a de la dreta
+    #	3- Selecciona "Gestiona el teu Compte de Google" 
+    #	4- Selecciona "Seguretat" a la llista de l'esquerra
+    #	5- Selecciona "Verificació en 2 passos"
+    #	6- Selecciona "Activa la verificació en 2 passos"
+    #	7- Introdueix un número de telèfon
+    #	8- Selecciona "Contrasenya d'aplicacions"
+    #	9- Crea un nova contrasenya per la teva aplicació
+    #	10- Còpia la contrasenya (4 combinacions de 4 lletres)
+    #	11- Fes clic al botó inferior per finalitzar
+    #
+    // Instanciant un objecte de la classe PHPMailer
+    $mail = new PHPMailer();
+    $mail->CharSet = "UTF-8";
+    // Activa debug --> https://phpmailer.github.io/PHPMailer/classes/PHPMailer-PHPMailer-SMTP.html
+    $mail->SMTPDebug=0; // 0 - 4 -> Des de 0 que no fa debug fins al màxim debug amb el valor 4
+    //SMTP SERVER
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    $mail->isSMTP();
+    $mail->Host = "smtp.gmail.com";
+    $mail->Port = 587;
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = "PHPMailer::ENCRYPTION_STARTTLS";
+    //USUARI
+    $mail->Username = "xxxxxx@gmail.com"; // El teu compte de gmail.com
+    $mail->Password = "xxxxxx"; // El teu password d'aplicació			                 
+    //Missatge
+    $mail->SetFrom("xxxxxx@gmail.com","xxxx xxxx"); //El teu ccompte de gmail i el teu nom i cognoms
+    $mail->addAddress("xxxxx@xxxxxx.xxx","xxxxxx"); //El compte al qual s'envia el correu, i el nom i cognoms del receptor del correu
+    $mail->Subject = "Cost de fabricació de la llauna de cervesa enviat via fje.edu";
+    $mail->isHTML(true);
+    $mail->Body = $this->missatge_html();					
+    //Enviament i tractament errors
+    try {
+        if ($mail->send()) echo "Missatge enviat";
+    }
+    catch (Exception $e) {
+        echo "Error d'enviament del missatge: " . $mail->ErrorInfo; //El missatge d'error depén del nivell de debug indicat a SMTPDebug
+    }
+    $mail->smtpClose();
+}
+
 
 function exportarTablaPDF($archivoUsuarios, $tipoUsuario) {
     // Leer usuarios desde el archivo
