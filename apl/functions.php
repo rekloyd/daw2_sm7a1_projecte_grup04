@@ -128,24 +128,25 @@ function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = 
     $hashPass = hash("sha256", $password);
 
     if ($tipoUsuario == "gestor") {
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . "08800" . ":" . $tipoUsuario . "\n";
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . "08800" . ":" . $tipoUsuario . PHP_EOL;
     } elseif ($tipoUsuario == "cliente") {
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . PHP_EOL;
     }
 
 
     if ($fitxer = fopen($filename, "a")) {
-        if (fwrite($fitxer, $usuario)) {
-            fclose($fitxer);
+        if (fwrite($fitxer, $usuario)) { 
+            fclose($fitxer); 
             header("Location: admin.php?creado=exito");
-            exit();
+            exit(); 
         } else {
             echo "Error al escribir en el archivo";
+            fclose($fitxer); 
         }
-        fclose($fitxer);
     } else {
         echo "No se ha podido abrir el archivo para escribir<br>";
     }
+    
 }
 
 function modificarUsuario($idUsuario, $nombreUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "08800", $filename = "", $tipoUsuario) {
