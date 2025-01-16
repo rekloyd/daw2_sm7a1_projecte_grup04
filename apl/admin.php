@@ -252,7 +252,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
             <div class = "flex-container">
             <div class="form-container formulario-1 form-select oculto">
                 <h2>Formulario de Creación de Gestores</h2>
-                <form action="/crearUsuarios.php" method="post">
+                <form action="./crearUsuarios.php" method="post">
                     <div class="form-group">
                         <label for="username">Nombre de Usuario</label>
                         <input type="text" id="username" name="usuarioGestor" required>
@@ -299,7 +299,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
             <!--FORMULARIO CLIENTES-->
             <div class="form-container formulario-2  form-select oculto">
                         <h2>Formulario de Creación de Clientes</h2>
-                        <form action="/crearUsuarios.php" method="post">
+                        <form action="./crearUsuarios.php" method="post">
                             <div class="form-group">
                                 <label for="username">Nombre de Usuario</label>
                                 <input type="text" id="username" name="usuarioCliente" required>
@@ -348,7 +348,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
     <!--FORMULARIO AMINISTRADOR-->
     <div class="form-container formulario-3 oculto form-select">
                         <h2>Formulario de Modificación de los datos del Admin </h2>
-                        <form action="crearUsuarios.php" method="post">
+                        <form action="./crearUsuarios.php" method="post">
                             <div class="form-group">
                                 <label for="username">Nombre de Usuario</label>
                                 <input type="text" id="usernameAdmin" name="usuarioAdmin" required>
