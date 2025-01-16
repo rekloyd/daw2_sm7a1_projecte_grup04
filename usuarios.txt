@@ -8,3 +8,5 @@
 Didi Morillas:didimo@alimorillas.com:12345678909:01789:cliente
 19:rekloyd:03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4:Pau Morillas:paumorillas@alimorillas.com:12344566:08800:gestor
 190:Didakin:03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4:didakino:didako@gmail.com:12:2390:cliente
+1900:Li:68a9b36cdeb2dd8b0c7ed05db956ab1246402cdcf2f857293ccebadc9bcac1bf:JieLI:jie@alimorillas.com:3293092280:99083:cliente
+90:Paco:481fe3a4092605c9f58c615fd68f765a07be46e039407280bd0daa059cb1c7dc:paco martines:paco@alimori.com:2981908:08800:gestor
