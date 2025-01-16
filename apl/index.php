@@ -12,7 +12,7 @@
 </head>
 
 <?php
-
+session_start();
 $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
 $tipoUsuario = isset($_SESSION['tipoUsuario']) ? $_SESSION['tipoUsuario'] : NULL;
 $archivo = __DIR__.'/../productos.txt';
@@ -52,7 +52,7 @@ if (file_exists($archivo)) {
             echo '<label for="quantity_' . htmlspecialchars($id) . '">Cantidad:</label>';
             echo '<input type="number" id="quantity_' . htmlspecialchars($id) . '" name="quantity" value="1" min="1" required class="quantity-input">';
             echo '</div><br>';
-            echo '<button type="submit" name="add_to_cart" class="add-to-cart-btn cta-button">Añadir al carrito</button>';
+            echo '<button type="submit" name="add_to_cart" class="ctn-btn">Añadir al carrito</button>';
             echo '</form>';
             echo '</div>';
             echo '</div>';
