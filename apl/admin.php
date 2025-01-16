@@ -10,9 +10,9 @@ if($tipoUsuario!= "admin"){
 }
 
 if (isset($_POST['exportar_pdf_gestor'])) {
-    exportarTablaPDF('usuarios.txt', 'gestor'); 
+    exportarTablaPDF(__DIR__ . "/../usuarios.txt", 'gestor'); 
 } elseif (isset($_POST['exportar_pdf_cliente'])) {
-    exportarTablaPDF('usuarios.txt', 'cliente'); 
+    exportarTablaPDF(__DIR__ . "/../usuarios.txt", 'cliente'); 
 }
 
 
