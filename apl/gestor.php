@@ -1,9 +1,28 @@
 <?php
-session_start();
 
-// Verificar si existe la clave 'username' en la sesión
-$usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SESSION['usernameAdmin'] = "AdministradorTest";
+require("functions.php");
+
+// Verificar variables y sesiones
+$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : $_SESSION['username'] = "AdministradorTest";
+$tipoUsuario = $_SESSION['tipoUsuario'];
+
+if($tipoUsuario !="gestor"){
+    header("Location: index.php");
+}
+
+
+if (isset($_POST['exportar_pdf_gestor'])) {
+    exportarTablaPDF('usuarios.txt', 'gestor'); 
+} elseif (isset($_POST['exportar_pdf_cliente'])) {
+    exportarTablaPDF('usuarios.txt', 'cliente'); 
+}
+
+
+// Leer datos del archivo usuarios.txt
+$archivoUsuarios = __DIR__ . '/usuarios.txt';
+$usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -11,7 +30,7 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área Personasl</title>
+    <title>Formulario de Creación de Gestores</title>
     <style>
         .whiteText {
             color: white;
@@ -79,6 +98,7 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
             width: 100%;
             max-width: 500px;
             margin: 0 auto;
+            
         }
 
         .form-container h2 {
@@ -149,28 +169,81 @@ $usuario = isset($_SESSION['usernameAdmin']) ? $_SESSION['usernameAdmin'] : $_SE
         .botonModificar {
             background-color: rgb(188, 153, 12);
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            text-align: left;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        thead {
+            background-color: #2c3e50;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        thead th {
+            padding: 12px 15px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        tbody td {
+            padding: 10px 15px;
+            color: #333;
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #1abc9c;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #16a085;
+        }
 
     </style>
 </head>
-<?php
-session_start();
 
-// Verificar si existe la clave 'username' en la sesión
-$usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
-$tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
-?>
 <body class="adminContainer">
     <div class="main-container">
         <div class="sidebar">
             <h1 class="whiteText">Bienvenido a tu área personal</h1>
-            <?php echo "<h3 class='whiteText'>$usuario</h3>"; ?>
+            <?php 
+            echo "<h3 class='whiteText'>$usuario</h3>"; 
+            ?>
             <ul>
                 <ul>
-                    <li onclick="toggleContenido(1)">Gestionar Gestores</li>
-                    <li onclick="toggleContenido(2)">Gestionar Usuarios</li>
-                    <li onclick="toggleContenido(3)">Gestionar tus datos de inicio de sesión</li>
+                    <!--<li onclick="toggleContenido(1)">Gestionar Gestores</li>-->
+                    <li onclick="toggleContenido(2)">Gestionar Productos</li>
+                    <li onclick="toggleContenido(3)">Contactar con el administrador</li>
+                    <!--<li onclick="toggleContenido(4)">Ver gestores actuales</li>-->
+                    <li onclick="toggleContenido(5)">Ver listado de clientes</li>
                     <br>
                     <li onclick="window.location.href = 'index.php'">Volver al Inicio</li>
+
                 </ul>
 
             </ul>
@@ -178,33 +251,29 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
 
         <div class="contenido">
             <h2 class="center" id="mensajeEnter">Panel de administración. Desde aquí puedes administrar tu tienda online.</h2>
-            <?php if (isset($_GET['creado'])) echo "<div class='mensajeDevuelta center'>Usuario creado con éxito</div>"; ?>
-            <div class="form-container formulario-1 oculto">
+            <div class = "flex-container">
+            <div class="form-container formulario-1 form-select oculto">
                 <h2>Formulario de Creación de Gestores</h2>
                 <form action="/crearUsuarios.php" method="post">
                     <div class="form-group">
-                        <label for="username">Nombre de Usuario</label>
+                        <label for="username">Imagen</label>
                         <input type="text" id="username" name="usuarioGestor" required>
                     </div>
                     <div class="form-group">
                         <label for="identifier">Identificador Numérico</label>
-                        <input type="number" id="identifier" name="idGestor" required>
+                        <input type="number" id="identifierGestor" name="idProducto" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" id="password" name="contraseñaGestor" required>
+                        <label for="password">Nombre</label>
+                        <input type="password" id="passwordGestor" name="nombreProducto" required>
                     </div>
                     <div class="form-group">
-                        <label for="fullname">Nombre y Apellidos</label>
-                        <input type="text" id="fullname" name="nombreGestor" required>
+                        <label for="fullname">Precio</label>
+                        <input type="text" id="fullnameGestor" name="nombreGestor" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Correo Electrónico</label>
-                        <input type="email" id="email" name="emailGestor" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Teléfono de Contacto</label>
-                        <input type="tel" id="phone" name="telContactoGestor" required>
+                        <label for="email">Disponibilidad</label>
+                        <input type="email" id="emailGestor" name="disponibilidadProducto" required>
                     </div>
                     <div class="form-group">
                         <button type="submit" name="crearGestor" value="1" class="botonesCRUD botonCrear">Crear Gestor</button>
@@ -214,69 +283,78 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
                 </form>
             </div>
 
+            <div class="formulario-4 form-select oculto">
+                <h3>Listado de Gestores</h3>
+                <?php generarTabla(__DIR__ . "/usuarios.txt","gestor"); ?>
+                <form method="post">
+                <button type="submit" name="exportar_pdf_gestor">Exportar PDF (Gestores)</button>
+                </form>
+
+            </div>
+        </div>
+
             <!--FORMULARIO CLIENTES-->
-            <div class="form-container formulario-2 oculto">
-                <h2>Formulario de Creación de Clientes</h2>
-                <form action="/crearUsuarios.php" method="post">
-                    <div class="form-group">
-                        <label for="username">Nombre de Usuario</label>
-                        <input type="text" id="username" name="username" required>
+            <div class="form-container formulario-2  form-select oculto">
+                        <h2>Formulario de Creación de Productos</h2>
+                        <form action="/crearUsuarios.php" method="post">
+                            <div class="form-group">
+                                <label for="identifier">Identificador Numérico</label>
+                                <input type="number" id="identifierProducto" name="idCliente" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Nombre</label>
+                                <input type="password" id="nombreProducto" name="nombreProducto" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fullname">Precio</label>
+                                <input type="text" id="precioProducto" name="precioProducto" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Disponibilidad</label>
+                                <input type="email" id="emailCliente" name="emailCliente" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">imagen</label>
+                                <input type="tel" id="rutaImagen" name="rutaImagen" required>
+                            </div>
+                                <div class="form-group">
+                                <button type="submit" name="crearProducto" value ="1" class="botonesCRUD botonCrear">Crear Cliente</button>
+                                <button type="submit" name="eliminarProducto" value = "1" class="botonesCRUD botonEliminar">Eliminar Cliente</button>
+                                <button type="submit" name="modificarProducto" value = "1" class="botonesCRUD botonModificar">Modificar Cliente</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="identifier">Identificador Numérico</label>
-                        <input type="number" id="identifier" name="identifier" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="fullname">Nombre y Apellidos</label>
-                        <input type="text" id="fullname" name="fullname" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Correo Electrónico</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Teléfono de Contacto</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Dirección Postal</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" name="crearCliente" value="1" class="botonesCRUD botonCrear">Crear Cliente</button>
-                        <button type="submit" name="eliminarCliente" value="1" class="botonesCRUD botonEliminar">Eliminar Cliente</button>
-                        <button type="submit" name="modificarCliente" value="1" class="botonesCRUD botonModificar">Modificar Cliente</button>
-                    </div>
+                    <div class="formulario-5 form-select oculto">
+                <h3>Listado de Clientes</h3>
+                <?php generarTabla(__DIR__ . "/usuarios.txt","cliente"); ?>
+                <form method="post">
+                    <button type="submit" name="exportar_pdf_cliente">Exportar PDF (Clientes)</button>
                 </form>
+
             </div>
 
 
-
-            <!--FORMULARIO AMINISTRADOR-->
-            <div class="form-container formulario-3 oculto">
-                <h2>Formulario de Modificación de los datos del Admin </h2>
-                <form action="/crear-gestor" method="post">
-                    <div class="form-group">
-                        <label for="username">Nombre de Usuario</label>
-                        <input type="text" id="username" name="username" required>
+    <!--FORMULARIO AMINISTRADOR-->
+    <div class="form-container formulario-3 oculto form-select">
+                        <h2>Formulario de Modificación de los datos del Admin </h2>
+                        <form action="/crear-gestor" method="post">
+                            <div class="form-group">
+                                <label for="username">Nombre de Usuario</label>
+                                <input type="text" id="usernameAdmin" name="usuarioAdmin" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input type="password" id="passwordAdmin" name="contraseñaAdmin" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico</label>
+                                <input type="email" id="emailAdmin" name="emailAdmin" required>
+                            </div>
+                                <div class="form-group">
+                                <button type="submit" name="modificarAdmin" value = "1" class="botonesCRUD botonModificar">Modificar Datos</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Correo Electrónico</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" name="modificarAdmin" value="1" class="botonesCRUD botonModificar">Modificar Datos</button>
-                    </div>
-                </form>
-            </div>
 
 
         </div>
@@ -289,7 +367,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
     <script>
         //mostrar el contenido en función del item seleccionado en el sidebar
         function toggleContenido(num) {
-            var allForms = document.querySelectorAll('.form-container');
+            var allForms = document.querySelectorAll('.form-select');
             allForms.forEach(function(form) {
                 form.classList.add('oculto');
             });
