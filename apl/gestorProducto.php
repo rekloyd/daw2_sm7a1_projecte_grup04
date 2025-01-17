@@ -8,11 +8,11 @@ if (isset($_POST['crearProducto'])) {
     $rutaImagen = $_POST['rutaImagen'];
 
     // Crear una cadena con los datos separados por ":"
-    $productoData = $idProducto . ":" . $nombreProducto . ":" . $precioProducto . ":" . $disponibilidadProducto . ":" . $rutaImagen . "\n";
+    $productoData = $idProducto . ":" . $nombreProducto . ":" . $precioProducto . ":" . $disponibilidadProducto . ":" . $rutaImagen . PHP_EOL;
 
     // Abrir el archivo productos.txt en modo append
-    //$file = fopen(__DIR__ . "/../productos.txt", "a");
-    $file = fopen("/var/www/html/phpEcomProject/productos.txt", "a");
+    $file = fopen(__DIR__ . "/../productos.txt", "a");
+    //$file = fopen("/var/www/html/phpEcomProject/productos.txt", "a");
     // Verificar si se abrió correctamente
     if ($file) {
         // Escribir los datos del producto en el archivo

@@ -320,7 +320,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                     <div class="form-group">
                         <button type="submit" name="crearProducto" value="1" class="botonesCRUD botonCrear">Crear Producto</button>
                     </div>
-                    <?php echo __DIR__ . "../productos.txt"; ?>
+                    <?php echo __DIR__ . "/../productos.txt"; ?>
 
                 </form>
             </div>
