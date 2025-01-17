@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //enviar email cliente
 
     
-    if (isset($_POST['mensajeGestor'])) {
+    if (isset($_POST['mensajeCliente'])) {
         $mensajeGestor = trim($_POST['mensajeGestor']); 
         $emailUsuario="paumorillasrivera129@gmail.com"; //Se ha cambiado para hacer pruebas y poder probar la app
     
