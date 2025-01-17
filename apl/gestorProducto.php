@@ -8,7 +8,7 @@ if (isset($_POST['crearProducto'])) {
     $rutaImagen = $_POST['rutaImagen'];
 
     // Crear una cadena con los datos separados por ":"
-    $productoData = $idProducto . ":" . $nombreProducto . ":" . $precioProducto . ":" . $disponibilidadProducto . ":" . "none"/*$nuevaRutaImagen*/  . PHP_EOL;
+    $productoData = $idProducto . ":" . $nombreProducto . ":" . $precioProducto . ":" . $disponibilidadProducto . ":" . $nuevaRutaImagen  . PHP_EOL;
 
     // Abrir el archivo productos.txt en modo append
     $file = fopen(__DIR__ . "/../productos.txt", "a");
@@ -41,7 +41,7 @@ if (isset($_POST['modificarProducto'])) {
     foreach ($file as $linea) {
         list($id, $nombre, $precio, $disponibilidad, $rutaImagen) = explode(":", trim($linea));
         if ($id == $idProducto) {
-            $linea = $idProducto . ":" . $nuevoNombre . ":" . $nuevoPrecio . ":" . $nuevaDisponibilidad . ":" . "none"/*$nuevaRutaImagen*/ . PHP_EOL;
+            $linea = $idProducto . ":" . $nuevoNombre . ":" . $nuevoPrecio . ":" . $nuevaDisponibilidad . ":" .$nuevaRutaImagen . PHP_EOL;
             $productoEncontrado = true;
         }
         $nuevosDatos .= $linea . PHP_EOL;
