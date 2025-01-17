@@ -27,4 +27,56 @@ if (isset($_POST['crearProducto'])) {
         echo "Error al abrir el archivo.";
     }
 }
+if (isset($_POST['modificarProducto'])) {
+    $idProducto = $_POST['idProducto'];
+    $nuevoNombre = $_POST['nombreProducto'];
+    $nuevoPrecio = $_POST['precioProducto'];
+    $nuevaDisponibilidad = $_POST['disponibilidadProducto'];
+    $nuevaRutaImagen = $_POST['rutaImagen'];
+
+    $file = file(__DIR__ . "/../productos.txt");
+    $nuevosDatos = "";
+    $productoEncontrado = false;
+
+    foreach ($file as $linea) {
+        list($id, $nombre, $precio, $disponibilidad, $rutaImagen) = explode(":", trim($linea));
+        if ($id == $idProducto) {
+            $linea = $idProducto . ":" . $nuevoNombre . ":" . $nuevoPrecio . ":" . $nuevaDisponibilidad . ":" . $nuevaRutaImagen . PHP_EOL;
+            $productoEncontrado = true;
+        }
+        $nuevosDatos .= $linea . PHP_EOL;
+    }
+
+    if ($productoEncontrado) {
+        file_put_contents(__DIR__ . "/../productos.txt", $nuevosDatos);
+        header("Location: ./index.php");
+    } else {
+        header("Location: ./index.php");
+    }
+}
+
+if (isset($_POST['eliminarProducto'])) {
+    $idProducto = $_POST['idProducto'];
+
+    $file = file(__DIR__ . "/../productos.txt");
+    $nuevosDatos = "";
+    $productoEncontrado = false;
+
+    foreach ($file as $linea) {
+        list($id, $nombre, $precio, $disponibilidad, $rutaImagen) = explode(":", trim($linea));
+        if ($id == $idProducto) {
+            $productoEncontrado = true;
+            continue; // Saltar la línea del producto a eliminar
+        }
+        $nuevosDatos .= $linea . PHP_EOL;
+    }
+
+    if ($productoEncontrado) {
+        file_put_contents(__DIR__ . "/../productos.txt", $nuevosDatos);
+        header("Location: ./index.php");
+    } else {
+        echo "Error: Producto no encontrado para eliminar.";
+    }
+}
+
 ?>
