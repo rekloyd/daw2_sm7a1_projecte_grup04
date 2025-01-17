@@ -317,10 +317,10 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                         <label for="precioProducto">Precio</label>
                         <input type="number" id="precioProducto" name="precioProducto" min="0" required>
                     </div>
-                    <div class="form-group">
-                        <label for="disponibilidadProducto">Disponibilidad</label>
-                        <select id="disponibilidadProducto" name="disponibilidadProducto" required>
-                            <option value="Disponible">Disponible</option>
+                    <div class="form-group" style="text-align: center;">
+                        <label for="disponibilidadProducto" style="text-align: left;">Disponibilidad</label>
+                        <select id="disponibilidadProducto" name="disponibilidadProducto" required style="border-radius: 5px;text-align: center;border: solid black 2px; background-color: orange;padding: 20px 190px; color: white; font-size: 16px;font-weight:bold;">
+                            <option value="Disponible" style="text-align: center;background-color: white; color: black;">Disponible</option>
                             <option value="No disponible">No disponible</option>
                         </select>
                     </div>
