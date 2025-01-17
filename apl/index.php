@@ -42,6 +42,7 @@ if (file_exists($archivo)) {
             echo '<img src="' . htmlspecialchars($imagen) . '" alt="' . htmlspecialchars($nombre) . '" class="product-image" style="display:none;">';
             echo '<div class="product-card-body">';
             echo '<h3 class="product-name">' . htmlspecialchars($nombre) . '</h3>';
+            echo '<h4>ID: ' . htmlspecialchars($id) . '</h4>';
             echo '<p class="product-price">Precio: ' . number_format($precio, 2) . '€ (+IVA: ' . number_format($precio_con_iva - $precio, 2) . '€)</p>';
             echo '<p class="product-availability">Disponibilidad: ' . htmlspecialchars($disponibilidad) . '</p>';
             echo '<form method="POST" action="añadirCarrito.php" class="product-form">';
