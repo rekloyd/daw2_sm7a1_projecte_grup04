@@ -12,10 +12,9 @@ if($tipoUsuario !="gestor"){
 }
 
 
-if (isset($_POST['exportar_pdf_gestor'])) {
-    exportarTablaPDF('usuarios.txt', 'gestor'); 
-} elseif (isset($_POST['exportar_pdf_cliente'])) {
-    exportarTablaPDF('usuarios.txt', 'cliente'); 
+
+if (isset($_POST['exportar_pdf_cliente'])) {
+    exportarTablaPDF(__DIR__ . '/../usuarios.txt', 'cliente'); 
 }
 
 
@@ -300,7 +299,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
             </div>
         </div>
 
-            <!--FORMULARIO CLIENTES-->
+            <!--FORMULARIO PRODUCTOS-->
             <div class="form-container formulario-2  form-select oculto">
                         <h2>Formulario de Creación de Productos</h2>
                         <form action="/crearUsuarios.php" method="post">
@@ -332,10 +331,10 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                         </form>
                     </div>
                     <div class="formulario-5 form-select oculto">
-                <h3>Listado de Clientes</h3>
-                <?php generarTabla(__DIR__ . "/../usuarios.txt","cliente"); ?>
-                <form method="post">
-                    <button type="submit" name="exportar_pdf_cliente">Exportar PDF (Clientes)</button>
+                    <h3>Listado de Clientes</h3>
+                    <?php generarTabla(__DIR__ . "/../usuarios.txt","cliente"); ?>
+                    <form method="post">
+                    <button type="submit" name="exportar_pdf_cliente" style="background-color: green; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px;">Exportar PDF (Clientes)</button>
                 </form>
 
             </div>
