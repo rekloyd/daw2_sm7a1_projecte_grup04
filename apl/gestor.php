@@ -324,7 +324,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                             <option value="No disponible">No disponible</option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none;">
                         <label for="rutaImagen">Imagen</label>
                         <input type="text" id="rutaImagen" name="rutaImagen" required>
                     </div>

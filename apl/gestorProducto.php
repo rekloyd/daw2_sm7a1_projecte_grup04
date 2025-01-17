@@ -8,10 +8,12 @@ if (isset($_POST['crearProducto'])) {
     $rutaImagen = $_POST['rutaImagen'];
 
     // Crear una cadena con los datos separados por ":"
-    $productoData = $idProducto . ":" . $nombreProducto . ":" . $precioProducto . ":" . $disponibilidadProducto . ":" . $rutaImagen . PHP_EOL;
+    $productoData = $idProducto . ":" . $nombreProducto . ":" . $precioProducto . ":" . $disponibilidadProducto . ":" . "none"/*$nuevaRutaImagen*/  . PHP_EOL;
 
     // Abrir el archivo productos.txt en modo append
     $file = fopen(__DIR__ . "/../productos.txt", "a");
+    //$file = fopen("/var/www/html/phpEcomProject/productos.txt", "a");
+    // Verificar si se abrió correctamente
     if ($file) {
         // Escribir los datos del producto en el archivo
         fwrite($file, $productoData);
@@ -21,12 +23,10 @@ if (isset($_POST['crearProducto'])) {
 
         // Redirigir o mostrar mensaje de éxito
         header("Location: ./index.php");
-        exit();
     } else {
         echo "Error al abrir el archivo.";
     }
 }
-
 if (isset($_POST['modificarProducto'])) {
     $idProducto = $_POST['idProducto'];
     $nuevoNombre = $_POST['nombreProducto'];
@@ -41,7 +41,7 @@ if (isset($_POST['modificarProducto'])) {
     foreach ($file as $linea) {
         list($id, $nombre, $precio, $disponibilidad, $rutaImagen) = explode(":", trim($linea));
         if ($id == $idProducto) {
-            $linea = $idProducto . ":" . $nuevoNombre . ":" . $nuevoPrecio . ":" . $nuevaDisponibilidad . ":" . $nuevaRutaImagen;
+            $linea = $idProducto . ":" . $nuevoNombre . ":" . $nuevoPrecio . ":" . $nuevaDisponibilidad . ":" . "none"/*$nuevaRutaImagen*/ . PHP_EOL;
             $productoEncontrado = true;
         }
         $nuevosDatos .= $linea . PHP_EOL;
@@ -51,9 +51,8 @@ if (isset($_POST['modificarProducto'])) {
         file_put_contents(__DIR__ . "/../productos.txt", $nuevosDatos);
         header("Location: ./index.php");
     } else {
-        header("Location: ./index.php?error=Producto no encontrado para modificar");
+        header("Location: ./index.php");
     }
-    exit();
 }
 
 if (isset($_POST['eliminarProducto'])) {
@@ -78,6 +77,6 @@ if (isset($_POST['eliminarProducto'])) {
     } else {
         echo "Error: Producto no encontrado para eliminar.";
     }
-    exit();
 }
+
 ?>
