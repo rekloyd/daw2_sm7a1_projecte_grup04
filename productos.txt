@@ -1,8 +1,8 @@
+///// Inicio de Productos Default
 1:Cepillo para perros con pelo, pelaje largo, cachorros:27:Si:imatges/pd1.png
 2:Comedero automático para perros y gatos:45:Si:imatges/pd2.jpg
 3:Juguete interactivo para perros:22:Si:imatges/pd3.jpg
 4:Correa retráctil para perros pequeños:18:Si:imatges/pd4.jpg
 5:Cama ortopédica para perros:75:Si:imatges/pd5.jpg
 6:Higiene dental para perros:12:Si:imatges/pd6.jpg
-
-17:Jie Li:1:Si:/O_O
+///// Fin de Productos Default

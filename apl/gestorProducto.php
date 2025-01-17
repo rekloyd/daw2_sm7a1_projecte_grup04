@@ -22,7 +22,7 @@ if (isset($_POST['crearProducto'])) {
         fclose($file);
 
         // Redirigir o mostrar mensaje de éxito
-        echo "Producto creado con éxito!";
+        header("Location: ./index.php");
     } else {
         echo "Error al abrir el archivo.";
     }
