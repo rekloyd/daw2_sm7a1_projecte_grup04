@@ -310,24 +310,16 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                     <div class="form-group">
                         <label for="nombreProducto">Nombre</label>
                         <input type="text" id="nombreProducto" name="nombreProducto">
-                        <label for="nombreProducto">Nombre</label>
-                        <input type="text" id="nombreProducto" name="nombreProducto">
                     </div>
                     <div class="form-group">
-                        <label for="precioProducto">Precio</label>
-                        <input type="number" id="precioProducto" name="precioProducto" min="0">
                         <label for="precioProducto">Precio</label>
                         <input type="number" id="precioProducto" name="precioProducto" min="0">
                     </div>
                     <div class="form-group">
                         <label for="disponibilidadProducto">Disponibilidad</label>
                         <input type="text" id="disponibilidadProducto" name="disponibilidadProducto">
-                        <label for="disponibilidadProducto">Disponibilidad</label>
-                        <input type="text" id="disponibilidadProducto" name="disponibilidadProducto">
                     </div>
                     <div class="form-group">
-                        <label for="rutaImagen">Imagen</label>
-                        <input type="text" id="rutaImagen" name="rutaImagen">
                         <label for="rutaImagen">Imagen</label>
                         <input type="text" id="rutaImagen" name="rutaImagen">
                     </div>
