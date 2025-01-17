@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $_SESSION['idUsuario'] = $idUsuario;
                         $_SESSION['username'] = $username;
                         $_SESSION['nombreApellidos'] = $nombreApellidos;
-                        $_SESSION['email'] = $email;
+                        $_SESSION['emailUsuario'] = $email;
                         $_SESSION['telefono'] = $telefono;
                         $_SESSION['codigoPostal'] = $codigoPostal;
                         $_SESSION['tipoUsuario'] = $tipoUsuario;
