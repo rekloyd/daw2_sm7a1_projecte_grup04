@@ -50,6 +50,7 @@ if (isset($_POST['modificarProducto'])) {
 
     if ($productoEncontrado) {
         file_put_contents(__DIR__ . "/../productos.txt", $nuevosDatos);
+        echo "<script>alert('Producto modificado correctamente.');</script>";
         header("Location: ./index.php");
     } else {
         header("Location: ./index.php");
@@ -74,6 +75,7 @@ if (isset($_POST['eliminarProducto'])) {
 
     if ($productoEncontrado) {
         file_put_contents(__DIR__ . "/../productos.txt", $nuevosDatos);
+        echo "<script>alert('Producto borrado correctamente.');</script>";
         header("Location: ./index.php");
     } else {
         echo "Error: Producto no encontrado para eliminar.";
