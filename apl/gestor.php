@@ -14,7 +14,7 @@ if($tipoUsuario !="gestor"){
 
 
 if (isset($_POST['exportar_pdf_cliente'])) {
-    exportarTablaPDF(__DIR__ . '/../usuarios.txt', 'cliente'); 
+    exportarTablaPDF(__DIR__ . '/../usuarios.txt', 'cliente');
 }
 
 
@@ -224,12 +224,12 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
             background-color: #16a085;
         }
 
-        .areaEmail{
-            height: 30vh;;
+        .areaEmail {
+            height: 30vh;
+            ;
             width: 100%;
-            resize:none;
+            resize: none;
         }
-
     </style>
 </head>
 
@@ -310,16 +310,24 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                     <div class="form-group">
                         <label for="nombreProducto">Nombre</label>
                         <input type="text" id="nombreProducto" name="nombreProducto">
+                        <label for="nombreProducto">Nombre</label>
+                        <input type="text" id="nombreProducto" name="nombreProducto">
                     </div>
                     <div class="form-group">
+                        <label for="precioProducto">Precio</label>
+                        <input type="number" id="precioProducto" name="precioProducto" min="0">
                         <label for="precioProducto">Precio</label>
                         <input type="number" id="precioProducto" name="precioProducto" min="0">
                     </div>
                     <div class="form-group">
                         <label for="disponibilidadProducto">Disponibilidad</label>
                         <input type="text" id="disponibilidadProducto" name="disponibilidadProducto">
+                        <label for="disponibilidadProducto">Disponibilidad</label>
+                        <input type="text" id="disponibilidadProducto" name="disponibilidadProducto">
                     </div>
                     <div class="form-group">
+                        <label for="rutaImagen">Imagen</label>
+                        <input type="text" id="rutaImagen" name="rutaImagen">
                         <label for="rutaImagen">Imagen</label>
                         <input type="text" id="rutaImagen" name="rutaImagen">
                     </div>
@@ -330,9 +338,13 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                     </div>
                 </form>
                     </div>
-                    <div class="formulario-5 form-select oculto">
+                </form>
+
+
+                <!-- Listado Clientes -->
+                <div class="formulario-5 form-select">
                     <h3>Listado de Clientes</h3>
-                    <?php generarTabla(__DIR__ . "/../usuarios.txt","cliente"); ?>
+                    <?php generarTabla(__DIR__ . "/../usuarios.txt", "cliente"); ?>
                     <form method="post">
                     <button type="submit" name="exportar_pdf_cliente" style="background-color: green; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px;">Exportar PDF (Clientes)</button>
                 </form>
@@ -340,30 +352,30 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
             </div>
 
 
-    <!--FORMULARIO AMINISTRADOR-->
-    <div class="form-container formulario-3 oculto form-select">
-                        <h2>Envia un correo al Administrador </h2>
-                        <form action="crearUsuarios.php" method="post">
-                            <div class="form-group">
-                                <p><strong>Asunto: Petición para añadir/modificar/borrar cliente<strong></p>
-                            </div>
+                <!--FORMULARIO AMINISTRADOR-->
+                <div class="form-container formulario-3 oculto form-select">
+                    <h2>Envia un correo al Administrador </h2>
+                    <form action="crearUsuarios.php" method="post">
+                        <div class="form-group">
+                            <p><strong>Asunto: Petición para añadir/modificar/borrar cliente<strong></p>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="mensajeGestor">Mensaje</label>
-                                <textarea id="mensajeGestor" name="mensajeGestor" class = "areaEmail" required></textarea>
-                            </div>
-                                <div class="form-group">
-                                <button type="submit" name="enviarEmailGestor" value = "1" class="botonesCRUD botonCrear">Envia Email</button>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="form-group">
+                            <label for="mensajeGestor">Mensaje</label>
+                            <textarea id="mensajeGestor" name="mensajeGestor" class="areaEmail" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="enviarEmailGestor" value="1" class="botonesCRUD botonCrear">Envia Email</button>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+
 
 
         </div>
-
-
-
-    </div>
 
     </div><!--final div contenido-->
     <script>
