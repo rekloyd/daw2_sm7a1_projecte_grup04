@@ -5,6 +5,7 @@ require("functions.php");
 // Verificar variables y sesiones
 $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : $_SESSION['username'] = "AdministradorTest";
 $tipoUsuario = $_SESSION['tipoUsuario'];
+$emailUsuario = isset($_SESSION['emailUsuario']) ? $_SESSION['emailUsuario'] : $_SESSION['emailUsuario'] = "thedark3slol@gmail.com";
 
 if($tipoUsuario !="gestor"){
     header("Location: index.php");
@@ -224,6 +225,12 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
             background-color: #16a085;
         }
 
+        .areaEmail{
+            height: 30vh;;
+            width: 100%;
+            resize:none;
+        }
+
     </style>
 </head>
 
@@ -336,22 +343,18 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
     <!--FORMULARIO AMINISTRADOR-->
     <div class="form-container formulario-3 oculto form-select">
-                        <h2>Formulario de Modificación de los datos del Admin </h2>
-                        <form action="/crear-gestor" method="post">
+                        <h2>Envia un correo al Administrador </h2>
+                        <form action="crearUsuarios.php" method="post">
                             <div class="form-group">
-                                <label for="username">Nombre de Usuario</label>
-                                <input type="text" id="usernameAdmin" name="usuarioAdmin" required>
+                                <p><strong>Asunto: Petición para añadir/modificar/borrar cliente<strong></p>
                             </div>
+
                             <div class="form-group">
-                                <label for="password">Contraseña</label>
-                                <input type="password" id="passwordAdmin" name="contraseñaAdmin" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Correo Electrónico</label>
-                                <input type="email" id="emailAdmin" name="emailAdmin" required>
+                                <label for="mensajeGestor">Mensaje</label>
+                                <textarea id="mensajeGestor" name="mensajeGestor" class = "areaEmail" required></textarea>
                             </div>
                                 <div class="form-group">
-                                <button type="submit" name="modificarAdmin" value = "1" class="botonesCRUD botonModificar">Modificar Datos</button>
+                                <button type="submit" name="enviarEmailGestor" value = "1" class="botonesCRUD botonCrear">Envia Email</button>
                             </div>
                         </form>
                     </div>

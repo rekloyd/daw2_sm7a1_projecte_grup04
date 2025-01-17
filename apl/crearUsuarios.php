@@ -1,7 +1,23 @@
 <?php
 require('functions.php');
 
+$emailUsuario = $_SESSION['emailUsuario'];
+$asuntoGestor = "Petición para añadir/modificar/borrar cliente";
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
+    //enviar email
+
+    if (isset($_POST['mensajeGestor'])) {
+        $mensajeGestor = trim($_POST['mensajeGestor']); 
+        $emailUsuario="paumorillasrivera129@gmail.com"; //Se ha cambiado para hacer pruebas y poder probar la app
+    
+        $cuerpoCorreo = nl2br(htmlspecialchars($mensajeGestor));
+        enviarCorreo($emailUsuario,$cuerpoCorreo,$asuntoGestor);
+    } else {
+        echo "No se ha enviado ningún mensaje.";
+    }
 
     // Crear Gestor
     if (isset($_POST['crearGestor']) && $_POST['crearGestor'] == "1") {

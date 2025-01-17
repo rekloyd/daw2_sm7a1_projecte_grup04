@@ -17,7 +17,7 @@ use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
 
-function enviaCorreo($correoGestor = false, $correoCliente=false,$correoComanda=false){
+function enviarCorreo($emailUsuario,$mensajeEmail,$asunto){
     #
     # AQUEST EXEMPLE ÉS VÀLID UTILITZANT EL COMPTE DE L'ESCOLA FJE.EDU
     # Heu d'activar "Accés d'aplicacions menys segures" del teu compte de correu:
@@ -46,17 +46,17 @@ function enviaCorreo($correoGestor = false, $correoCliente=false,$correoComanda=
     $mail->SMTPAuth = true;
     $mail->SMTPSecure = "PHPMailer::ENCRYPTION_STARTTLS";
     //USUARI
-    $mail->Username = "xxxxxx@gmail.com"; // El teu compte de gmail.com
-    $mail->Password = "xxxxxx"; // El teu password d'aplicació			                 
+    $mail->Username = "thedark3slol@gmail.com"; // El teu compte de gmail.com
+    $mail->Password = "hhta jeya seft mmem"; // El teu password d'aplicació			                 
     //Missatge
-    $mail->SetFrom("xxxxxx@gmail.com","xxxx xxxx"); //El teu ccompte de gmail i el teu nom i cognoms
-    $mail->addAddress("xxxxx@xxxxxx.xxx","xxxxxx"); //El compte al qual s'envia el correu, i el nom i cognoms del receptor del correu
-    $mail->Subject = "Cost de fabricació de la llauna de cervesa enviat via fje.edu";
+    $mail->SetFrom("thedark3slol@gmail.com","Pau Morillas"); //El teu ccompte de gmail i el teu nom i cognoms
+    $mail->addAddress($emailUsuario,"Pau Morillas"); //El compte al qual s'envia el correu, i el nom i cognoms del receptor del correu
+    $mail->Subject =  $asunto;
     $mail->isHTML(true);
-    $mail->Body = $this->missatge_html();					
+    $mail->Body = $mensajeEmail;					
     //Enviament i tractament errors
     try {
-        if ($mail->send()) echo "Missatge enviat";
+        if ($mail->send()) header("Location: areasPersonales.php");
     }
     catch (Exception $e) {
         echo "Error d'enviament del missatge: " . $mail->ErrorInfo; //El missatge d'error depén del nivell de debug indicat a SMTPDebug
