@@ -297,6 +297,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exportar_pdf_pedido']
                 </form>
             </div>
 
+            
+            <div class="formulario-6 form-select oculto">
+                <h3>Productos en el carrito de todos los usuarios</h3>
+                <?php generarTablaPedidos(__DIR__ . "/../comandes/CarlosComanda.txt"); ?>
+                <form method="post">
+                <button type="submit" name="exportar_pdf_pedido" style="background-color: green;color: white;border: none;padding: 10px 20px;font-size: 16px;cursor: pointer;border-radius: 5px;">Exportar PDF</button>
+                </form>
+            </div>
+
             <div class="formulario-4 form-select oculto">
                 <h3>Listado de Gestores</h3>
                 <?php generarTabla(__DIR__ . "/../usuaris/usuarios.txt","gestor"); ?>
@@ -306,14 +315,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exportar_pdf_pedido']
 
             </div>
 
-            <div class="formulario-6 form-select oculto">
-                <h3>Productos en el carrito de todos los usuarios</h3>
-                <?php generarTablaPedidos(__DIR__ . "/../comandes/CarlosComanda.txt"); ?>
-                <form method="post">
-                <button type="submit" name="exportar_pdf_pedido">Exportar PDF</button>
-                </form>
-
-            </div>
         </div>
 
             <!--FORMULARIO PRODUCTOS-->
