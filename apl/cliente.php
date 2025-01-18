@@ -7,14 +7,14 @@ $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : $_SESSION['use
 $tipoUsuario = $_SESSION['tipoUsuario'];
 $emailUsuario = isset($_SESSION['emailUsuario']) ? $_SESSION['emailUsuario'] : $_SESSION['emailUsuario'] = "thedark3slol@gmail.com";
 
-if($tipoUsuario !="cliente"){
+if ($tipoUsuario != "cliente") {
     header("Location: index.php");
 }
 
 
 
 if (isset($_POST['exportar_pdf_cliente'])) {
-    exportarTablaPDF(__DIR__ . '/../usuarios.txt', 'cliente'); 
+    exportarTablaPDF(__DIR__ . '/../usuarios.txt', 'cliente');
 }
 
 
@@ -98,7 +98,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
             width: 100%;
             max-width: 500px;
             margin: 0 auto;
-            
+
         }
 
         .form-container h2 {
@@ -169,6 +169,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
         .botonModificar {
             background-color: rgb(188, 153, 12);
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -208,6 +209,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
         tbody tr:last-child {
             border-bottom: none;
         }
+
         a {
             display: inline-block;
             text-decoration: none;
@@ -224,12 +226,12 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
             background-color: #16a085;
         }
 
-        .areaEmail{
-            height: 30vh;;
+        .areaEmail {
+            height: 30vh;
+            ;
             width: 100%;
-            resize:none;
+            resize: none;
         }
-
     </style>
 </head>
 
@@ -237,13 +239,13 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
     <div class="main-container">
         <div class="sidebar">
             <h1 class="whiteText">Bienvenido a tu área personal</h1>
-            <?php 
-            echo "<h3 class='whiteText'>$usuario</h3>"; 
+            <?php
+            echo "<h3 class='whiteText'>$usuario</h3>";
             ?>
             <ul>
                 <ul>
                     <!--<li onclick="toggleContenido(1)">Gestionar Gestores</li>-->
-                    <li onclick="toggleContenido(2)">Gestionar Productos</li>
+                    <li onclick="toggleContenido(2)">Mis datos</li>
                     <li onclick="toggleContenido(3)">Contactar con el administrador</li>
                     <!--<li onclick="toggleContenido(4)">Ver gestores actuales</li>-->
                     <li onclick="toggleContenido(5)">Ver listado de clientes</li>
@@ -257,117 +259,111 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
         <div class="contenido">
             <h2 class="center" id="mensajeEnter">Panel de administración. Desde aquí puedes administrar tu tienda online.</h2>
-            <div class = "flex-container">
-            <div class="form-container formulario-1 form-select oculto">
-                <h2>Formulario de Creación de Gestores</h2>
-                <form action="/crearUsuarios.php" method="post">
-                    <div class="form-group">
-                        <label for="username">Imagen</label>
-                        <input type="text" id="username" name="usuarioGestor" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="identifier">Identificador Numérico</label>
-                        <input type="number" id="identifierGestor" name="idProducto" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Nombre</label>
-                        <input type="password" id="passwordGestor" name="nombreProducto" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="fullname">Precio</label>
-                        <input type="text" id="fullnameGestor" name="nombreGestor" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Disponibilidad</label>
-                        <input type="email" id="emailGestor" name="disponibilidadProducto" required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" name="crearGestor" value="1" class="botonesCRUD botonCrear">Crear Gestor</button>
-                        <button type="submit" name="eliminarGestor" value="1" class="botonesCRUD botonEliminar">Eliminar Gestor</button>
-                        <button type="submit" name="modificarGestor" value="1" class="botonesCRUD botonModificar">Modificar Gestor</button>
-                    </div>
-                </form>
-            </div>
+            <div class="flex-container">
+                <div class="form-container formulario-1 form-select oculto">
+                    <h2>Formulario de Creación de Gestores</h2>
+                    <form action="/crearUsuarios.php" method="post">
+                        <div class="form-group">
+                            <label for="username">Imagen</label>
+                            <input type="text" id="username" name="usuarioGestor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="identifier">Identificador Numérico</label>
+                            <input type="number" id="identifierGestor" name="idProducto" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Nombre</label>
+                            <input type="password" id="passwordGestor" name="nombreProducto" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fullname">Precio</label>
+                            <input type="text" id="fullnameGestor" name="nombreGestor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Disponibilidad</label>
+                            <input type="email" id="emailGestor" name="disponibilidadProducto" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="crearGestor" value="1" class="botonesCRUD botonCrear">Crear Gestor</button>
+                            <button type="submit" name="eliminarGestor" value="1" class="botonesCRUD botonEliminar">Eliminar Gestor</button>
+                            <button type="submit" name="modificarGestor" value="1" class="botonesCRUD botonModificar">Modificar Gestor</button>
+                        </div>
+                    </form>
+                </div>
 
-            <div class="formulario-4 form-select oculto">
-                <h3>Listado de Gestores</h3>
-                <?php generarTabla(__DIR__ . "/../usuarios.txt","gestor"); ?>
-                <form method="post">
-                <button type="submit" name="exportar_pdf_gestor">Exportar PDF (Gestores)</button>
-                </form>
+                <div class="formulario-4 form-select oculto">
+                    <h3>Listado de Gestores</h3>
+                    <?php generarTabla(__DIR__ . "/../usuarios.txt", "gestor"); ?>
+                    <form method="post">
+                        <button type="submit" name="exportar_pdf_gestor">Exportar PDF (Gestores)</button>
+                    </form>
 
+                </div>
             </div>
-        </div>
 
             <!--FORMULARIO PRODUCTOS-->
             <div class="form-container formulario-2  form-select oculto">
-                        <h2>Formulario de Creación de Productos</h2>
-                        <form action="/crearUsuarios.php" method="post">
-                            <div class="form-group">
-                                <label for="identifier">Identificador Numérico</label>
-                                <input type="number" id="identifierProducto" name="idCliente" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Nombre</label>
-                                <input type="password" id="nombreProducto" name="nombreProducto" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="fullname">Precio</label>
-                                <input type="text" id="precioProducto" name="precioProducto" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Disponibilidad</label>
-                                <input type="email" id="emailCliente" name="emailCliente" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">imagen</label>
-                                <input type="tel" id="rutaImagen" name="rutaImagen" required>
-                            </div>
-                                <div class="form-group">
-                                <button type="submit" name="crearProducto" value ="1" class="botonesCRUD botonCrear">Crear Cliente</button>
-                                <button type="submit" name="eliminarProducto" value = "1" class="botonesCRUD botonEliminar">Eliminar Cliente</button>
-                                <button type="submit" name="modificarProducto" value = "1" class="botonesCRUD botonModificar">Modificar Cliente</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="formulario-5 form-select oculto">
+                <?php
+                session_start();
+
+                // Obtener el nombre de usuario desde la sesión
+                $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : $_SESSION['username'] = "AdministradorTest";
+
+                // Llamar a la función para obtener los datos del usuario
+                $datosUsuario = obtenerDatosMiUsuario(__DIR__ . "/../usuaris/usuarios.txt", $usuario);
+                ?>
+
+                <h2>Datos sobre mí</h2>
+
+                <?php if (is_array($datosUsuario)) { ?>
+                    <p><strong>Nombre de Usuario:</strong> <?php echo htmlspecialchars($datosUsuario['nombreUsuario']); ?></p>
+                    <p><strong>Nombre Completo:</strong> <?php echo htmlspecialchars($datosUsuario['nombre']); ?></p>
+                    <p><strong>Contraseña: *********</strong></p>
+                    <p><strong>Email:</strong> <?php echo htmlspecialchars($datosUsuario['email']); ?></p>
+                    <p><strong>Teléfono:</strong> <?php echo htmlspecialchars($datosUsuario['telContacto']); ?></p>
+                    <p><strong>Código Postal:</strong> <?php echo htmlspecialchars($datosUsuario['codigoPostal']); ?></p>
+                    <p><strong>Visa Cliente: XXXXXXX<strong></p>
+                    <p><i>Si desea cambiar o ver algún valor, por favor contacte con el gestor.</i></p>
+                <?php } else { ?>
+                    <p><?php echo htmlspecialchars($datosUsuario); ?></p>
+                <?php } ?>
+
+                <div class="formulario-5 form-select oculto">
                     <h3>Listado de Clientes</h3>
-                    <?php generarTabla(__DIR__ . "/../usuarios.txt","cliente"); ?>
+                    <?php generarTabla(__DIR__ . "/../usuaris/usuarios.txt", "cliente"); ?>
                     <form method="post">
-                    <button type="submit" name="exportar_pdf_cliente" style="background-color: green; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px;">Exportar PDF (Clientes)</button>
-                </form>
+                        <button type="submit" name="exportar_pdf_cliente" style="background-color: green; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px;">Exportar PDF (Clientes)</button>
+                    </form>
+
+                </div>
+
+                <div class="form-container formulario-3 oculto form-select">
+                    <h2>Envia un correo al Administrador </h2>
+                    <form action="crearUsuarios.php" method="post">
+                        <div class="form-group">
+                            <p><strong>Asunto: Petición para añadir/modificar/borrar cliente</strong></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensajeGestor">Mensaje</label>
+                            <textarea id="mensajeGestor" name="mensajeGestor" class="areaEmail" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="enviarEmailGestor" value="1" class="botonesCRUD botonCrear">Envia Email</button>
+                        </div>
+                    </form>
+                </div>
+
+
 
             </div>
 
 
-    <!--FORMULARIO AMINISTRADOR-->
-    <div class="form-container formulario-3 oculto form-select">
-                        <h2>Envia un correo al Administrador </h2>
-                        <form action="crearUsuarios.php" method="post">
-                            <div class="form-group">
-                                <p><strong>Asunto: Petición para añadir/modificar/borrar cliente<strong></p>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="mensajeCliente">Mensaje</label>
-                                <textarea id="mensajeCliente" name="mensajeCliente" class = "areaEmail" required></textarea>
-                            </div>
-                                <div class="form-group">
-                                <button type="submit" name="enviarEmailCliente" value = "1" class="botonesCRUD botonCrear">Envia Email</button>
-                            </div>
-                        </form>
-                    </div>
-
 
         </div>
 
-
-
-    </div>
-
     </div><!--final div contenido-->
     <script>
-        //mostrar el contenido en función del item seleccionado en el sidebar
         function toggleContenido(num) {
             var allForms = document.querySelectorAll('.form-select');
             allForms.forEach(function(form) {
