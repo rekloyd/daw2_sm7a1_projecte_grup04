@@ -334,6 +334,68 @@ function generarTabla($filename, $tipoUsuario) {
     echo "</table>";
 }
 
+
+// Función para obtener el HTML de la tabla de productos
+function obtenerHTMLTablaProductos($filename, $disponibilidadFiltro = null) {
+    if (!file_exists($filename)) {
+        return "El archivo no existe.";
+    }
+
+    // Leer el archivo con los productos
+    $productos = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    $html = "<table border='1'>";
+    $html .= "<thead><tr><th>ID</th><th>Nombre</th><th>Precio (€)</th><th>Disponibilidad</th><th>Imagen</th></tr></thead>";
+    $html .= "<tbody>";
+
+    foreach ($productos as $producto) {
+        $datos = explode(":", $producto);
+        if (count($datos) < 5) {
+            continue;
+        }
+
+        list($id, $nombre, $precio, $disponibilidad, $imagen) = $datos;
+
+        // Filtrar por disponibilidad si se especifica
+        if ($disponibilidadFiltro !== null && $disponibilidad !== $disponibilidadFiltro) {
+            continue;
+        }
+
+        $html .= "<tr>";
+        $html .= "<td>" . htmlspecialchars($id) . "</td>";
+        $html .= "<td>" . htmlspecialchars($nombre) . "</td>";
+        $html .= "<td>" . number_format((float)$precio, 2) . "</td>";
+        $html .= "<td>" . htmlspecialchars($disponibilidad) . "</td>";
+        $html .= "<td>none</td>";
+        $html .= "</tr>";
+    }
+
+    $html .= "</tbody></table>";
+
+    return $html;
+}
+
+// Función para exportar el PDF
+function exportarPDFProductosDompdf($html) {
+    $options = new Options();
+    $options->set('defaultFont', 'Arial');
+
+    $dompdf = new Dompdf($options);
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'portrait');
+    $dompdf->render();
+    $dompdf->stream("productos.pdf", ["Attachment" => 1]);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exportar_pdf_productos'])) {
+    $html = obtenerHTMLTablaProductos(__DIR__ . "/../productes/productos.txt");
+    exportarPDFProductosDompdf($html);
+    exit;
+}
+
+// Para mostrar la tabla en la página
+$htmlTablaProductos = obtenerHTMLTablaProductos(__DIR__ . "/../productes/productos.txt");
+
 function validarContraseña($password) {
 
     if (preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{8,}$/', $password)) {
