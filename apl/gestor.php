@@ -246,7 +246,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                     <li onclick="toggleContenido(2)">Gestionar Productos</li>
                     <li onclick="toggleContenido(3)">Contactar con el administrador</li>
                     <!--<li onclick="toggleContenido(4)">Ver gestores actuales</li>-->
-                    <li onclick="toggleContenido(5)">Ver listado de clientes</li>
+                    <li onclick="toggleContenido(5)">Listado de clientes y productos</li>
                     <br>
                     <li onclick="window.location.href = 'index.php'">Volver al Inicio</li>
 
@@ -316,7 +316,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                         <input type="number" id="precioProducto" name="precioProducto" min="0">
                     </div>
                     <div class="form-group">
-                        <label for="disponibilidadProducto">Disponibilidad (Si | No)</label>
+                        <label for="disponibilidadProducto">Disponibilidad (Si | No</label>
                         <input type="text" id="disponibilidadProducto" name="disponibilidadProducto">
                     </div>
                     <div class="form-group">
@@ -339,11 +339,19 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                     <?php generarTabla(__DIR__ . "/../usuaris/usuarios.txt", "cliente"); ?>
                     <form method="post">
                     <button type="submit" name="exportar_pdf_cliente" style="background-color: green; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px;">Exportar PDF (Clientes)</button>
+                    <br>
+                    <h3>Listado de Productos</h3>
+                    <?php echo $htmlTablaProductos; ?>
+                    <?php obtenerHTMLTablaProductos(__DIR__ . "/../productes/productos.txt"); ?>
+                    <form method="post">
+                    <button type="submit" name="exportar_pdf_productos" style="background-color: green; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px;">Exportar PDF (Productos)</button>
+
                 </form>
 
             </div>
 
 
+            
                 <!--FORMULARIO AMINISTRADOR-->
                 <div class="form-container formulario-3 oculto form-select">
                     <h2>Envia un correo al Administrador </h2>
