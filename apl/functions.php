@@ -170,7 +170,7 @@ function evitarRepetidos($idUsuario, $filename) {
     return false;
 }
 
-function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "", $filename = "",$visaCliente="none",$gestorAsignado,$tipoUsuario){
+function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "",$visaCliente="none",$gestorAsignado,$filename, $tipoUsuario){
     if (!file_exists($filename)) {
         if (!$file = fopen($filename, "w")) {
             echo "No se ha podido crear el archivo de usuarios<br>";
@@ -187,7 +187,7 @@ function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = 
     $hashPass = hash("sha256", $password);
 
     if ($tipoUsuario == "gestor") {
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . "08800" . ":" ."none".":none". $tipoUsuario . PHP_EOL;
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . "08800" . ":" ."none".":none:". $tipoUsuario . PHP_EOL;
     } elseif ($tipoUsuario == "cliente") {
         $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":".$visaCliente.":".$gestorAsignado.":". $tipoUsuario . PHP_EOL;
     }
@@ -304,18 +304,24 @@ function generarTabla($filename, $tipoUsuario) {
     echo "<th>Teléfono</th>";
     echo "<th>Código Postal</th>";
     echo "<th>Tipo de Usuario</th>";
+    echo "<th>Visa</th>";
+    echo "<th>Gestor Asignado</th>";
     echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
 
     foreach ($usuaris as $usuari) {
         $datos = explode(":", $usuari);
-        if (count($datos) < 8) {
+
+        // Comprobar que la línea tiene al menos 10 campos
+        if (count($datos) < 10) {
             continue;
         }
 
-        list($idUsuario, $nombreUsuario, $password, $nombreApellidos, $email, $telContacto, $codigoPostal, $tipo) = $datos;
+        // Asignar los valores
+        list($idUsuario, $nombreUsuario, $password, $nombreApellidos, $email, $telContacto, $codigoPostal,$visaCliente, $gestorAsignado,$tipo) = $datos;
 
+        // Mostrar solo los usuarios del tipo especificado
         if ($tipo === $tipoUsuario) {
             echo "<tr>";
             echo "<td>" . htmlspecialchars($idUsuario) . "</td>";
@@ -326,6 +332,8 @@ function generarTabla($filename, $tipoUsuario) {
             echo "<td>" . htmlspecialchars($telContacto) . "</td>";
             echo "<td>" . htmlspecialchars($codigoPostal) . "</td>";
             echo "<td>" . htmlspecialchars($tipo) . "</td>";
+            echo "<td>" . htmlspecialchars($visaCliente) . "</td>";
+            echo "<td>" . htmlspecialchars($gestorAsignado) . "</td>";
             echo "</tr>";
         }
     }
@@ -333,7 +341,6 @@ function generarTabla($filename, $tipoUsuario) {
     echo "</tbody>";
     echo "</table>";
 }
-
 
 // Función para obtener el HTML de la tabla de productos
 function obtenerHTMLTablaProductos($filename, $disponibilidadFiltro = null) {

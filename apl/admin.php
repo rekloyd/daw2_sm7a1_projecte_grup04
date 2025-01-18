@@ -22,12 +22,15 @@ $archivoUsuarios = __DIR__ . '/../usuaris/usuarios.txt';
 $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
 
 
+$gestores = [];
+
+// Recorrer las líneas del archivo
 foreach ($usuarios as $linea) {
     // Separar los campos por ":"
     $campos = explode(":", $linea);
 
-    // Verificar si el usuario es de tipo gestor
-    if (isset($campos[6]) && trim($campos[6]) === 'gestor') {
+    // Verificar que la línea tiene al menos 7 campos y el tipo es 'gestor'
+    if (count($campos) >= 10 && trim($campos[6]) === 'gestor') {
         // Guardar el identificador y nombre del gestor
         $gestores[$campos[0]] = $campos[1]; // ID => Nombre
     }
@@ -138,6 +141,19 @@ foreach ($usuarios as $linea) {
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 14px;
+        }
+
+        .form-group select {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-group select:focus {
+            border-color: #1abc9c;
+            outline: none;
         }
 
         .form-group input:focus {
