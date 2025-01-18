@@ -25,7 +25,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exportar_pdf_pedido'])) {
-    generarTablaPedidosPDF(__DIR__."/../comandes/CarlosComanda.txt");
+    generarTablaPedidosPDF(__DIR__."/../comandes/comanda.txt");
     exit;
 }
 ?>
@@ -300,7 +300,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exportar_pdf_pedido']
             
             <div class="formulario-6 form-select oculto">
                 <h3>Productos en el carrito de todos los usuarios</h3>
-                <?php generarTablaPedidos(__DIR__ . "/../comandes/CarlosComanda.txt"); ?>
+                <?php generarTablaPedidos(__DIR__ . "/../comandes/comanda.txt"); ?>
                 <form method="post">
                 <button type="submit" name="exportar_pdf_pedido" style="background-color: green;color: white;border: none;padding: 10px 20px;font-size: 16px;cursor: pointer;border-radius: 5px;">Exportar PDF</button>
                 </form>
