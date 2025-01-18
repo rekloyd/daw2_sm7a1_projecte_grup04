@@ -42,8 +42,11 @@ if (file_exists($archivo)) {
             echo '<label for="quantity_' . htmlspecialchars($id) . '">Cantidad:</label>';
             echo '<input type="number" id="quantity_' . htmlspecialchars($id) . '" name="quantity" value="1" min="1" required class="quantity-input">';
             echo '</div><br>';
-            echo '<button type="submit" name="add_to_cart" class="ctn-btn">Añadir al carrito</button>';
-            echo '</form>';
+            if ($disponibilidad === "No") {
+                echo '<button type="submit" name="add_to_cart" class="ctn-btn" disabled>Añadir al carrito</button>';
+            } else {
+                echo '<button type="submit" name="add_to_cart" class="ctn-btn">Añadir al carrito</button>';
+            }            echo '</form>';
             echo '</div>';
             echo '</div>';
         }
