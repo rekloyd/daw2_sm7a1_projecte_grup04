@@ -64,7 +64,7 @@ function enviarCorreo($emailUsuario,$mensajeEmail,$asunto){
     $mail->smtpClose();
 }
 
-function eliminarUsuario($filename, $idUsuario,$tipoUsuario) {
+function eliminarUsuario($idUsuario, $filename) {
     if (!file_exists($filename)) {
         echo "El archivo no existe.";
         return false;
@@ -72,43 +72,41 @@ function eliminarUsuario($filename, $idUsuario,$tipoUsuario) {
 
     // Leer el archivo con los usuarios
     $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-
     $usuariosActualizados = [];
     $usuarioEliminado = false;
 
-
     foreach ($usuaris as $usuari) {
+        // Dividir la línea en los campos
         $datos = explode(":", $usuari);
-        if (count($datos) < 9) {
+        if (count($datos) < 10) { // Verifica si los datos están completos
             continue;
         }
 
-        list($id, $nombreUsuario, $password, $nombreApellidos, $email, $telContacto, $codigoPostal, $visaCliente, $gestorAsignado, $tipoUsuario) = $datos;
+        list($id, $nombreUsuarioExistente, $passwordExistente, $nombreApellidosExistente, $emailExistente, $telContactoExistente, $codigoPostalExistente, $visaClienteExistente, $gestorAsignadoExistente, $tipoExistente) = $datos;
 
+        // Si encontramos el ID de usuario que queremos eliminar
         if ($id === $idUsuario) {
             $usuarioEliminado = true;
-            continue;
+            continue; // No añadimos este usuario a la lista actualizada
+        } else {
+            // Si no es el usuario a eliminar, añadimos la línea tal como está
+            array_push($usuariosActualizados, $usuari);
         }
-
-
-        $usuariosActualizados[] = $usuari;
     }
 
+    // Si se ha eliminado el usuario, actualizamos el archivo
     if ($usuarioEliminado) {
+        // Sobreescribimos el archivo con los usuarios actualizados
+        $resultado = file_put_contents($filename, implode("\n", $usuariosActualizados));
 
-        usort($usuariosActualizados, function($a, $b) {
-            $datosA = explode(":", $a);
-            $datosB = explode(":", $b);
-
-            return strcmp($datosA[1], $datosB[1]); // Ordenar por nombre de usuario (índice 1)
-        });
-
-        file_put_contents($filename, implode(PHP_EOL, $usuariosActualizados) . PHP_EOL);
-        header("Location:admin.php");
-        return true;
+        if ($resultado === false) {
+            echo "Error al guardar los cambios en el archivo.";
+        } else {
+            header("Location: admin.php?eliminado=exito");
+            exit();
+        }
     } else {
-        echo "No se encontró un usuario con el ID $idUsuario.";
-        return false;
+        echo "No se encontró un usuario con ese ID para eliminar.<br>";
     }
 }
 

@@ -17,9 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
         $cuerpoCorreo = nl2br(htmlspecialchars($mensajeGestor));
         enviarCorreo($emailUsuario,$cuerpoCorreo,$asuntoGestor);
-    } else {
-        echo "No se ha enviado ningún mensaje.";
-    }
+    } 
 
 
     //enviar email cliente
@@ -31,10 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
         $cuerpoCorreo = nl2br(htmlspecialchars($mensajeCliente));
         enviarCorreo($emailUsuario,$cuerpoCorreo,$asuntoClienteCuenta);
-    } else {
-        echo "No se ha enviado ningún mensaje.";
     }
-
 
     if (isset($_POST['mensajeClientePedido'])) {
         $mensajeCliente = trim($_POST['mensajeClientePedido']); 
@@ -42,10 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
         $cuerpoCorreo = nl2br(htmlspecialchars($mensajeCliente));
         enviarCorreo($emailUsuario,$cuerpoCorreo,$asuntoClientePedido);
-    } else {
-        echo "No se ha enviado ningún mensaje.";
-    }
-
+    } 
 
     // Crear Gestor
     if (isset($_POST['crearGestor']) && $_POST['crearGestor'] == "1") {
@@ -110,11 +102,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if(isset($_POST['eliminarGestor']) && $_POST['eliminarGestor']){
-        eliminarUsuario($idNumerico,__DIR__ . "/../usuaris/usuarios.txt","gestor");
+        $nombreUsuario = $_POST['usuarioGestor'];
+        $nombre = $_POST['nombreGestor'];
+        $idNumerico = $_POST['idGestor'];
+        $contraseña = $_POST['contraseñaGestor'];
+        $email = $_POST['emailGestor'];
+        $telContacto = $_POST['telContactoGestor'];
+        eliminarUsuario($idNumerico,__DIR__ . "/../usuaris/usuarios.txt");
     }
 
     if(isset($_POST['eliminarCliente']) && $_POST['eliminarCliente']){
-        eliminarUsuario($idNumerico,__DIR__ . "/../usuaris/usuarios.txt","cliente");
+        $nombreUsuario = $_POST['usuarioCliente'];
+        $nombre = $_POST['nombreCliente'];
+        $idNumerico = $_POST['idCliente'];
+        $contraseña = $_POST['contraseñaCliente'];
+        $email = $_POST['emailCliente'];
+        $telContacto = $_POST['telContactoCliente'];
+        $codigoPostal = $_POST['codigoPostalCliente'];
+        $visaCliente = $_POST['visaCliente'];
+        eliminarUsuario($idNumerico,__DIR__ . "/../usuaris/usuarios.txt");
     }
     // Crear Cliente
     if (isset($_POST['crearCliente']) && $_POST['crearCliente'] == "1") {

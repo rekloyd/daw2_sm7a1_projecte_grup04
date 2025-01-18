@@ -25,13 +25,13 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 $gestores = [];
 
 foreach ($usuarios as $linea) {
-    // Separar los campos por ":"
+
     $campos = explode(":", $linea);
 
-    // Verificar si el usuario es de tipo gestor
+
     if (isset($campos[9]) && trim($campos[9]) === 'gestor') {
-        // Guardar el identificador y nombre del gestor
-        $gestores[$campos[0]] = $campos[1]; // ID => Nombre
+
+        $gestores[$campos[0]] = $campos[1]; 
     }
 }
 
