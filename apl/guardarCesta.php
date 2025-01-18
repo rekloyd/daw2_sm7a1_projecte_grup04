@@ -10,7 +10,7 @@ if (!$usuario || $cart_empty) {
     exit;
 }
 
-$filename = __DIR__.'/../cesta.txt';
+$filename = __DIR__.'/../cistelles/cesta.txt';
 
 try {
     $file = fopen($filename, 'a'); // Intentar abrir el archivo para añadir datos al final

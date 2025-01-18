@@ -5,7 +5,7 @@ session_start();
 $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
 
 if ($usuario) {
-    $filename = __DIR__ . '/../cesta.txt';
+    $filename = __DIR__ . '/../cistelles/cesta.txt';
     
     // Verificar si el archivo existe
     if (file_exists($filename)) {
