@@ -20,6 +20,21 @@ if (isset($_POST['exportar_pdf_gestor'])) {
 // Leer datos del archivo usuarios.txt
 $archivoUsuarios = __DIR__ . '/../usuaris/usuarios.txt';
 $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
+
+
+foreach ($usuarios as $linea) {
+    // Separar los campos por ":"
+    $campos = explode(":", $linea);
+
+    // Verificar si el usuario es de tipo gestor
+    if (isset($campos[6]) && trim($campos[6]) === 'gestor') {
+        // Guardar el identificador y nombre del gestor
+        $gestores[$campos[0]] = $campos[1]; // ID => Nombre
+    }
+}
+
+
+
 ?>
 
 
@@ -327,6 +342,20 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                             <div class="form-group">
                                 <label for="phone">Dirección Postal</label>
                                 <input type="tel" id="adressCliente" name="codigoPostalCliente" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Visa del cliente</label>
+                                <input type="tel" id="visaCliente" name="visaCliente" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Asignar gestor</label>
+                                <select name="gestores" id="gestores">
+                                    <option value="">Seleccione un gestor</option>
+                                    <?php foreach ($gestores as $id => $nombre): ?>
+                                        <option value="<?= htmlspecialchars($id) ?>"><?= htmlspecialchars($nombre) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                                 <div class="form-group">
                                 <button type="submit" name="crearCliente" value ="1" class="botonesCRUD botonCrear">Crear Cliente</button>

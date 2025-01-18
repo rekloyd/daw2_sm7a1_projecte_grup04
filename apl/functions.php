@@ -170,7 +170,7 @@ function evitarRepetidos($idUsuario, $filename) {
     return false;
 }
 
-function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "", $filename = "", $tipoUsuario){
+function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "", $filename = "",$visaCliente="none",$gestorAsignado,$tipoUsuario){
     if (!file_exists($filename)) {
         if (!$file = fopen($filename, "w")) {
             echo "No se ha podido crear el archivo de usuarios<br>";
@@ -187,9 +187,9 @@ function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = 
     $hashPass = hash("sha256", $password);
 
     if ($tipoUsuario == "gestor") {
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . "08800" . ":" . $tipoUsuario . PHP_EOL;
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . "08800" . ":" ."none".":none". $tipoUsuario . PHP_EOL;
     } elseif ($tipoUsuario == "cliente") {
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . PHP_EOL;
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":".$visaCliente.":".$gestorAsignado.":". $tipoUsuario . PHP_EOL;
     }
 
 
@@ -208,7 +208,7 @@ function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = 
     
 }
 
-function modificarUsuario($idUsuario, $nombreUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "08800", $filename = "", $tipoUsuario) {
+function modificarUsuario($idUsuario, $nombreUsuario, $password, $nombreApellidos = "", $email, $telContacto = "none", $codigoPostal = "none", $filename = "",$visaCliente="none",$gestorAsignado="",$tipoUsuario) {
     $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     $usuariosActualizados = [];
     $usuarioModificado = false;
@@ -219,7 +219,7 @@ function modificarUsuario($idUsuario, $nombreUsuario, $password, $nombreApellido
         if ($existentId === $idUsuario) {
 
             $password = hash('sha256', $password);
-            $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $tipoUsuario . "\n";
+            $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $password . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" .$visaCliente.":" . $tipoUsuario . "\n";
             array_push($usuariosActualizados, $usuario);
             $usuarioModificado = true;
         } else {

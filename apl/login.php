@@ -33,9 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Comprobar si el username coincide
                 if ($user === $username) {
                     // Info par depurar
-                    echo "Contraseña ingresada (sin espacio): '" . $password . "'<br>";
-                    echo "Contraseña ingresada (hasheada): '" . hash('sha256', $password) . "'<br>";
-                    echo "Hash almacenado en el archivo: '" . $passwordHash . "'<br>";
+                    hash('sha256', $password);
+
 
                     // Hashear la contraseña ingresada y compararla con el hash almacenado
                     if ($passwordHash === hash('sha256', $password)) {
@@ -55,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
             } else {
-                echo "Datos incompletos en la línea: " . htmlspecialchars($usuari) . "<br>";
+                echo "No se ha podido iniciar sesión";
             }
         }
 

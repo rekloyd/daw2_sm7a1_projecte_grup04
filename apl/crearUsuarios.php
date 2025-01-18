@@ -105,6 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['emailCliente'];
         $telContacto = $_POST['telContactoCliente'];
         $codigoPostal = $_POST['codigoPostalCliente'];
+        $visaCliente = $_POST['visaCliente'];
 
         if (!validarContraseña($contraseña)) {
             echo '<div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; font-family: Arial, sans-serif; width: 80%; margin: 0 auto; margin-top: 20px;">
@@ -122,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </button>
           </a>';
         } else {
-            crearUsuario($nombreUsuario, $idNumerico, $contraseña, $nombre, $email, $telContacto, $codigoPostal, __DIR__ . "/../usuarios.txt", "cliente");
+            crearUsuario($nombreUsuario, $idNumerico, $contraseña, $nombre, $email, $telContacto, $codigoPostal,$visaCliente,$gestorAsignado,__DIR__ . "/../usuarios.txt", "cliente");
         }
     }
 
