@@ -130,18 +130,21 @@ function exportarTablaPDF($archivoUsuarios, $tipoUsuario) {
         </thead>
         <tbody>';
 
+    $usuarioEncontrado = false; // Para verificar si al menos un usuario coincide con el tipo
+
     foreach ($usuarios as $usuario) {
         $datos = explode(':', $usuario);
 
-        // Verificar que la línea tiene al menos 8 campos
-        if (count($datos) > 8) {
-            list($id, $username, $password, $nombre, $email, $telefono, $codigoPostal, $tipo) = $datos;
+        // Verificar que la línea tiene 10 campos
+        if (count($datos) >= 10) {
+            list($id, $nombreUsuario, $password, $nombre, $email, $telefono, $codigoPostal, $visaCliente, $gestorAsignado, $tipo) = $datos;
 
             // Agregar a la tabla solo si coincide el tipo de usuario
             if (trim($tipo) === $tipoUsuario) {
+                $usuarioEncontrado = true; // Hay al menos un usuario con ese tipo
                 $htmlTabla .= '<tr>
                     <td>' . htmlspecialchars($id) . '</td>
-                    <td>' . htmlspecialchars($username) . '</td>
+                    <td>' . htmlspecialchars($nombreUsuario) . '</td>
                     <td>' . htmlspecialchars($nombre) . '</td>
                     <td>' . htmlspecialchars($email) . '</td>
                     <td>' . htmlspecialchars($telefono) . '</td>
@@ -150,6 +153,10 @@ function exportarTablaPDF($archivoUsuarios, $tipoUsuario) {
                 </tr>';
             }
         }
+    }
+
+    if (!$usuarioEncontrado) {
+        $htmlTabla .= '<tr><td colspan="7">No se encontraron usuarios de tipo ' . htmlspecialchars($tipoUsuario) . '.</td></tr>';
     }
 
     $htmlTabla .= '</tbody></table>';
@@ -196,6 +203,7 @@ function exportarTablaPDF($archivoUsuarios, $tipoUsuario) {
     // Descargar el PDF
     $dompdf->stream("usuarios_" . $tipoUsuario . ".pdf", ["Attachment" => true]);
 }
+
 
 
 
@@ -495,6 +503,55 @@ function obtenerDatosMiUsuario($filename, $username) {
 
     return "No se encontraron datos para el usuario proporcionado.";
 }
+
+//generar tabla productos
+
+function generarTablaProductos($filename) {
+    if (!file_exists($filename)) {
+        echo "El archivo no existe.";
+        return;
+    }
+
+    // Leer el archivo con los productos
+    $productos = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    echo "<table border='1'>";
+    echo "<thead>";
+    echo "<tr>";
+    echo "<th>ID</th>";
+    echo "<th>Nombre</th>";
+    echo "<th>Precio</th>";
+    echo "<th>Disponibilidad</th>";
+    echo "<th>Usuario</th>";
+    echo "</tr>";
+    echo "</thead>";
+    echo "<tbody>";
+
+    foreach ($productos as $producto) {
+        // Dividir la línea en los campos
+        $datos = explode(":", $producto);
+        
+        if (count($datos) < 5) {
+            continue;
+        }
+
+        // Asignar los valores de la línea
+        list($id, $nombre, $precio, $disponibilidad, $usuario) = $datos;
+
+        // Mostrar los datos en una fila de la tabla
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($id) . "</td>";
+        echo "<td>" . htmlspecialchars($nombre) . "</td>";
+        echo "<td>" . htmlspecialchars($precio) . "</td>";
+        echo "<td>" . htmlspecialchars($disponibilidad) . "</td>";
+        echo "<td>" . htmlspecialchars($usuario) . "</td>";
+        echo "</tr>";
+    }
+
+    echo "</tbody>";
+    echo "</table>";
+}
+
 
 
 

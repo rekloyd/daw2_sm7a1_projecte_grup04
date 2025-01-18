@@ -247,6 +247,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                     <li onclick="toggleContenido(3)">Contactar con el administrador</li>
                     <!--<li onclick="toggleContenido(4)">Ver gestores actuales</li>-->
                     <li onclick="toggleContenido(5)">Listado de clientes y productos</li>
+                    <li onclick="toggleContenido(6)">Listado de cestas</li>
                     <br>
                     <li onclick="window.location.href = 'index.php'">Volver al Inicio</li>
 
@@ -294,6 +295,15 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                 <?php generarTabla(__DIR__ . "/../usuaris/usuarios.txt","gestor"); ?>
                 <form method="post">
                 <button type="submit" name="exportar_pdf_gestor">Exportar PDF (Gestores)</button>
+                </form>
+
+            </div>
+
+            <div class="formulario-6 form-select oculto">
+                <h3>Productos en el carrito de todos los usuarios</h3>
+                <?php generarTablaProductos(__DIR__ . "/../cistelles/cesta.txt"); ?>
+                <form method="post">
+                <button type="submit" name="exportar_pdf_productos">Exportar PDF</button>
                 </form>
 
             </div>
