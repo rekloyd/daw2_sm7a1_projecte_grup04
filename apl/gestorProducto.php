@@ -11,7 +11,7 @@ if (isset($_POST['crearProducto'])) {
     $productoData = $idProducto . ":" . $nombreProducto . ":" . $precioProducto . ":" . $disponibilidadProducto . ":" . $nuevaRutaImagen  . PHP_EOL;
 
     // Abrir el archivo productos.txt en modo append
-    $file = fopen(__DIR__ . "/../productos.txt", "a");
+    $file = fopen(__DIR__ . "/../productes/productos.txt", "a");
     //$file = fopen("/var/www/html/phpEcomProject/productos.txt", "a");
     // Verificar si se abrió correctamente
     if ($file) {
@@ -49,7 +49,7 @@ if (isset($_POST['modificarProducto'])) {
     }
 
     if ($productoEncontrado) {
-        file_put_contents(__DIR__ . "/../productos.txt", $nuevosDatos);
+        file_put_contents(__DIR__ . "/../productes/productos.txt", $nuevosDatos);
         echo "<script>alert('Producto modificado correctamente.');</script>";
         header("Location: ./index.php");
     } else {
@@ -60,7 +60,7 @@ if (isset($_POST['modificarProducto'])) {
 if (isset($_POST['eliminarProducto'])) {
     $idProducto = $_POST['idProducto'];
 
-    $file = file(__DIR__ . "/../productos.txt");
+    $file = file(__DIR__ . "/../productes/productos.txt");
     $nuevosDatos = "";
     $productoEncontrado = false;
 
@@ -74,7 +74,7 @@ if (isset($_POST['eliminarProducto'])) {
     }
 
     if ($productoEncontrado) {
-        file_put_contents(__DIR__ . "/../productos.txt", $nuevosDatos);
+        file_put_contents(__DIR__ . "/../productes/productos.txt", $nuevosDatos);
         echo "<script>alert('Producto borrado correctamente.');</script>";
         header("Location: ./index.php");
     } else {
