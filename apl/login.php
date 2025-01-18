@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = trim($_POST["password"]);
 
         // Ruta del archivo usuarios.txt
-        $filename = __DIR__ . "/../usuarios.txt";
+        $filename = __DIR__ . "/../usuaris/usuarios.txt";
 
         // Verificar si el archivo existe
         if (!file_exists($filename)) {

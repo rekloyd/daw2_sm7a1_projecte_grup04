@@ -10,15 +10,15 @@ if($tipoUsuario!= "admin"){
 }
 
 if (isset($_POST['exportar_pdf_gestor'])) {
-    exportarTablaPDF(__DIR__ . "/../usuarios.txt", 'gestor'); 
+    exportarTablaPDF(__DIR__ . "/../usuaris/usuarios.txt", 'gestor'); 
 } elseif (isset($_POST['exportar_pdf_cliente'])) {
-    exportarTablaPDF(__DIR__ . "/../usuarios.txt", 'cliente'); 
+    exportarTablaPDF(__DIR__ . "/../usuaris/usuarios.txt", 'cliente'); 
 }
 
 
 
 // Leer datos del archivo usuarios.txt
-$archivoUsuarios = __DIR__ . '/../usuarios.txt';
+$archivoUsuarios = __DIR__ . '/../usuaris/usuarios.txt';
 $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
 ?>
 
@@ -287,7 +287,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
             <div class="formulario-4 form-select oculto">
                 <h3>Listado de Gestores</h3>
-                <?php generarTabla(__DIR__ . "/../usuarios.txt","gestor"); ?>
+                <?php generarTabla(__DIR__ . "/../usuaris/usuarios.txt","gestor"); ?>
                 <form method="post">
                 <button type="submit" name="exportar_pdf_gestor" style="background-color: green; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px;">Exportar PDF (Gestores)</button>
 
@@ -337,7 +337,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                     </div>
                     <div class="formulario-5 form-select oculto">
                 <h3>Listado de Clientes</h3>
-                <?php generarTabla(__DIR__ . "/../usuarios.txt","cliente"); ?>
+                <?php generarTabla(__DIR__ . "/../usuaris/usuarios.txt","cliente"); ?>
                 <form method="post">
                     <button type="submit" name="exportar_pdf_cliente" style="background-color: green; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px;">Exportar PDF (Clientes)</button>
                 </form>
