@@ -322,7 +322,8 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                     <p><strong>Email:</strong> <?php echo htmlspecialchars($datosUsuario['email']); ?></p>
                     <p><strong>Teléfono:</strong> <?php echo htmlspecialchars($datosUsuario['telContacto']); ?></p>
                     <p><strong>Código Postal:</strong> <?php echo htmlspecialchars($datosUsuario['codigoPostal']); ?></p>
-                    <p><strong>Visa Cliente: XXXXXXX</p>
+                    <p><strong>Visa Cliente: XXXXXXX<strong></p>
+                    <p><i>Si desea cambiar o ver algún valor, por favor contacte con el gestor.</i></p>
                 <?php } else { ?>
                     <p><?php echo htmlspecialchars($datosUsuario); ?></p>
                 <?php } ?>
@@ -336,24 +337,23 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
                 </div>
 
-
-                <!--FORMULARIO AMINISTRADOR-->
                 <div class="form-container formulario-3 oculto form-select">
                     <h2>Envia un correo al Administrador </h2>
                     <form action="crearUsuarios.php" method="post">
                         <div class="form-group">
-                            <p><strong>Asunto: Petición para añadir/modificar/borrar cliente<strong></p>
+                            <p><strong>Asunto: Petición para añadir/modificar/borrar cliente</strong></p>
                         </div>
 
                         <div class="form-group">
-                            <label for="mensajeCliente">Mensaje</label>
-                            <textarea id="mensajeCliente" name="mensajeCliente" class="areaEmail" required></textarea>
+                            <label for="mensajeGestor">Mensaje</label>
+                            <textarea id="mensajeGestor" name="mensajeGestor" class="areaEmail" required></textarea>
                         </div>
                         <div class="form-group">
-                            <button type="submit" name="enviarEmailCliente" value="1" class="botonesCRUD botonCrear">Envia Email</button>
+                            <button type="submit" name="enviarEmailGestor" value="1" class="botonesCRUD botonCrear">Envia Email</button>
                         </div>
                     </form>
                 </div>
+
 
 
             </div>
@@ -364,7 +364,6 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
     </div><!--final div contenido-->
     <script>
-        //mostrar el contenido en función del item seleccionado en el sidebar
         function toggleContenido(num) {
             var allForms = document.querySelectorAll('.form-select');
             allForms.forEach(function(form) {
