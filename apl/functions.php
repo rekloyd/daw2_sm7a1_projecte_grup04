@@ -64,6 +64,54 @@ function enviarCorreo($emailUsuario,$mensajeEmail,$asunto){
     $mail->smtpClose();
 }
 
+function eliminarUsuario($filename, $idUsuario) {
+    if (!file_exists($filename)) {
+        echo "El archivo no existe.";
+        return false;
+    }
+
+    // Leer el archivo con los usuarios
+    $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    $usuariosActualizados = [];
+    $usuarioEliminado = false;
+
+
+    foreach ($usuaris as $usuari) {
+        $datos = explode(":", $usuari);
+        if (count($datos) < 9) {
+            continue;
+        }
+
+        list($id, $nombreUsuario, $password, $nombreApellidos, $email, $telContacto, $codigoPostal, $visaCliente, $gestorAsignado, $tipoUsuario) = $datos;
+
+        if ($id === $idUsuario) {
+            $usuarioEliminado = true;
+            continue;
+        }
+
+
+        $usuariosActualizados[] = $usuari;
+    }
+
+    if ($usuarioEliminado) {
+
+        usort($usuariosActualizados, function($a, $b) {
+            $datosA = explode(":", $a);
+            $datosB = explode(":", $b);
+
+            return strcmp($datosA[1], $datosB[1]); // Ordenar por nombre de usuario (índice 1)
+        });
+
+        file_put_contents($filename, implode(PHP_EOL, $usuariosActualizados) . PHP_EOL);
+        header("Location:admin.php");
+        return true;
+    } else {
+        echo "No se encontró un usuario con el ID $idUsuario.";
+        return false;
+    }
+}
+
 
 function exportarTablaPDF($archivoUsuarios, $tipoUsuario) {
     // Leer usuarios desde el archivo
@@ -88,7 +136,7 @@ function exportarTablaPDF($archivoUsuarios, $tipoUsuario) {
         $datos = explode(':', $usuario);
 
         // Verificar que la línea tiene al menos 8 campos
-        if (count($datos) >= 8) {
+        if (count($datos) > 8) {
             list($id, $username, $password, $nombre, $email, $telefono, $codigoPostal, $tipo) = $datos;
 
             // Agregar a la tabla solo si coincide el tipo de usuario
@@ -170,10 +218,12 @@ function evitarRepetidos($idUsuario, $filename) {
     return false;
 }
 
-function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "",$visaCliente="none",$gestorAsignado,$filename, $tipoUsuario){
+function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "", $visaCliente = "none", $gestorAsignado, $filename, $tipoUsuario) {
     if (!file_exists($filename)) {
+ 
         if (!$file = fopen($filename, "w")) {
             echo "No se ha podido crear el archivo de usuarios<br>";
+            return;
         }
         fclose($file);
     }
@@ -184,28 +234,30 @@ function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = 
         return;
     }
 
+
     $hashPass = hash("sha256", $password);
 
     if ($tipoUsuario == "gestor") {
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . "08800" . ":" ."none".":none:". $tipoUsuario . PHP_EOL;
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":08800:none:none:" . $tipoUsuario . PHP_EOL;
     } elseif ($tipoUsuario == "cliente") {
-        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":".$visaCliente.":".$gestorAsignado.":". $tipoUsuario . PHP_EOL;
+
+        $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $visaCliente . ":" . $gestorAsignado . ":" . $tipoUsuario . PHP_EOL;
     }
 
-
+    // Intentar abrir el archivo en modo 'append' para agregar el nuevo usuario
     if ($fitxer = fopen($filename, "a")) {
-        if (fwrite($fitxer, $usuario)) { 
-            fclose($fitxer); 
+        // Escribir los datos del usuario al archivo
+        if (fwrite($fitxer, $usuario)) {
+            fclose($fitxer);
             header("Location: admin.php?creado=exito");
             exit(); 
         } else {
             echo "Error al escribir en el archivo";
-            fclose($fitxer); 
+            fclose($fitxer);
         }
     } else {
         echo "No se ha podido abrir el archivo para escribir<br>";
     }
-    
 }
 
 function modificarUsuario($idUsuario, $nombreUsuario, $password, $nombreApellidos = "", $email, $telContacto = "none", $codigoPostal = "none", $filename = "",$visaCliente="none",$gestorAsignado="",$tipoUsuario) {
@@ -258,7 +310,7 @@ function modificarAdmin($idAdmin, $nombreAdmin, $passwordAdmin, $emailAdmin, $fi
         if ($id === $idAdmin) {
             // Modificar los datos del admin
             $password = hash('sha256', $passwordAdmin); // Encriptar la nueva contraseña
-            $nuevoUsuario = $id . ":" . $nombreAdmin . ":" . $password . ":" . $nombre . ":" . $emailAdmin . ":" . "none" . ":" . "none" . ":" . "admin" . "\n";
+            $nuevoUsuario = $id . ":" . $nombreAdmin . ":" . $password . ":" . $nombre . ":" . $emailAdmin . ":" . "none" . ":" . "none" . ":none:none:" . "admin" . "\n";
             array_push($usuariosActualizados, $nuevoUsuario); // Añadir el admin actualizado
             $adminModificado = true;
         } else {

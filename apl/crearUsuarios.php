@@ -109,6 +109,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    if(isset($_POST['eliminarGestor']) && $_POST['eliminarGestor']){
+        eliminarUsuario($idNumerico,__DIR__ . "/../usuaris/usuarios.txt");
+    }
+
     // Crear Cliente
     if (isset($_POST['crearCliente']) && $_POST['crearCliente'] == "1") {
         $nombreUsuario = $_POST['usuarioCliente'];
@@ -197,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             // Si la contraseña es válida, la guardamos
             $idAdmin = "01"; // Este es el ID del admin, asegúrate de obtenerlo correctamente
-            $filename = __DIR__.'/../usuarios.txt';
+            $filename = __DIR__.'/../usuaris/usuarios.txt';
 
             // Llamar a la función para modificar los datos del admin
             modificarAdmin($idAdmin, $nombreAdmin, $passwordAdmin, $emailAdmin, $filename);

@@ -24,18 +24,16 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
 $gestores = [];
 
-// Recorrer las líneas del archivo
 foreach ($usuarios as $linea) {
     // Separar los campos por ":"
     $campos = explode(":", $linea);
 
-    // Verificar que la línea tiene al menos 7 campos y el tipo es 'gestor'
-    if (count($campos) >= 10 && trim($campos[6]) === 'gestor') {
+    // Verificar si el usuario es de tipo gestor
+    if (isset($campos[9]) && trim($campos[9]) === 'gestor') {
         // Guardar el identificador y nombre del gestor
         $gestores[$campos[0]] = $campos[1]; // ID => Nombre
     }
 }
-
 
 
 ?>
@@ -367,11 +365,12 @@ foreach ($usuarios as $linea) {
                             <div class="form-group">
                                 <label for="phone">Asignar gestor</label>
                                 <select name="gestores" id="gestores">
-                                    <option value="">Seleccione un gestor</option>
-                                    <?php foreach ($gestores as $id => $nombre): ?>
-                                        <option value="<?= htmlspecialchars($id) ?>"><?= htmlspecialchars($nombre) ?></option>
-                                    <?php endforeach; ?>
+                                <option value="">Seleccione un gestor</option>
+                                <?php foreach ($gestores as $id => $nombre): ?>
+                                    <option value="<?= htmlspecialchars($id) ?>"><?= htmlspecialchars($nombre) ?></option>
+                                <?php endforeach; ?>
                                 </select>
+
                             </div>
                                 <div class="form-group">
                                 <button type="submit" name="crearCliente" value ="1" class="botonesCRUD botonCrear">Crear Cliente</button>
