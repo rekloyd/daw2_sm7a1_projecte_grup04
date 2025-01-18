@@ -506,7 +506,7 @@ function obtenerDatosMiUsuario($filename, $username) {
 
 //generar tabla productos
 
-function generarTablaProductos($filename) {
+function generarTablaPedidos($filename) {
     if (!file_exists($filename)) {
         echo "El archivo no existe.";
         return;
@@ -550,6 +550,78 @@ function generarTablaProductos($filename) {
 
     echo "</tbody>";
     echo "</table>";
+}
+
+
+function generarTablaPedidosPDF($filename) {
+    if (!file_exists($filename)) {
+        echo "El archivo no existe.";
+        return;
+    }
+
+    // Leer el archivo con los productos
+    $productos = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    // Iniciar HTML
+    $html = "<h2>Lista de Pedidos</h2>";
+    $html .= "<table border='1' cellpadding='5' cellspacing='0' style='width: 100%; border-collapse: collapse;'>";
+    $html .= "<thead>";
+    $html .= "<tr>";
+    $html .= "<th>ID</th>";
+    $html .= "<th>Nombre</th>";
+    $html .= "<th>Precio</th>";
+    $html .= "<th>Disponibilidad</th>";
+    $html .= "<th>Usuario</th>";
+    $html .= "</tr>";
+    $html .= "</thead>";
+    $html .= "<tbody>";
+
+    foreach ($productos as $producto) {
+        // Dividir la línea en los campos
+        $datos = explode(":", $producto);
+        
+        if (count($datos) < 5) {
+            continue;
+        }
+
+        // Asignar los valores de la línea
+        list($id, $nombre, $precio, $disponibilidad, $usuario) = $datos;
+
+        // Agregar fila a la tabla HTML
+        $html .= "<tr>";
+        $html .= "<td>" . htmlspecialchars($id) . "</td>";
+        $html .= "<td>" . htmlspecialchars($nombre) . "</td>";
+        $html .= "<td>" . htmlspecialchars($precio) . "</td>";
+        $html .= "<td>" . htmlspecialchars($disponibilidad) . "</td>";
+        $html .= "<td>" . htmlspecialchars($usuario) . "</td>";
+        $html .= "</tr>";
+    }
+
+    $html .= "</tbody>";
+    $html .= "</table>";
+
+    // Llamar a la función que genera el PDF con el HTML
+    exportarPDF($html);
+}
+
+function exportarPDF($html) {
+    // Configurar Dompdf
+    $options = new Options();
+    $options->set('isHtml5ParserEnabled', true);
+    $options->set('defaultFont', 'Arial');
+    $dompdf = new Dompdf($options);
+
+    // Cargar contenido HTML
+    $dompdf->loadHtml($html);
+
+    // Configurar tamaño de la página
+    $dompdf->setPaper('A4', 'portrait');
+
+    // Renderizar el PDF
+    $dompdf->render();
+
+    // Descargar el PDF
+    $dompdf->stream("pedidos.pdf", ["Attachment" => 1]);
 }
 
 

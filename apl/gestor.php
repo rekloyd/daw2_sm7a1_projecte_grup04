@@ -21,6 +21,13 @@ if (isset($_POST['exportar_pdf_cliente'])) {
 // Leer datos del archivo usuarios.txt
 $archivoUsuarios = __DIR__ . '/../usuaris/usuarios.txt';
 $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
+
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exportar_pdf_pedido'])) {
+    generarTablaPedidosPDF(__DIR__."/../comandes/CarlosComanda.txt");
+    exit;
+}
 ?>
 
 
@@ -247,7 +254,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                     <li onclick="toggleContenido(3)">Contactar con el administrador</li>
                     <!--<li onclick="toggleContenido(4)">Ver gestores actuales</li>-->
                     <li onclick="toggleContenido(5)">Listado de clientes y productos</li>
-                    <li onclick="toggleContenido(6)">Listado de cestas</li>
+                    <li onclick="toggleContenido(6)">Listado de pedidos</li>
                     <br>
                     <li onclick="window.location.href = 'index.php'">Volver al Inicio</li>
 
@@ -301,9 +308,9 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
             <div class="formulario-6 form-select oculto">
                 <h3>Productos en el carrito de todos los usuarios</h3>
-                <?php generarTablaProductos(__DIR__ . "/../cistelles/cesta.txt"); ?>
+                <?php generarTablaPedidos(__DIR__ . "/../comandes/CarlosComanda.txt"); ?>
                 <form method="post">
-                <button type="submit" name="exportar_pdf_productos">Exportar PDF</button>
+                <button type="submit" name="exportar_pdf_pedido">Exportar PDF</button>
                 </form>
 
             </div>
