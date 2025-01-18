@@ -406,4 +406,37 @@ function validarContraseña($password) {
 }
 
 
-?>
+function obtenerDatosMiUsuario($filename, $username) {
+    if (!file_exists($filename)) {
+        return "El archivo no existe.";
+    }
+
+    $usuarios = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($usuarios as $usuario) {
+        $datos = explode(":", $usuario);
+
+        // Asegúrate de que hay suficientes campos
+        if (count($datos) < 8) { // Para 8 campos en total
+            continue;
+        }
+
+        list($id, $nombreUsuario, $contraseña, $nombre, $email, $telContacto, $codigoPostal, $visaCliente) = $datos;
+
+        if ($nombreUsuario == $username) {
+            return [
+                'nombreUsuario' => $nombreUsuario,
+                'contraseña' => $contraseña,
+                'nombre' => $nombre,
+                'email' => $email,
+                'telContacto' => $telContacto,
+                'codigoPostal' => $codigoPostal,
+                'visaCliente' => $visaCliente
+            ];
+        }
+    }
+
+    return "No se encontraron datos para el usuario proporcionado.";
+}
+
+
+
