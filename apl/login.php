@@ -27,9 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($usuaris as $usuari) {
             $datos = explode(':', $usuari);
 
-            if (count($datos) === 8) {
-                list($idUsuario, $user, $passwordHash, $nombreApellidos, $email, $telefono, $codigoPostal, $tipoUsuario) = $datos;
-
+            if (count($datos) === 10) {
+                list($idUsuario, $user, $passwordHash, $nombreApellidos, $email, $telefono, $codigoPostal,$visaCliente,$gestorAsignado, $tipoUsuario) = $datos;
                 // Comprobar si el username coincide
                 if ($user === $username) {
                     // Info par depurar

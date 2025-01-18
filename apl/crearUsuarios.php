@@ -3,7 +3,8 @@ require('functions.php');
 
 $emailUsuario = $_SESSION['emailUsuario'];
 $asuntoGestor = "Petición para añadir/modificar/borrar cliente";
-$asuntoCliente = "Petición de justificación del pedido rechazado";
+$asuntoClienteCuenta = "Petición para la modificación/eliminación de la cuenta del cliente";
+$asuntoClientePedido = "Petición de justificación del pedido rechazado";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -24,15 +25,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //enviar email cliente
 
     
-    if (isset($_POST['mensajeCliente'])) {
-        $mensajeGestor = trim($_POST['mensajeGestor']); 
+    if (isset($_POST['mensajeClienteCuenta'])) {
+        $mensajeCliente = trim($_POST['mensajeClienteCuenta']); 
         $emailUsuario="paumorillasrivera129@gmail.com"; //Se ha cambiado para hacer pruebas y poder probar la app
     
-        $cuerpoCorreo = nl2br(htmlspecialchars($mensajeGestor));
-        enviarCorreo($emailUsuario,$cuerpoCorreo,$asuntoCliente);
+        $cuerpoCorreo = nl2br(htmlspecialchars($mensajeCliente));
+        enviarCorreo($emailUsuario,$cuerpoCorreo,$asuntoClienteCuenta);
     } else {
         echo "No se ha enviado ningún mensaje.";
     }
+
+
+    if (isset($_POST['mensajeClientePedido'])) {
+        $mensajeCliente = trim($_POST['mensajeClientePedido']); 
+        $emailUsuario="paumorillasrivera129@gmail.com"; //Se ha cambiado para hacer pruebas y poder probar la app
+    
+        $cuerpoCorreo = nl2br(htmlspecialchars($mensajeCliente));
+        enviarCorreo($emailUsuario,$cuerpoCorreo,$asuntoClientePedido);
+    } else {
+        echo "No se ha enviado ningún mensaje.";
+    }
+
 
     // Crear Gestor
     if (isset($_POST['crearGestor']) && $_POST['crearGestor'] == "1") {

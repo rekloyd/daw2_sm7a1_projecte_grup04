@@ -90,7 +90,7 @@ if (file_exists($archivo)) {
             </a></li>";
                     echo "<li><a href='logout.php' class='log-in'>Cerrar sesión</a></li>";
                 } else {
-                    echo "<li><a href='login.html' class='log-in'>Log In</a></li>";
+                    echo "<li style='margin-right:5px;'><a href='login.html' class='log-in'>Log In</a></li>";
                 }
                 ?>
             </ul>

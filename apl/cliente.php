@@ -246,9 +246,8 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                 <ul>
                     <!--<li onclick="toggleContenido(1)">Gestionar Gestores</li>-->
                     <li onclick="toggleContenido(2)">Mis datos</li>
-                    <li onclick="toggleContenido(3)">Contactar con el administrador</li>
-                    <!--<li onclick="toggleContenido(4)">Ver gestores actuales</li>-->
-                    <li onclick="toggleContenido(5)">Ver listado de clientes</li>
+                    <li onclick="toggleContenido(3)">Solicitud de eliminación de mi cuenta</li>
+                    <li onclick="toggleContenido(4)">Contacto con el gestor</li>
                     <br>
                     <li onclick="window.location.href = 'index.php'">Volver al Inicio</li>
 
@@ -258,7 +257,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
         </div>
 
         <div class="contenido">
-            <h2 class="center" id="mensajeEnter">Panel de administración. Desde aquí puedes administrar tu tienda online.</h2>
+            <h2 class="center" id="mensajeEnter">Desde aquí puedes ver tu información, contactar con el gestor y ver tus pedidos</h2>
             <div class="flex-container">
                 <div class="form-container formulario-1 form-select oculto">
                     <h2>Formulario de Creación de Gestores</h2>
@@ -291,7 +290,7 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
                     </form>
                 </div>
 
-                <div class="formulario-4 form-select oculto">
+                <div class="formulario-8 form-select oculto">
                     <h3>Listado de Gestores</h3>
                     <?php generarTabla(__DIR__ . "/../usuarios.txt", "gestor"); ?>
                     <form method="post">
@@ -302,9 +301,8 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
             </div>
 
             <!--FORMULARIO PRODUCTOS-->
-            <div class="form-container formulario-2  form-select oculto">
+            <div class="form-container formulario-2  form-select">
                 <?php
-                session_start();
 
                 // Obtener el nombre de usuario desde la sesión
                 $usuario = isset($_SESSION['username']) ? $_SESSION['username'] : $_SESSION['username'] = "AdministradorTest";
@@ -337,26 +335,43 @@ $usuarios = file_exists($archivoUsuarios) ? file($archivoUsuarios, FILE_IGNORE_N
 
                 </div>
 
-                <div class="form-container formulario-3 oculto form-select">
+            </div>
+
+            <div class="form-container formulario-3 oculto form-select">
                     <h2>Envia un correo al Administrador </h2>
                     <form action="crearUsuarios.php" method="post">
                         <div class="form-group">
-                            <p><strong>Asunto: Petición para añadir/modificar/borrar cliente</strong></p>
+                            <p><strong>Asunto: Petición para la modificación/eliminación de la cuenta del cliente</strong></p>
                         </div>
 
                         <div class="form-group">
                             <label for="mensajeGestor">Mensaje</label>
-                            <textarea id="mensajeGestor" name="mensajeGestor" class="areaEmail" required></textarea>
+                            <textarea id="mensajeGestor" name="mensajeClienteCuenta" class="areaEmail" required></textarea>
                         </div>
                         <div class="form-group">
-                            <button type="submit" name="enviarEmailGestor" value="1" class="botonesCRUD botonCrear">Envia Email</button>
+                            <button type="submit" name="enviarEmailClienteCuenta" value="1" class="botonesCRUD botonCrear">Envia Email</button>
                         </div>
                     </form>
                 </div>
 
 
+                <div class="form-container formulario-4 oculto form-select">
+                    <h2>Envia un correo al Administrador </h2>
+                    <form action="crearUsuarios.php" method="post">
+                        <div class="form-group">
+                            <p><strong>Asunto: Petición de justificación de pedido rechazado</strong></p>
+                        </div>
 
-            </div>
+                        <div class="form-group">
+                            <label for="mensajeGestor">Mensaje</label>
+                            <textarea id="mensajeGestor" name="mensajeClientePedido" class="areaEmail" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="enviarEmailClientePedido" value="1" class="botonesCRUD botonCrear">Envia Email</button>
+                        </div>
+                    </form>
+                </div>
+
 
 
 
