@@ -64,7 +64,7 @@ function enviarCorreo($emailUsuario,$mensajeEmail,$asunto){
     $mail->smtpClose();
 }
 
-function eliminarUsuario($filename, $idUsuario) {
+function eliminarUsuario($filename, $idUsuario,$tipoUsuario) {
     if (!file_exists($filename)) {
         echo "El archivo no existe.";
         return false;
@@ -365,15 +365,16 @@ function generarTabla($filename, $tipoUsuario) {
     foreach ($usuaris as $usuari) {
         $datos = explode(":", $usuari);
 
-        // Comprobar que la línea tiene al menos 10 campos
         if (count($datos) < 10) {
             continue;
         }
 
-        // Asignar los valores
+
+        ksort($datos);
+
         list($idUsuario, $nombreUsuario, $password, $nombreApellidos, $email, $telContacto, $codigoPostal,$visaCliente, $gestorAsignado,$tipo) = $datos;
 
-        // Mostrar solo los usuarios del tipo especificado
+
         if ($tipo === $tipoUsuario) {
             echo "<tr>";
             echo "<td>" . htmlspecialchars($idUsuario) . "</td>";

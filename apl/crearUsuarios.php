@@ -110,9 +110,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if(isset($_POST['eliminarGestor']) && $_POST['eliminarGestor']){
-        eliminarUsuario($idNumerico,__DIR__ . "/../usuaris/usuarios.txt");
+        eliminarUsuario($idNumerico,__DIR__ . "/../usuaris/usuarios.txt","gestor");
     }
 
+    if(isset($_POST['eliminarCliente']) && $_POST['eliminarCliente']){
+        eliminarUsuario($idNumerico,__DIR__ . "/../usuaris/usuarios.txt","cliente");
+    }
     // Crear Cliente
     if (isset($_POST['crearCliente']) && $_POST['crearCliente'] == "1") {
         $nombreUsuario = $_POST['usuarioCliente'];
