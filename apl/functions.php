@@ -704,8 +704,6 @@ function eliminarComandasPorUsuario($usuario) {
             throw new Exception("No se pudo actualizar el archivo.");
         }
 
-        echo "Todas las comandas asociadas al usuario: $usuario han sido eliminadas correctamente.";
-
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
