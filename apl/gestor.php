@@ -28,6 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exportar_pdf_pedido']
     generarTablaPedidosPDF(__DIR__."/../comandes/comanda.txt");
     exit;
 }
+
+if(isset($_POST['eliminarComanda'])){
+    eliminarComandaPorId($_POST['idPedido']);
+    
+}
+
+
 ?>
 
 
@@ -299,9 +306,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exportar_pdf_pedido']
 
             
             <div class="formulario-6 form-select oculto">
-                <h3>Productos en el carrito de todos los usuarios</h3>
+                <h3>Listado de pedidos</h3>
                 <?php generarTablaPedidos(__DIR__ . "/../comandes/comanda.txt"); ?>
                 <form method="post">
+                <label for="idPedido">Introduce el id del pedido que quieras borrar:</label>
+                <input type="text" name="idPedido" required style="width: 95%;padding: 10px;border: 1px solid #ddd;border-radius: 5px;font-size: 14px;"><br><br><button  type="submit" name="eliminarComanda" style="background-color: blue;color: white;border: none;padding: 10px 20px;font-size: 16px;cursor: pointer;border-radius: 5px;">Eliminar Pedido</button>
                 <button type="submit" name="exportar_pdf_pedido" style="background-color: green;color: white;border: none;padding: 10px 20px;font-size: 16px;cursor: pointer;border-radius: 5px;">Exportar PDF</button>
                 </form>
             </div>

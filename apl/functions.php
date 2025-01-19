@@ -633,5 +633,44 @@ function exportarPDF($html) {
 }
 
 
+function eliminarComandaPorId($id) {
+    try {
+        $archivo = __DIR__ . '/../comandes/comanda.txt';
+
+        if (!file_exists($archivo)) {
+            throw new Exception("El archivo no existe: $archivo");
+        }
+
+        $lineas = file($archivo, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if ($lineas === false || empty($lineas)) {
+            throw new Exception("No se pudo leer el archivo o está vacío.");
+        }
+
+        // Filtrar todas las líneas que NO coinciden con el ID
+        $lineasFiltradas = array_filter($lineas, function($linea) use ($id) {
+            $datos = explode(':', $linea);
+            return trim($datos[0]) !== (string)$id;  // Elimina las líneas donde el ID coincide
+        });
+
+        // Si después de filtrar no hay cambios, significa que no se encontró el ID
+        if (count($lineas) === count($lineasFiltradas)) {
+            throw new Exception("No se encontró ninguna comanda con el ID: $id");
+        }
+
+        // Reescribir el archivo con las líneas filtradas
+        $resultado = file_put_contents($archivo, implode(PHP_EOL, $lineasFiltradas) . PHP_EOL);
+
+        if ($resultado === false) {
+            throw new Exception("No se pudo actualizar el archivo.");
+        }
+
+        echo "La(s) comanda(s) con ID: $id ha(s) sido eliminada(s) correctamente.";
+
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
+
+
 
 

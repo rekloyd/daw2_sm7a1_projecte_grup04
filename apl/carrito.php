@@ -145,6 +145,7 @@ if ($usuario && file_exists($filename)) {
                 <p><strong>Total: <span id="total" class="price"><?php echo number_format($subtotal_without_tax * 1.21 + 5, 2); ?>€</span></strong></p>
                 <form method="POST" action="factura.php">
                     <button type="submit" class="cta-button-pay" <?php echo $cart_empty ? 'disabled' : ''; ?>>Proceder al Pago</button>
+                    <input type="hidden" name="procederPago" value="1">
                 </form>
             </div>
         </section>

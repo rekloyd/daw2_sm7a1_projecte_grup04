@@ -2,6 +2,47 @@
 session_start();
 date_default_timezone_set('Europe/Madrid');
 
+function copiarCestaAComandes($origen) {
+    try {
+        // Ruta fija del archivo destino
+        $archivoDestino = __DIR__ . '/../comandes/comanda.txt';
+
+        // Verificar si el archivo de origen existe
+        if (!file_exists($origen)) {
+            throw new Exception("El archivo de origen no existe.");
+        }
+
+        // Leer el contenido del archivo origen
+        $contenido = file_get_contents($origen);
+
+        // Verificar si el contenido está vacío
+        if ($contenido === false || trim($contenido) === '') {
+            throw new Exception("El archivo de origen está vacío o no se pudo leer.");
+        }
+
+        // Verificar si el archivo destino existe
+        if (!file_exists($archivoDestino)) {
+            // Crear el archivo destino si no existe
+            $archivoCreado = touch($archivoDestino);
+            if (!$archivoCreado) {
+                throw new Exception("No se pudo crear el archivo de destino.");
+            }
+        }
+
+        // Escribir el contenido en el archivo destino
+        $resultado = file_put_contents($archivoDestino, $contenido);
+
+        // Verificar si la escritura fue exitosa
+        if ($resultado === false) {
+            throw new Exception("No se pudo escribir en el archivo de destino.");
+        }
+
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
+
+$archivoOrigen = __DIR__ . '/../cistelles/cesta.txt';
 
 if (!isset($_SESSION['username'])) {
     header('Location: login.html');
@@ -11,48 +52,18 @@ if (!isset($_SESSION['username'])) {
 $usuario = $_SESSION['username'];
 $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 
+
 $total = 0;
 
+if(isset($_POST['procederPago']) && $_POST['procederPago'] == "1"){
+    copiarCestaAComandes($archivoOrigen);
 
-
-$filename = __DIR__ . '/../comandes/comanda.txt';
-
-// Cargar la cesta guardada en la sesión si existe
-if ($usuario && file_exists($filename)) {
-    $file = fopen($filename, 'r'); // Abrir el archivo para lectura
-
-    if ($file) {
-        // Leer el contenido del archivo línea por línea
-        while (($line = fgets($file)) !== false) {
-            $data = explode(':', trim($line));
-
-            if (count($data) == 5 && $data[4] == $usuario) {
-                // Si la línea contiene datos válidos y corresponde al usuario
-                // Formato esperado: id:producto:cantidad:Si:usuario
-                $id = $data[0];
-                $name = $data[1];
-                $quantity = $data[2];
-
-                // Agregar el producto a la cesta de la sesión si no está ya
-                if (!isset($_SESSION['cart'][$id])) {
-                    $_SESSION['cart'][$id] = [
-                        'name' => $name,
-                        'quantity' => $quantity
-                    ];
-                }
-            }
-        }
-
-        fclose($file); // Cerrar el archivo
-    } else {
-        echo "Error al leer la cesta guardada.";
-    }
 }
 
 
-
-
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
