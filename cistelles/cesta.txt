@@ -3,5 +3,5 @@
 2:Comedero automático para perros y gatos:1:Si:Poski
 4:Correa retráctil para perros pequeños:2:Si:Poski
 3:Juguete interactivo para perros:2:Si:Poski
-2:Comedero automático para perros y gatos:2:Si:Poski
-1:Comedero perro:1:Si:Poski
+
+
