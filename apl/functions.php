@@ -351,6 +351,27 @@ function generarTabla($filename, $tipoUsuario) {
     // Leer el archivo con los usuarios
     $usuaris = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
+    // Array para almacenar usuarios
+    $usuariosOrdenados = [];
+
+    foreach ($usuaris as $usuari) {
+        $datos = explode(":", $usuari);
+
+        if (count($datos) < 10) {
+            continue;
+        }
+
+        list($idUsuario, $nombreUsuario, $password, $nombreApellidos, $email, $telContacto, $codigoPostal, $visaCliente, $gestorAsignado, $tipo) = $datos;
+
+        if ($tipo === $tipoUsuario) {
+            $usuariosOrdenados[$idUsuario] = $datos;
+        }
+    }
+
+    // Ordenar usuarios por ID Usuario
+    ksort($usuariosOrdenados, SORT_NUMERIC);
+
+    // Generar tabla
     echo "<table border='1'>";
     echo "<thead>";
     echo "<tr>";
@@ -368,33 +389,21 @@ function generarTabla($filename, $tipoUsuario) {
     echo "</thead>";
     echo "<tbody>";
 
-    foreach ($usuaris as $usuari) {
-        $datos = explode(":", $usuari);
+    foreach ($usuariosOrdenados as $datos) {
+        list($idUsuario, $nombreUsuario, $password, $nombreApellidos, $email, $telContacto, $codigoPostal, $visaCliente, $gestorAsignado, $tipo) = $datos;
 
-        if (count($datos) < 10) {
-            continue;
-        }
-
-
-        ksort($datos);
-
-        list($idUsuario, $nombreUsuario, $password, $nombreApellidos, $email, $telContacto, $codigoPostal,$visaCliente, $gestorAsignado,$tipo) = $datos;
-
-
-        if ($tipo === $tipoUsuario) {
-            echo "<tr>";
-            echo "<td>" . htmlspecialchars($idUsuario) . "</td>";
-            echo "<td>" . htmlspecialchars($nombreUsuario) . "</td>";
-            echo "<td>" . "hashed" . "</td>";  // Mostrar "hashed" por razones de seguridad
-            echo "<td>" . htmlspecialchars($nombreApellidos) . "</td>";
-            echo "<td>" . htmlspecialchars($email) . "</td>";
-            echo "<td>" . htmlspecialchars($telContacto) . "</td>";
-            echo "<td>" . htmlspecialchars($codigoPostal) . "</td>";
-            echo "<td>" . htmlspecialchars($tipo) . "</td>";
-            echo "<td>" . htmlspecialchars($visaCliente) . "</td>";
-            echo "<td>" . htmlspecialchars($gestorAsignado) . "</td>";
-            echo "</tr>";
-        }
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($idUsuario) . "</td>";
+        echo "<td>" . htmlspecialchars($nombreUsuario) . "</td>";
+        echo "<td>" . "hashed" . "</td>";  // Mostrar "hashed" por razones de seguridad
+        echo "<td>" . htmlspecialchars($nombreApellidos) . "</td>";
+        echo "<td>" . htmlspecialchars($email) . "</td>";
+        echo "<td>" . htmlspecialchars($telContacto) . "</td>";
+        echo "<td>" . htmlspecialchars($codigoPostal) . "</td>";
+        echo "<td>" . htmlspecialchars($tipo) . "</td>";
+        echo "<td>" . htmlspecialchars($visaCliente) . "</td>";
+        echo "<td>" . htmlspecialchars($gestorAsignado) . "</td>";
+        echo "</tr>";
     }
 
     echo "</tbody>";
