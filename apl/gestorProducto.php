@@ -32,32 +32,40 @@ if (isset($_POST['crearProducto'])) {
         echo "Error al abrir el archivo: " . error_get_last()['message'];
     }
 }
-
 if (isset($_POST['modificarProducto'])) {
     $idProducto = $_POST['idProducto'];
     $nuevoNombre = $_POST['nombreProducto'];
     $nuevoPrecio = $_POST['precioProducto'];
     $nuevaDisponibilidad = $_POST['disponibilidadProducto'];
-    $nuevaRutaImagen = $_POST['rutaImagen'];
+    $rutaImagen = $_POST['rutaImagen'];
 
     $file = file(__DIR__ . "/../productes/productos.txt");
     $nuevosDatos = "";
     $productoEncontrado = false;
 
     foreach ($file as $linea) {
-        list($id, $nombre, $precio, $disponibilidad, $rutaImagen) = explode(":", trim($linea));
+        $datos = explode(":", trim($linea));
+        if (count($datos) < 5) {
+
+            continue;
+        }
+        list($id, $nombre, $precio, $disponibilidad, $imagen) = $datos;
         if ($id == $idProducto) {
-            $linea = $idProducto . ":" . $nuevoNombre . ":" . $nuevoPrecio . ":" . $nuevaDisponibilidad . ":" .$nuevaRutaImagen . PHP_EOL;
+            $linea = $idProducto . ":" . $nuevoNombre . ":" . $nuevoPrecio . ":" . $nuevaDisponibilidad . ":" . $rutaImagen . PHP_EOL;
             $productoEncontrado = true;
         }
-        $nuevosDatos .= $linea . PHP_EOL;
+
+  
+        $nuevosDatos .= $linea;
     }
 
     if ($productoEncontrado) {
         file_put_contents(__DIR__ . "/../productes/productos.txt", $nuevosDatos);
         header("Location: ./index.php");
+        exit;
     } else {
-        header("Location: ./index.php");
+        header("Location: ./index.php?error=producto_no_encontrado");
+        exit;
     }
 }
 

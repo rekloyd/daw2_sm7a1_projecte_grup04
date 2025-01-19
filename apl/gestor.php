@@ -320,6 +320,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exportar_pdf_pedido']
             <!--FORMULARIO PRODUCTOS-->
             <div class="form-container formulario-2  form-select oculto">
                         <h2>Formulario de Creación de Productos</h2>
+                        <h4>Por favor, debes rellenar todos los campos</h4>
                 <form action="./gestorProducto.php" method="post">
                     <div class="form-group">
                         <label for="identifier">Identificador Numérico</label>
@@ -327,19 +328,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exportar_pdf_pedido']
                     </div>
                     <div class="form-group">
                         <label for="nombreProducto">Nombre</label>
-                        <input type="text" id="nombreProducto" name="nombreProducto">
+                        <input type="text" id="nombreProducto" name="nombreProducto" required>
                     </div>
                     <div class="form-group">
                         <label for="precioProducto">Precio</label>
-                        <input type="number" id="precioProducto" name="precioProducto" min="0">
+                        <input type="number" id="precioProducto" name="precioProducto" min="0" required>
                     </div>
                     <div class="form-group">
                         <label for="disponibilidadProducto">Disponibilidad (Si | No)</label>
-                        <input type="text" id="disponibilidadProducto" name="disponibilidadProducto">
+                        <input type="text" id="disponibilidadProducto" name="disponibilidadProducto" required>
                     </div>
                     <div class="form-group">
                         <label for="rutaImagen">Imagen</label>
-                        <input type="text" id="rutaImagen" name="rutaImagen">
+                        <input type="text" id="rutaImagen" name="rutaImagen" required>
                     </div>
                     <div class="form-group">
                         <button type="submit" name="crearProducto" value="1" class="botonesCRUD botonCrear">Crear Producto</button>

@@ -12,6 +12,46 @@ $usuario = $_SESSION['username'];
 $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 
 $total = 0;
+
+
+
+$filename = __DIR__ . '/../comandes/comanda.txt';
+
+// Cargar la cesta guardada en la sesión si existe
+if ($usuario && file_exists($filename)) {
+    $file = fopen($filename, 'r'); // Abrir el archivo para lectura
+
+    if ($file) {
+        // Leer el contenido del archivo línea por línea
+        while (($line = fgets($file)) !== false) {
+            $data = explode(':', trim($line));
+
+            if (count($data) == 5 && $data[4] == $usuario) {
+                // Si la línea contiene datos válidos y corresponde al usuario
+                // Formato esperado: id:producto:cantidad:Si:usuario
+                $id = $data[0];
+                $name = $data[1];
+                $quantity = $data[2];
+
+                // Agregar el producto a la cesta de la sesión si no está ya
+                if (!isset($_SESSION['cart'][$id])) {
+                    $_SESSION['cart'][$id] = [
+                        'name' => $name,
+                        'quantity' => $quantity
+                    ];
+                }
+            }
+        }
+
+        fclose($file); // Cerrar el archivo
+    } else {
+        echo "Error al leer la cesta guardada.";
+    }
+}
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

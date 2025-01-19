@@ -12,7 +12,7 @@ $tipoUsuario = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : NULL;
 $cart_empty = count($_SESSION['cart']) == 0;
 
 // Verificar si ya existe un archivo con la cesta guardada
-$filename = __DIR__ . '/../cesta.txt';
+$filename = __DIR__ . '/../cistelles/cesta.txt';
 
 // Cargar la cesta guardada en la sesión si existe
 if ($usuario && file_exists($filename)) {
@@ -144,11 +144,6 @@ if ($usuario && file_exists($filename)) {
                 <p>Envío: +5€</p>
                 <p><strong>Total: <span id="total" class="price"><?php echo number_format($subtotal_without_tax * 1.21 + 5, 2); ?>€</span></strong></p>
                 <form method="POST" action="factura.php">
-                    <?php foreach ($_SESSION['cart'] as $id => $product): ?>
-                        <input type="hidden" name="products[<?php echo $id; ?>][id]" value="<?php echo $product['id']; ?>">
-                        <input type="hidden" name="products[<?php echo $id; ?>][name]" value="<?php echo $product['name']; ?>">
-                        <input type="hidden" name="products[<?php echo $id; ?>][price]" value="<?php echo $product['price']; ?>">
-                    <?php endforeach; ?>
                     <button type="submit" class="cta-button-pay" <?php echo $cart_empty ? 'disabled' : ''; ?>>Proceder al Pago</button>
                 </form>
             </div>
