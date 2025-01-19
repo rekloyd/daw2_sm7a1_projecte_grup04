@@ -97,7 +97,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </button>
           </a>';
         } else {
-            modificarUsuario($idNumerico, $nombreUsuario, $contraseña, $nombre, $email, $telContacto, "null", __DIR__ . "/../usuaris/usuarios.txt", "gestor");
+            modificarUsuario($idNumerico, $nombreUsuario, $contraseña, $nombre, $email, $telContacto, "08800","none","none", __DIR__ . "/../usuaris/usuarios.txt", "gestor");
+
+
         }
     }
 
