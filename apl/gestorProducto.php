@@ -8,10 +8,14 @@ if (isset($_POST['crearProducto'])) {
     $rutaImagen = $_POST['rutaImagen'];
 
     // Crear una cadena con los datos separados por ":"
-    $productoData = $idProducto . ":" . $nombreProducto . ":" . $precioProducto . ":" . $disponibilidadProducto . ":" . $nuevaRutaImagen  . PHP_EOL;
+    $productoData = $idProducto . ":" . $nombreProducto . ":" . $precioProducto . ":" . $disponibilidadProducto . ":" . $rutaImagen  . PHP_EOL;
+
+    // Verificar la ruta del archivo
+    $archivoRuta = __DIR__ . "/../productes/productos.txt";
+    echo "Ruta del archivo: " . $archivoRuta; // Para verificar la ruta
 
     // Abrir el archivo productos.txt en modo append
-    $file = fopen(__DIR__ . "/../productes/productos.txt", "a");
+    $file = fopen($archivoRuta, "a");
 
     // Verificar si se abrió correctamente
     if ($file) {
@@ -22,12 +26,13 @@ if (isset($_POST['crearProducto'])) {
         fclose($file);
 
         // Redirigir o mostrar mensaje de éxito
-        echo "<script>alert('Producto creado correctamente.');</script>";
         header("Location: ./index.php");
     } else {
-        echo "Error al abrir el archivo.";
+        // En caso de error, mostrar el error detallado
+        echo "Error al abrir el archivo: " . error_get_last()['message'];
     }
 }
+
 if (isset($_POST['modificarProducto'])) {
     $idProducto = $_POST['idProducto'];
     $nuevoNombre = $_POST['nombreProducto'];
@@ -35,7 +40,7 @@ if (isset($_POST['modificarProducto'])) {
     $nuevaDisponibilidad = $_POST['disponibilidadProducto'];
     $nuevaRutaImagen = $_POST['rutaImagen'];
 
-    $file = file(__DIR__ . "/../productos.txt");
+    $file = file(__DIR__ . "/../productes/productos.txt");
     $nuevosDatos = "";
     $productoEncontrado = false;
 
