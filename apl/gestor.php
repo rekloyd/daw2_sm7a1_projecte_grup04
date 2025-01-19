@@ -334,7 +334,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exportar_pdf_pedido']
                         <input type="number" id="precioProducto" name="precioProducto" min="0">
                     </div>
                     <div class="form-group">
-                        <label for="disponibilidadProducto">Disponibilidad (Si | No</label>
+                        <label for="disponibilidadProducto">Disponibilidad (Si | No)</label>
                         <input type="text" id="disponibilidadProducto" name="disponibilidadProducto">
                     </div>
                     <div class="form-group">

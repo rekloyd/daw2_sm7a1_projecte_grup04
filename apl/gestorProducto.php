@@ -12,7 +12,7 @@ if (isset($_POST['crearProducto'])) {
 
     // Abrir el archivo productos.txt en modo append
     $file = fopen(__DIR__ . "/../productes/productos.txt", "a");
-    //$file = fopen("/var/www/html/phpEcomProject/productos.txt", "a");
+
     // Verificar si se abrió correctamente
     if ($file) {
         // Escribir los datos del producto en el archivo
@@ -50,7 +50,6 @@ if (isset($_POST['modificarProducto'])) {
 
     if ($productoEncontrado) {
         file_put_contents(__DIR__ . "/../productes/productos.txt", $nuevosDatos);
-        echo "<script>alert('Producto modificado correctamente.');</script>";
         header("Location: ./index.php");
     } else {
         header("Location: ./index.php");
@@ -75,7 +74,6 @@ if (isset($_POST['eliminarProducto'])) {
 
     if ($productoEncontrado) {
         file_put_contents(__DIR__ . "/../productes/productos.txt", $nuevosDatos);
-        echo "<script>alert('Producto borrado correctamente.');</script>";
         header("Location: ./index.php");
     } else {
         echo "Error: Producto no encontrado para eliminar.";
