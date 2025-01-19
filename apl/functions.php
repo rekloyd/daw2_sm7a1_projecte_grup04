@@ -224,7 +224,7 @@ function evitarRepetidos($idUsuario, $filename) {
     return false;
 }
 
-function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "", $visaCliente = "none", $gestorAsignado="none", $filename, $tipoUsuario) {
+function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = "", $email, $telContacto = "", $codigoPostal = "", $visaCliente = "none", $gestorAsignado, $filename, $tipoUsuario) {
     if (!file_exists($filename)) {
  
         if (!$file = fopen($filename, "w")) {
@@ -246,7 +246,6 @@ function crearUsuario($nombreUsuario, $idUsuario, $password, $nombreApellidos = 
     if ($tipoUsuario == "gestor") {
         $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":08800:none:none:" . $tipoUsuario . PHP_EOL;
     } elseif ($tipoUsuario == "cliente") {
-
         $usuario = $idUsuario . ":" . $nombreUsuario . ":" . $hashPass . ":" . $nombreApellidos . ":" . $email . ":" . $telContacto . ":" . $codigoPostal . ":" . $visaCliente . ":" . $gestorAsignado . ":" . $tipoUsuario . PHP_EOL;
     }
 

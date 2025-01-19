@@ -134,6 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $telContacto = $_POST['telContactoCliente'];
         $codigoPostal = $_POST['codigoPostalCliente'];
         $visaCliente = $_POST['visaCliente'];
+        $gestorAsignado = $_POST['gestorCliente'];
 
         if (!validarContraseña($contraseña)) {
             echo '<div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; font-family: Arial, sans-serif; width: 80%; margin: 0 auto; margin-top: 20px;">

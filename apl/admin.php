@@ -364,12 +364,13 @@ foreach ($usuarios as $linea) {
 
                             <div class="form-group">
                                 <label for="phone">Asignar gestor</label>
-                                <select name="gestores" id="gestores">
+                                <select name="gestorCliente" id="gestores">
                                 <option value="">Seleccione un gestor</option>
                                 <?php foreach ($gestores as $id => $nombre): ?>
-                                    <option value="<?= htmlspecialchars($id) ?>"><?= htmlspecialchars($nombre) ?></option>
+                                    <!-- Usamos el nombre como value -->
+                                    <option value="<?= htmlspecialchars($nombre) ?>"><?= htmlspecialchars($nombre) ?></option>
                                 <?php endforeach; ?>
-                                </select>
+                            </select>
 
                             </div>
                                 <div class="form-group">
