@@ -13,7 +13,7 @@ if (file_exists($archivo)) {
 
     // Separar el contenido en líneas
     $lineas = explode("\n", $contenido);
-    echo "<img src='/phpEcomProject/imatges/banner-ali.webp' height='720px' width='100%'>";
+    echo "<img src='../../daw2_sm7a1_projecte_grup04/imatges/banner-ali.webp' height='720px' width='100%'>";
     echo "<div class='productoOrdenado'>";
     // Recorrer cada línea
     foreach ($lineas as $linea) {
