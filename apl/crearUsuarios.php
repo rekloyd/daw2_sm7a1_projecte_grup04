@@ -165,6 +165,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['emailCliente'];
         $telContacto = $_POST['telContactoCliente'];
         $codigoPostal = $_POST['codigoPostalCliente'];
+        $gestorAsignado = $_POST['gestorCliente'];
+        $visaCliente = $_POST['visaCliente'];
 
         if (!validarContraseña($contraseña)) {
             echo '<div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; font-family: Arial, sans-serif; width: 80%; margin: 0 auto; margin-top: 20px;">
@@ -182,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </button>
           </a>';
         } else {
-            modificarUsuario($idNumerico, $nombreUsuario, $contraseña, $nombre, $email, $telContacto, $codigoPostal, __DIR__ . "/../usuaris/usuarios.txt", "cliente");
+            modificarUsuario($idNumerico, $nombreUsuario, $contraseña, $nombre, $email, $telContacto, $codigoPostal,$visaCliente,$gestorAsignado, __DIR__ . "/../usuaris/usuarios.txt", "cliente");
         }
     }
 
