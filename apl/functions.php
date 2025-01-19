@@ -674,3 +674,39 @@ function eliminarComandaPorId($id) {
 
 
 
+function eliminarComandasPorUsuario($usuario) {
+    try {
+        $archivo = __DIR__ . '/../comandes/comanda.txt';
+
+        if (!file_exists($archivo)) {
+            throw new Exception("El archivo no existe: $archivo");
+        }
+
+        $lineas = file($archivo, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if ($lineas === false || empty($lineas)) {
+            throw new Exception("No se pudo leer el archivo o está vacío.");
+        }
+
+        // Filtrar todas las líneas que NO contienen el usuario
+        $lineasFiltradas = array_filter($lineas, function($linea) use ($usuario) {
+            return strpos($linea, $usuario) === false;  // Elimina las líneas donde el usuario está presente
+        });
+
+        // Si no hay líneas que contengan el usuario, no se hace nada
+        if (count($lineas) === count($lineasFiltradas)) {
+            throw new Exception("No se encontraron comandas para el usuario: $usuario");
+        }
+
+        // Reescribir el archivo con las líneas filtradas
+        $resultado = file_put_contents($archivo, implode(PHP_EOL, $lineasFiltradas) . PHP_EOL);
+
+        if ($resultado === false) {
+            throw new Exception("No se pudo actualizar el archivo.");
+        }
+
+        echo "Todas las comandas asociadas al usuario: $usuario han sido eliminadas correctamente.";
+
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}

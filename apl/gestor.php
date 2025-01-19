@@ -34,6 +34,11 @@ if(isset($_POST['eliminarComanda'])){
     
 }
 
+if(isset($_POST['eliminarComandaEntera'])){
+    eliminarComandasPorUsuario($usuario);
+    
+}
+
 
 ?>
 
@@ -310,7 +315,8 @@ if(isset($_POST['eliminarComanda'])){
                 <?php generarTablaPedidos(__DIR__ . "/../comandes/comanda.txt"); ?>
                 <form method="post">
                 <label for="idPedido">Introduce el id del pedido que quieras borrar:</label>
-                <input type="text" name="idPedido" required style="width: 95%;padding: 10px;border: 1px solid #ddd;border-radius: 5px;font-size: 14px;"><br><br><button  type="submit" name="eliminarComanda" style="background-color: blue;color: white;border: none;padding: 10px 20px;font-size: 16px;cursor: pointer;border-radius: 5px;">Eliminar Pedido</button>
+                <input type="text" name="idPedido" style="width: 95%;padding: 10px;border: 1px solid #ddd;border-radius: 5px;font-size: 14px;"><br><br><button  type="submit" name="eliminarComanda" style="background-color: blue;color: white;border: none;padding: 10px 20px;font-size: 16px;cursor: pointer;border-radius: 5px;">Eliminar Pedido</button>
+                <button  type="submit" name="eliminarComandaEntera" style="background-color: #871e2a;color: white;border: none;padding: 10px 20px;font-size: 16px;cursor: pointer;border-radius: 5px;">Eliminar Todo el pedido</button>
                 <button type="submit" name="exportar_pdf_pedido" style="background-color: green;color: white;border: none;padding: 10px 20px;font-size: 16px;cursor: pointer;border-radius: 5px;">Exportar PDF</button>
                 </form>
             </div>
